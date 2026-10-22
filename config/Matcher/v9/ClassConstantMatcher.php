@@ -55,4 +55,89 @@ return [
             'Deprecation-52694-DeprecatedGeneralUtilitydevLog.rst',
         ],
     ],
+    'TYPO3\CMS\Saltedpasswords\Salt\BlowfishSalt::ITOA64' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\BlowfishSalt::HASH_COUNT' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\BlowfishSalt::MAX_HASH_COUNT' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\BlowfishSalt::MIN_HASH_COUNT' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Md5Salt::ITOA64' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Pbkdf2Salt::ITOA64' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Pbkdf2Salt::HASH_COUNT' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Pbkdf2Salt::MAX_HASH_COUNT' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Pbkdf2Salt::MIN_HASH_COUNT' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\PhpassSalt::ITOA64' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\PhpassSalt::HASH_COUNT' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\PhpassSalt::MAX_HASH_COUNT' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\PhpassSalt::MIN_HASH_COUNT' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\DataHandling\TableColumnSubType::FILE' => [
+        'restFiles' => [
+            'Deprecation-86406-TCATypeGroupInternal_typeFileAndFile_reference.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\DataHandling\TableColumnSubType::FILE_REFERENCE' => [
+        'restFiles' => [
+            'Deprecation-86406-TCATypeGroupInternal_typeFileAndFile_reference.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Page\PageRenderer::JQUERY_VERSION_LATEST' => [
+        'restFiles' => [
+            'Deprecation-86438-PageRenderer-loadJQuery.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Page\PageRenderer::JQUERY_NAMESPACE_NONE' => [
+        'restFiles' => [
+            'Deprecation-86438-PageRenderer-loadJQuery.rst',
+        ],
+    ],
 ];

@@ -342,11 +342,6 @@ return [
             'Deprecation-84307-ProtectedMethodsAndPropertiesInNewContentElementController.rst',
         ],
     ],
-    'TYPO3\CMS\Backend\Controller\ContentElement\NewContentElementController->config' => [
-        'restFiles' => [
-            'Deprecation-84307-ProtectedMethodsAndPropertiesInNewContentElementController.rst',
-        ],
-    ],
     'TYPO3\CMS\Backend\Controller\File\FileUploadController->title' => [
         'restFiles' => [
             'Deprecation-84326-ProtectedMethodsAndPropertiesInFileUploadController.rst',
@@ -635,6 +630,426 @@ return [
     'TYPO3\CMS\Setup\Controller\SetupModuleController->languageUpdate' => [
         'restFiles' => [
             'Deprecation-85196-ProtectSetupModuleController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Scheduler\Controller\SchedulerModuleController->CMD' => [
+        'restFiles' => [
+            'Deprecation-84387-DeprecatedMethodAndPropertyInSchedulerModuleController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Template\DocumentTemplate->hasDocheader' => [
+        'restFiles' => [
+            'Deprecation-85735-MethodAndPropertyInDocumentTemplate.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\PageLayoutController->popView' => [
+        'restFiles' => [
+            'Deprecation-84375-ProtectedMethodsAndPropertiesInPageLayoutController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\PageLayoutController->modSharedTSconfig' => [
+        'restFiles' => [
+            'Deprecation-84375-ProtectedMethodsAndPropertiesInPageLayoutController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\PageLayoutController->colPosList' => [
+        'restFiles' => [
+            'Deprecation-84375-ProtectedMethodsAndPropertiesInPageLayoutController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\PageLayoutController->EDIT_CONTENT' => [
+        'restFiles' => [
+            'Deprecation-84375-ProtectedMethodsAndPropertiesInPageLayoutController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\PageLayoutController->CALC_PERMS' => [
+        'restFiles' => [
+            'Deprecation-84375-ProtectedMethodsAndPropertiesInPageLayoutController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\PageLayoutController->MCONF' => [
+        'restFiles' => [
+            'Deprecation-84375-ProtectedMethodsAndPropertiesInPageLayoutController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\PageLayoutController->MOD_MENU' => [
+        'restFiles' => [
+            'Deprecation-84375-ProtectedMethodsAndPropertiesInPageLayoutController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\PageLayoutController->current_sys_language' => [
+        'restFiles' => [
+            'Deprecation-84375-ProtectedMethodsAndPropertiesInPageLayoutController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\PageLayoutController->activeColPosList' => [
+        'restFiles' => [
+            'Deprecation-84375-ProtectedMethodsAndPropertiesInPageLayoutController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->menuNumber' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->entryLevel' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->spacerIDList' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->doktypeExcludeList' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->alwaysActivePIDList' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->imgNamePrefix' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->imgNameNotRandom' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->debug' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->GMENU_fixKey' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->MP_array' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->conf' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->mconf' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->sys_page' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->nextActive' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->menuArr' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->hash' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->result' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->rL_uidRegister' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->INPfixMD5' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->I' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->WMresult' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->WMfreezePrefix' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->WMmenuItems' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->WMsubmenuObjSuffixes' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->WMextraScript' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->WMcObj' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->alternativeMenuTempArray' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\AbstractMenuContentObject->nameAttribute' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\FrontendBackendUserAuthentication->adminPanel' => [
+        'restFiles' => [
+            'Deprecation-84641-DeprecatedAdminPanelRelatedMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\FrontendBackendUserAuthentication->extAdminConfig' => [
+        'restFiles' => [
+            'Deprecation-84641-DeprecatedAdminPanelRelatedMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\FrontendBackendUserAuthentication->extAdmEnabled' => [
+        'restFiles' => [
+            'Deprecation-84641-DeprecatedAdminPanelRelatedMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\FrontendBackendUserAuthentication->frontendEdit' => [
+        'restFiles' => [
+            'Deprecation-86110-FrontendEditingController.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->ADMCMD_preview_BEUSER_uid' => [
+        'restFiles' => [
+            'Deprecation-86047-TSFEPropertiesMethodsAndChangeVisibility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->workspacePreview' => [
+        'restFiles' => [
+            'Deprecation-86047-TSFEPropertiesMethodsAndChangeVisibility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->loginAllowedInBranch' => [
+        'restFiles' => [
+            'Deprecation-86047-TSFEPropertiesMethodsAndChangeVisibility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->MP_defaults' => [
+        'restFiles' => [
+            'Deprecation-86047-TSFEPropertiesMethodsAndChangeVisibility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->debug' => [
+        'restFiles' => [
+            'Deprecation-86047-TSFEPropertiesMethodsAndChangeVisibility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->pageAccessFailureHistory' => [
+        'restFiles' => [
+            'Deprecation-86047-TSFEPropertiesMethodsAndChangeVisibility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->loginAllowedInBranch_mode' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->cacheTimeOutDefault' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->cacheContentFlag' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->isClientCachable' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->no_cacheBeforePageGen' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->tempContent' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->pagesTSconfig' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->uniqueCounter' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->uniqueString' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->lang' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->cacheExpires' => [
+        'restFiles' => [
+            'Deprecation-86320-MarkInternalTSFEPropertiesAsProtected.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Html\RteHtmlParser->blockElementList' => [
+        'restFiles' => [
+            'Deprecation-86440-InternalMethodsAndPropertiesWithinRteHtmlParser.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Html\RteHtmlParser->recPid' => [
+        'restFiles' => [
+            'Deprecation-86440-InternalMethodsAndPropertiesWithinRteHtmlParser.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Html\RteHtmlParser->elRef' => [
+        'restFiles' => [
+            'Deprecation-86440-InternalMethodsAndPropertiesWithinRteHtmlParser.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Html\RteHtmlParser->tsConfig' => [
+        'restFiles' => [
+            'Deprecation-86440-InternalMethodsAndPropertiesWithinRteHtmlParser.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Html\RteHtmlParser->procOptions' => [
+        'restFiles' => [
+            'Deprecation-86440-InternalMethodsAndPropertiesWithinRteHtmlParser.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Html\RteHtmlParser->TS_transform_db_safecounter' => [
+        'restFiles' => [
+            'Deprecation-86440-InternalMethodsAndPropertiesWithinRteHtmlParser.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Html\RteHtmlParser->getKeepTags_cache' => [
+        'restFiles' => [
+            'Deprecation-86440-InternalMethodsAndPropertiesWithinRteHtmlParser.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Html\RteHtmlParser->allowedClasses' => [
+        'restFiles' => [
+            'Deprecation-86440-InternalMethodsAndPropertiesWithinRteHtmlParser.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Authentication\BackendUserAuthentication->checkWorkspaceCurrent_cache' => [
+        'restFiles' => [
+            'Deprecation-86441-VariousMethodsAndPropertiesInsideBackendUserAuthentication.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->raw' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->rawP' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->lastComment' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->commentSet' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->multiLineEnabled' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->multiLineObject' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->multiLineValue' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->inBrace' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->lastConditionTrue' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->syntaxHighLight' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->highLightData' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->highLightData_bracelevel' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->highLightStyles' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->highLightBlockStyles' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser->highLightBlockStyles_basecolor' => [
+        'restFiles' => [
+            'Deprecation-86461-MarkVariousTypoScriptParsingFunctionalityAsInternal.rst'
         ],
     ],
 ];

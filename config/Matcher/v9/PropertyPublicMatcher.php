@@ -159,11 +159,6 @@ return [
             'Breaking-55298-DecoupledHistoryFunctionality.rst',
         ],
     ],
-    'TYPO3\CMS\Backend\History\RecordHistory->returnUrl' => [
-        'restFiles' => [
-            'Breaking-55298-DecoupledHistoryFunctionality.rst',
-        ],
-    ],
     'TYPO3\CMS\Backend\History\RecordHistory->showMarked' => [
         'restFiles' => [
             'Breaking-55298-DecoupledHistoryFunctionality.rst',
@@ -376,21 +371,6 @@ return [
             'Deprecation-84295-UseServerRequestInterfaceInFileEditFileController.rst',
         ],
     ],
-    'TYPO3\CMS\Backend\FrontendBackendUserAuthentication->adminPanel' => [
-        'restFiles' => [
-            'Deprecation-84641-DeprecatedAdminPanelRelatedMethods.rst',
-        ],
-    ],
-    'TYPO3\CMS\Backend\FrontendBackendUserAuthentication->extAdminConfig' => [
-        'restFiles' => [
-            'Deprecation-84641-DeprecatedAdminPanelRelatedMethods.rst',
-        ],
-    ],
-    'TYPO3\CMS\Backend\FrontendBackendUserAuthentication->extAdmEnabled' => [
-        'restFiles' => [
-            'Deprecation-84641-DeprecatedAdminPanelRelatedMethods.rst',
-        ],
-    ],
     'TYPO3\CMS\Core\Charset\CharsetConverter->synonyms' => [
         'restFiles' => [
             'Deprecation-85122-FunctionalityInCharsetConverter.rst'
@@ -409,6 +389,76 @@ return [
     'TYPO3\CMS\IndexedSearch\Indexer->csObj' => [
         'restFiles' => [
             'Deprecation-85125-UsagesOfCharsetConverterInCore.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->showHiddenPage' => [
+        'restFiles' => [
+            'Deprecation-85389-VariousPublicPropertiesInFavorOfContextAPI.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->showHiddenRecords' => [
+        'restFiles' => [
+            'Deprecation-85389-VariousPublicPropertiesInFavorOfContextAPI.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->gr_list' => [
+        'restFiles' => [
+            'Deprecation-85389-VariousPublicPropertiesInFavorOfContextAPI.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->loginUser' => [
+        'restFiles' => [
+            'Deprecation-85389-VariousPublicPropertiesInFavorOfContextAPI.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->beUserLogin' => [
+        'restFiles' => [
+            'Deprecation-85389-VariousPublicPropertiesInFavorOfContextAPI.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->sys_language_uid' => [
+        'restFiles' => [
+            'Deprecation-85543-Language-relatedPropertiesInTypoScriptFrontendControllerAndPageRepository.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->sys_language_content' => [
+        'restFiles' => [
+            'Deprecation-85543-Language-relatedPropertiesInTypoScriptFrontendControllerAndPageRepository.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->sys_language_contentOL' => [
+        'restFiles' => [
+            'Deprecation-85543-Language-relatedPropertiesInTypoScriptFrontendControllerAndPageRepository.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->sys_language_mode' => [
+        'restFiles' => [
+            'Deprecation-85543-Language-relatedPropertiesInTypoScriptFrontendControllerAndPageRepository.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Page\PageRepository->sys_language_uid' => [
+        'restFiles' => [
+            'Deprecation-85543-Language-relatedPropertiesInTypoScriptFrontendControllerAndPageRepository.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Page\PageRepository->versioningWorkspaceId' => [
+        'restFiles' => [
+            'Deprecation-85556-PageRepository-versioningWorkspaceId.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\TypoScript\TemplateService->fileCache' => [
+        'restFiles' => [
+            'Deprecation-85445-TemplateService-getFileName.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\View\PageLayoutView->languageIconTitles' => [
+        'restFiles' => [
+            'Deprecation-85164-LanguageRelatedMethods.rst'
+        ],
+    ],
+    'TYPO3\CMS\Backend\View\PageLayoutView->translateTools' => [
+        'restFiles' => [
+            'Deprecation-85164-LanguageRelatedMethods.rst'
         ],
     ],
 ];

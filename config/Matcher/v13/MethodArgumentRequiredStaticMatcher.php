@@ -9,4 +9,18 @@ return [
             'Breaking-100963-DeprecatedFunctionalityRemoved.rst',
         ],
     ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::sanitizeLocalUrl' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Breaking-101311-MakeParameterForGeneralUtilitySanitizeLocalUrlRequired.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin' => [
+        'numberOfMandatoryArguments' => 5,
+        'maximumNumberOfArguments' => 5,
+        'restFiles' => [
+            'Deprecation-105076-PluginContentElementAndPluginSubTypes.rst',
+        ],
+    ],
 ];

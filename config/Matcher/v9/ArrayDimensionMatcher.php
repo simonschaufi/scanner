@@ -165,4 +165,59 @@ return [
             'Deprecation-85124-RedirectingUrlHandlerHookConcept.rst',
         ],
     ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'ext/saltedpasswords\'][\'saltMethods\']' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst'
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'hook_previewInfo\']' => [
+        'restFiles' => [
+            'Deprecation-85878-EidUtilityAndVariousTSFEMethods.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'extbase\'][\'commandControllers\']' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'tslib_fe-PostProc\']' => [
+        'restFiles' => [
+            'Deprecation-86279-VariousHooksAndPSR-15Middlewares.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'connectToDB\']' => [
+        'restFiles' => [
+            'Deprecation-86279-VariousHooksAndPSR-15Middlewares.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'initFEuser\']' => [
+        'restFiles' => [
+            'Deprecation-86279-VariousHooksAndPSR-15Middlewares.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/index_ts.php\'][\'preBeUser\']' => [
+        'restFiles' => [
+            'Deprecation-86279-VariousHooksAndPSR-15Middlewares.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/index_ts.php\'][\'postBeUser\']' => [
+        'restFiles' => [
+            'Deprecation-86279-VariousHooksAndPSR-15Middlewares.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'checkAlternativeIdMethods-PostProc\']' => [
+        'restFiles' => [
+            'Deprecation-86279-VariousHooksAndPSR-15Middlewares.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/index_ts.php\'][\'preprocessRequest\']' => [
+        'restFiles' => [
+            'Deprecation-86279-VariousHooksAndPSR-15Middlewares.rst',
+        ],
+    ],
+    '$GLOBALS[\'TYPO3_CONF_VARS\'][\'SC_OPTIONS\'][\'tslib/class.tslib_fe.php\'][\'checkDataSubmission\']' => [
+        'restFiles' => [
+            'Deprecation-86279-VariousHooksAndPSR-15Middlewares.rst',
+        ],
+    ],
 ];

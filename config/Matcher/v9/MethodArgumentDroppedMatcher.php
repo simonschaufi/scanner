@@ -111,12 +111,6 @@ return [
             'Breaking-55298-DecoupledHistoryFunctionality.rst',
         ],
     ],
-    'TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController->__construct' => [
-        'maximumNumberOfArguments' => 7,
-        'restFiles' => [
-            'Breaking-82572-RDCTFunctionalityRemoved.rst',
-        ],
-    ],
     'TYPO3\CMS\Core\DataHandling\DataHandler->printLogErrorMessages' => [
         'maximumNumberOfArguments' => 0,
         'restFiles' => [
@@ -177,10 +171,40 @@ return [
             'Breaking-84877-MethodsOfLocalizationRepositoryChanged.rst',
         ],
     ],
-    'TYPO3\CMS\Frontend\Page\PageRepository->getRootLine' => [
+    'TYPO3\CMS\Saltedpasswords\Salt\BlowfishSalt->getHashedPassword' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Md5Salt->getHashedPassword' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Pbkdf2Salt->getHashedPassword' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\PhpassSalt->getHashedPassword' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Page\PageRenderer->addInlineLanguageLabelArray' => [
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85806-SecondArgumentOfPageRendereraddInlineLanguageLabelArray.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Authentication\BackendUserAuthentication->modAccess' => [
         'maximumNumberOfArguments' => 2,
         'restFiles' => [
-            'Deprecation-85105-3rdMethodArgumentInPageRepository-getRootLine.rst',
+            'Deprecation-86441-VariousMethodsAndPropertiesInsideBackendUserAuthentication.rst'
         ],
     ],
 ];

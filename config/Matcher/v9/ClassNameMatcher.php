@@ -166,11 +166,13 @@ return [
     ],
     'TYPO3\CMS\Sv\AbstractAuthenticationService' => [
         'restFiles' => [
+            'Breaking-81735-GetRidOfSysextsv.rst',
             'Breaking-81536-MoveOfServicesListReportFromSvToReports.rst',
         ],
     ],
     'TYPO3\CMS\Sv\AuthenticationService' => [
         'restFiles' => [
+            'Breaking-81735-GetRidOfSysextsv.rst',
             'Breaking-81536-MoveOfServicesListReportFromSvToReports.rst',
         ],
     ],
@@ -356,7 +358,13 @@ return [
     ],
     'TYPO3\CMS\Fluid\Core\Variables\CmsVariableProvider' => [
         'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
             'Important-82229-FluidImplementationOfCmsVariableProviderRemoved.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\FrontendEditing\FrontendEditingController' => [
+        'restFiles' => [
+            'Deprecation-86110-FrontendEditingController.rst',
         ],
     ],
     'TYPO3\CMS\Core\ExtDirect\ExtDirectDebug' => [
@@ -692,6 +700,387 @@ return [
     'TYPO3\CMS\Frontend\Http\UrlHandlerInterface' => [
         'restFiles' => [
             'Deprecation-85124-RedirectingUrlHandlerHookConcept.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Log\Writer\RuntimeCacheWriter' => [
+        'restFiles' => [
+            'Deprecation-85687-DeprecateRuntimeCacheWriter.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Controller\LoginFramesetController' => [
+        'restFiles' => [
+            'Deprecation-85707-LoginFramesetController.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Integrity\DatabaseIntegrityCheck' => [
+        'restFiles' => [
+            'Deprecation-85727-DatabaseIntegrityCheckMovedToEXTlowlevel.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\SaltedPasswordService' => [
+        'restFiles' => [
+            'Deprecation-85761-SaltedPasswordService.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Service\FlexFormService' => [
+        'restFiles' => [
+            'Deprecation-85802-MoveFlexFormServiceFromEXTextbaseToEXTcore.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Crypto\PasswordHashing\Salt\ComposedPasswordHashInterface' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\Crypto\PasswordHashing\Salt\AbstractComposedSalt' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\Crypto\PasswordHashing\Utility\ExtensionManagerConfigurationUtility' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\Crypto\PasswordHashing\Utility\SaltedPasswordsUtility' => [
+        'restFiles' => [
+            'Deprecation-85804-SaltedPasswordHashClassDeprecations.rst'
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Argon2ISalt' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\BcryptSalt' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\BlowfishSalt' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Exception\InvalidSaltException' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Md5Salt' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\SaltFactory' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\SaltInterface' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\Pbkdf2Salt' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\PhpassSalt' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\AbstractComposedSalt' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\ComposedSaltInterface' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Utility\ExensionManagerConfigurationUtility' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\SaltedPasswordService' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility' => [
+        'restFiles' => [
+            'Deprecation-85833-ExtensionSaltedpasswordsMergedIntoCoreExtension.rst',
+        ],
+    ],
+    'TYPO3\CMS\Workspaces\Service\AutoPublishService' => [
+        'restFiles' => [
+            'Deprecation-86001-WorkspacesTasksMigratedToSymfonyCommands.rst',
+        ],
+    ],
+    'TYPO3\CMS\Workspaces\Task\AutoPublishTask' => [
+        'restFiles' => [
+            'Deprecation-86001-WorkspacesTasksMigratedToSymfonyCommands.rst',
+        ],
+    ],
+    'TYPO3\CMS\Workspaces\Task\CleanupPreviewLinkTask' => [
+        'restFiles' => [
+            'Deprecation-86001-WorkspacesTasksMigratedToSymfonyCommands.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extensionmanager\Command\ExtensionCommandController' => [
+        'restFiles' => [
+            'Deprecation-85996-ExtensionManagerCommandController.rst'
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\GraphicalMenuContentObject' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\ContentObject\Menu\ImageMenuContentObject' => [
+        'restFiles' => [
+            'Deprecation-85902-IMGMENUGMENU.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Command\CoreCommand' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Command\ExtbaseCommand' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Command\HelpCommand' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Command\HelpCommandController' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Cli\Command' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Cli\CommandArgumentDefinition' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Cli\CommandManager' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Cli\ConsoleOutput' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Cli\Request' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Cli\RequestBuilder' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Cli\RequestHandler' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Controller\CommandController' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Exception\AmbiguousCommandIdentifierException' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Mvc\Exception\CommandException' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Scheduler\FieldProvider' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Scheduler\Task' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Extbase\Scheduler\TaskExecutor' => [
+        'restFiles' => [
+            'Deprecation-85977-ExtbaseCommandControllersAndCliAnnotation.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Resource\Service\UserStorageCapabilityService' => [
+        'restFiles' => [
+            'Deprecation-86109-ClassUserStorageCapabilityService.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Module\BaseScriptClass' => [
+        'restFiles' => [
+            'Deprecation-86225-ClassesBaseScriptClassAndAbstractFunctionModule.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Module\AbstractFunctionModule' => [
+        'restFiles' => [
+            'Deprecation-86225-ClassesBaseScriptClassAndAbstractFunctionModule.rst',
+        ],
+    ],
+    'TYPO3\CMS\Install\Updates\AbstractUpdate' => [
+        'restFiles' => [
+            'Deprecation-86366-MethodsInAbstractUpdate.rst'
+        ],
+    ],
+    'TYPO3\CMS\Core\Cache\Frontend\StringFrontend' => [
+        'restFiles' => [
+            'Deprecation-81434-StringCacheFrontendDeprecated.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\Compiler\TemplateCompiler' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+            'Breaking-73046-AliasAbstractNode-ViewHelperNodeForBackwardsCompatibility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\Exception' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\AbstractNode'=> [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+            'Breaking-73046-AliasAbstractNode-ViewHelperNodeForBackwardsCompatibility.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\Parser\InterceptorInterface' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\NodeInterface' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\RootNode' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\ViewHelperNode' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+            'Breaking-82414-RemoveCMSBaseViewHelperClasses.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+            'Breaking-82414-RemoveCMSBaseViewHelperClasses.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+            'Breaking-82414-RemoveCMSBaseViewHelperClasses.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\ArgumentDefinition' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+            'Breaking-82414-RemoveCMSBaseViewHelperClasses.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\Exception' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\Exception\InvalidVariableException' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\Facets\ChildNodeAccessInterface' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\Facets\PostParseInterface' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\TagBuilder' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\TemplateVariableContainer' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperInterface' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperVariableContainer' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\View\Exception' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\View\Exception\InvalidSectionException' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
+        ],
+    ],
+    'TYPO3\CMS\Fluid\View\Exception\InvalidTemplateResourceException' => [
+        'restFiles' => [
+            'Deprecation-87277-FluidClassAliases.rst',
         ],
     ],
 ];

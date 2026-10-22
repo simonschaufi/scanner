@@ -407,7 +407,7 @@ return [
             'Deprecation-80993-GeneralUtilitygetUserObj.rst',
         ],
     ],
-    'TYPO3\CMS\Frontend\Utility::initTCA' => [
+    'TYPO3\CMS\Frontend\Utility\EidUtility::initTCA' => [
         'numberOfMandatoryArguments' => 0,
         'maximumNumberOfArguments' => 0,
         'restFiles' => [
@@ -601,6 +601,195 @@ return [
         'maximumNumberOfArguments' => 2,
         'restFiles' => [
             'Deprecation-85113-LegacyBackendModuleRoutingMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::shortcutExists' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-84414-BackendUtilityshortcutExists.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::getHostname' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85759-GeneralUtilitygetHostName.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::unQuoteFilenames' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-85760-GeneralUtilityunQuoteFilenames.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::getSaltingInstance' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-85796-SaltedPasswordsCleanups.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::determineSaltingHashingMethod' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-85796-SaltedPasswordsCleanups.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Salt\SaltFactory::setPreferredHashingMethod' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85796-SaltedPasswordsCleanups.rst',
+        ],
+    ],
+    'TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility::getNumberOfBackendUsersWithInsecurePassword' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-85796-SaltedPasswordsCleanups.rst',
+        ],
+    ],
+    'TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController::renderList' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 3,
+        'restFiles' => [
+            'Deprecation-81430-TypoScriptTemplateModuleControllerrenderList.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Core\Bootstrap::usesComposerClassLoading' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-85821-BootstrapMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Core\Bootstrap::getInstance' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-85821-BootstrapMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Core\Bootstrap::checkIfEssentialConfigurationExists' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85821-BootstrapMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Core\Bootstrap::loadConfigurationAndInitialize' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 3,
+        'restFiles' => [
+            'Deprecation-85821-BootstrapMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Core\Bootstrap::populateLocalConfiguration' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85821-BootstrapMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Core\Bootstrap::disableCoreCache' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-85821-BootstrapMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Core\Bootstrap::initializeCachingFramework' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85821-BootstrapMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Core\Bootstrap::setFinalCachingFrameworkCacheConfiguration' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85821-BootstrapMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Page\PageGenerator::renderContent' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-85822-PageGenerator.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Page\PageGenerator::renderContentWithHeader' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85822-PageGenerator.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Page\PageGenerator::inline2TempFile' => [
+        'numberOfMandatoryArguments' => 2,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-85822-PageGenerator.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getTCAtypes' => [
+        'numberOfMandatoryArguments' => 2,
+        'maximumNumberOfArguments' => 3,
+        'restFiles' => [
+            'Deprecation-85836-BackendUtilitygetTCAtypes.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::clientInfo' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85858-GeneralUtilityclientInfo.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Utility\EidUtility::initLanguage' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85878-EidUtilityAndVariousTSFEMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Utility\EidUtility::initFeUser' => [
+        'numberOfMandatoryArguments' => 0,
+        'maximumNumberOfArguments' => 0,
+        'restFiles' => [
+            'Deprecation-85878-EidUtilityAndVariousTSFEMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Frontend\Utility\EidUtility::initExtensionTCA' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85878-EidUtilityAndVariousTSFEMethods.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::getDomainStartPage' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-85892-VariousMethodsRegardingSysDomainResolving.rst',
+        ],
+    ],
+    'TYPO3\CMS\Backend\Utility\BackendUtility::firstDomainRecord' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 1,
+        'restFiles' => [
+            'Deprecation-85892-VariousMethodsRegardingSysDomainResolving.rst',
+        ],
+    ],
+    'TYPO3\CMS\Core\Utility\GeneralUtility::_GETset' => [
+        'numberOfMandatoryArguments' => 1,
+        'maximumNumberOfArguments' => 2,
+        'restFiles' => [
+            'Deprecation-86389-GeneralUtility_GETsetAndTSFE-mergingWithGetVars.rst',
         ],
     ],
 ];

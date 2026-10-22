@@ -71,4 +71,87 @@ return [
             'Deprecation-85285-DeprecatedSystemConstants.rst',
         ],
     ],
+    'PATH_typo3' => [
+        'restFiles' => [
+            'Feature-84153-IntroduceAGenericEnvironmentClass.rst',
+            'Deprecation-85285-DeprecatedSystemConstants.rst',
+        ],
+    ],
+    'PATH_typo3conf' => [
+        'restFiles' => [
+            'Feature-84153-IntroduceAGenericEnvironmentClass.rst',
+            'Deprecation-85285-DeprecatedSystemConstants.rst',
+        ],
+    ],
+    'TYPO3_OS' => [
+        'restFiles' => [
+            'Feature-84153-IntroduceAGenericEnvironmentClass.rst',
+            'Deprecation-85285-DeprecatedSystemConstants.rst',
+        ],
+    ],
+    'NUL' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TAB' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'SUB' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TYPO3_URL_SYSTEMREQUIREMENTS' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TYPO3_URL_DOWNLOAD' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TYPO3_URL_SECURITY' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TYPO3_URL_CONTRIBUTE' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TYPO3_URL_CONSULTANCY' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TYPO3_URL_DOCUMENTATION_TSCONFIG' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TYPO3_URL_DOCUMENTATION_TSREF' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TYPO3_URL_DOCUMENTATION' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'TYPO3_URL_MAILINGLISTS' => [
+        'restFiles' => [
+            'Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.rst',
+        ]
+    ],
+    'PATH_site' => [
+        'restFiles' => [
+            'Deprecation-85285-DeprecatedSystemConstants.rst',
+        ]
+    ]
 ];
