@@ -1,8 +1,8 @@
 <?php
-declare(strict_types = 1);
-namespace M12R\Scanner\Tests\Unit\Fixtures;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+declare(strict_types=1);
+
+namespace M12R\Scanner\Tests\Unit\Fixtures;
 
 /**
  * @extensionScannerIgnoreFile

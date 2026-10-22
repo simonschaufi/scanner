@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit;
 
 /*
@@ -19,13 +21,10 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
-use PHPUnit\Framework\TestCase;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class GeneratorClassesResolverTest extends TestCase
 {
     #[Test]

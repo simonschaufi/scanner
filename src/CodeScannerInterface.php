@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace M12R\Scanner;
@@ -25,8 +26,6 @@ interface CodeScannerInterface extends NodeVisitor
 {
     /**
      * Each match is an array with detail information
-     *
-     * @return array
      */
     public function getMatches(): array;
 }

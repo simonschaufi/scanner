@@ -1,11 +1,12 @@
 <?php
+
 namespace M12R\Scanner\Domain\Model;
 
 use M12R\Scanner\Utility;
 
 class DirectoryMatches extends \ArrayObject
 {
-    private $path;
+    private string $path;
 
     public function __construct(string $path, FileMatches ...$fileMatches)
     {
@@ -13,9 +14,6 @@ class DirectoryMatches extends \ArrayObject
         $this->path = Utility::ensureTrailingDirectorySeparator($path);
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;
@@ -24,9 +22,7 @@ class DirectoryMatches extends \ArrayObject
     public function countAll(): int
     {
         $counts = array_map(
-            function (FileMatches $fileMatches) {
-                return $fileMatches->count();
-            },
+            static fn (FileMatches $fileMatches) => $fileMatches->count(),
             $this->getArrayCopy()
         );
         return array_sum($counts);

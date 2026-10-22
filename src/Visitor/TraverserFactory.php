@@ -1,4 +1,5 @@
 <?php
+
 namespace M12R\Scanner\Visitor;
 
 use PhpParser\NodeTraverser;
@@ -9,7 +10,7 @@ use M12R\Scanner\Matcher\MatcherFactory;
 
 class TraverserFactory
 {
-    private $matcherFactory;
+    private MatcherFactory $matcherFactory;
 
     public function __construct(MatcherFactory $matcherFactory)
     {

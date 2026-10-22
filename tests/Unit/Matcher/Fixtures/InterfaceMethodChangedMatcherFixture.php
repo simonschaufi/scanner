@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit\Matcher\Fixtures;
 
 /*
@@ -22,10 +24,6 @@ class InterfaceMethodChangedMatcherFixture
 {
     /**
      * Match: Argument number 3 has been removed.
-     *
-     * @param $arg1
-     * @param $arg2
-     * @param $arg3
      */
     public function like1($arg1, $arg2, $arg3)
     {
@@ -36,9 +34,6 @@ class InterfaceMethodChangedMatcherFixture
     /**
      * Match: ignored
      *
-     * @param $arg1
-     * @param $arg2
-     * @param $arg3
      * @extensionScannerIgnoreLine
      */
     public function like2($arg1, $arg2, $arg3)
@@ -50,9 +45,6 @@ class InterfaceMethodChangedMatcherFixture
 
     /**
      * No match: Only two arguments is ok.
-     *
-     * @param $arg1
-     * @param $arg2
      */
     public function like3($arg1, $arg2)
     {
@@ -64,10 +56,6 @@ class InterfaceMethodChangedMatcherFixture
 
     /**
      * No match: Static does not make sense on interfaces we're looking for here
-     *
-     * @param $arg1
-     * @param $arg2
-     * @param $arg3
      */
     public static function like4($arg1, $arg2, $arg3)
     {
@@ -75,10 +63,6 @@ class InterfaceMethodChangedMatcherFixture
 
     /**
      * No match: Protected
-     *
-     * @param $arg1
-     * @param $arg2
-     * @param $arg3
      */
     protected function like5($arg1, $arg2, $arg3)
     {

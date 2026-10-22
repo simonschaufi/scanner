@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit\Matcher;
 
 /*
@@ -15,15 +17,15 @@ namespace M12R\Scanner\Tests\Unit\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+use M12R\Scanner\Matcher\ClassConstantMatcher;
+use M12R\Scanner\Visitor\GeneratorClassesResolver;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
-use PHPUnit\Framework\TestCase;
-use M12R\Scanner\Matcher\ClassConstantMatcher;
-use M12R\Scanner\Visitor\GeneratorClassesResolver;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case

@@ -1,11 +1,10 @@
 <?php
-namespace M12R\Scanner\Domain\Model;
 
-use M12R\Scanner\Utility;
+namespace M12R\Scanner\Domain\Model;
 
 class FileMatches extends \ArrayObject
 {
-    private $path;
+    private string $path;
 
     public function __construct(string $path, TheMatch ...$matches)
     {
@@ -13,9 +12,6 @@ class FileMatches extends \ArrayObject
         $this->path = $path;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;

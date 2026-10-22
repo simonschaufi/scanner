@@ -1,27 +1,17 @@
 <?php
 
 declare(strict_types=1);
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
 
 namespace M12R\Scanner\Matcher;
 
 use PhpParser\Node;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 
 /**
+ * This Matcher is not part of TYPO3 Core
+ *
  * Find usages of dropped TCA configuration values and other
  * nested array structures.
  *
@@ -33,13 +23,9 @@ use PhpParser\Node\Scalar\String_;
  */
 class ArrayMatcher extends AbstractCoreMatcher
 {
-    /**
-     * @var array
-     */
-    protected $matchedNodes = [];
+    protected array $matchedNodes = [];
 
     /**
-     *
      * @param array $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
@@ -48,12 +34,7 @@ class ArrayMatcher extends AbstractCoreMatcher
         $this->validateMatcherDefinitions();
     }
 
-    /**
-     * Called by PhpParser.
-     *
-     * @param Node $node
-     */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): void
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
@@ -71,8 +52,7 @@ class ArrayMatcher extends AbstractCoreMatcher
                     if (\strlen($candidateKey) > \strlen($flatKey)) {
                         continue;
                     }
-                    if (($candidateKey === $flatKey
-                            || substr($flatKey, -\strlen($candidateKey)) === $candidateKey)
+                    if (($candidateKey === $flatKey || str_ends_with($flatKey, $candidateKey))
                         && !\in_array($nodeItem->getStartLine() . $candidateKey, $this->matchedNodes, true)
                     ) {
                         if (array_key_exists('matchOnValues', $candidate) && !$this->nodeValueMatches($nodeItem->value, $candidate['matchOnValues'])) {
@@ -100,11 +80,11 @@ class ArrayMatcher extends AbstractCoreMatcher
      *
      * This will result in an array of keys containing the 'end' nodeItem objects.
      *
-     * @param $node
+     * @param Node $node
      * @param string $prefix
      * @return array
      */
-    protected function flattenArray($node, $prefix = '/')
+    protected function flattenArray(Node $node, $prefix = '/')
     {
         $result = [];
         /** @var ArrayItem $nodeItem */
@@ -133,7 +113,7 @@ class ArrayMatcher extends AbstractCoreMatcher
     {
         $value = null;
         switch (\get_class($nodeValue)) {
-            case Node\Scalar\LNumber::class:
+            case Node\Scalar\Int_::class:
                 $value = $nodeValue->value;
                 break;
             case Node\Expr\ConstFetch::class:

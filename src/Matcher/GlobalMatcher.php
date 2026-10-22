@@ -2,25 +2,14 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
-
 namespace M12R\Scanner\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 
 /**
+ * This Matcher is not part of TYPO3 Core
+ *
  * Match access to a one dimensional '$GLOBAL' array
  * Example "$TT"
  */
@@ -37,23 +26,14 @@ class GlobalMatcher extends AbstractCoreMatcher
         $this->validateMatcherDefinitions();
     }
 
-    /**
-     * Called by PhpParser.
-     *
-     * @param Node $node
-     */
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): void
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
             && $node instanceof Node\Expr\MethodCall
             && $node->var instanceof Variable
             && $node->var->name !== 'GLOBALS'
-            && in_array(
-                '$' . $node->var->name,
-                array_keys($this->matcherDefinitions),
-                true
-            )
+            && array_key_exists('$' . $node->var->name, $this->matcherDefinitions)
         ) {
             $this->matches[] = [
                 'restFiles' => $this->matcherDefinitions['$' . $node->var->name]['restFiles'],

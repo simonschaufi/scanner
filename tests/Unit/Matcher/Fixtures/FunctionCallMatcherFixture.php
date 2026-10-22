@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit\Matcher\Fixtures;
 
 /*
@@ -14,8 +16,6 @@ namespace M12R\Scanner\Tests\Unit\Matcher\Fixtures;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * Fixture file

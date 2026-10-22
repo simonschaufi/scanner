@@ -25,15 +25,14 @@ class Scanner
         TheMatch::TYPE_BREAKING => 100,
         TheMatch::TYPE_DEPRECATION => 80,
         TheMatch::TYPE_IMPORTANT => 50,
-        TheMatch::TYPE_FEATURE => 20
+        TheMatch::TYPE_FEATURE => 20,
     ];
 
     public function __construct(
         Finder $finder,
         Parser $parser,
         TraverserFactory $traverserFactory
-    )
-    {
+    ) {
         $this->finder = $finder;
         $this->parser = $parser;
         $this->traverserFactory = $traverserFactory;
@@ -42,8 +41,7 @@ class Scanner
     public function scanPath(
         string $path,
         MatcherBundleCollection $collection
-    ): DirectoryMatches
-    {
+    ): DirectoryMatches {
         if (!is_dir($path)) {
             throw new \RuntimeException(
                 sprintf('Path "%s" does not exist', $path),
@@ -73,8 +71,7 @@ class Scanner
     public function scanFile(
         string $file,
         MatcherBundleCollection $collection
-    ): FileMatches
-    {
+    ): FileMatches {
         if (!file_exists($file)) {
             throw new \RuntimeException(
                 sprintf('File "%s" does not exist', $file),
@@ -104,11 +101,13 @@ class Scanner
     private function buildMatches(CodeScannerInterface ...$matchers): array
     {
         $matcherMatches = array_map(
-            function (CodeScannerInterface $matcher) {
+            static function (CodeScannerInterface $matcher) {
                 return array_map(
-                    function (array $result) use ($matcher) {
+                    static function (array $result) use ($matcher) {
                         return array_merge(
-                            ['matcher' => get_class($matcher)],
+                            [
+                                'matcher' => get_class($matcher),
+                            ],
                             $result
                         );
                     },
@@ -143,8 +142,7 @@ class Scanner
     private function buildParseExceptionFileMatches(
         string $file,
         Error $error
-    ): FileMatches
-    {
+    ): FileMatches {
         $match = new TheMatch(
             get_class($error),
             'impossible',
@@ -172,7 +170,7 @@ class Scanner
 
     private function extractFileType(string $restFile): string
     {
-        list($fileType) = explode('-', basename($restFile));
+        [$fileType] = explode('-', basename($restFile));
         return strtoupper($fileType);
     }
 

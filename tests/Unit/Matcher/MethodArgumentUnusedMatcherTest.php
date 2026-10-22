@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit\Matcher;
 
 /*
@@ -15,14 +17,14 @@ namespace M12R\Scanner\Tests\Unit\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+use M12R\Scanner\Matcher\MethodArgumentUnusedMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
-use PHPUnit\Framework\TestCase;
-use M12R\Scanner\Matcher\MethodArgumentUnusedMatcher;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case
@@ -41,7 +43,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
 
         $configuration = [
             'TYPO3\CMS\Core\Html\RteHtmlParser->RTE_transform' => [
-                'unusedArgumentNumbers' => [ 2 ],
+                'unusedArgumentNumbers' => [2],
                 'restFiles' => [
                     'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
                     'Deprecation-79341-MethodsRelatedToRichtextConfiguration.rst',
@@ -71,14 +73,14 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'two rest candidates with same number of arguments' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [ 1 ],
+                        'unusedArgumentNumbers' => [1],
                         'restFiles' => [
                             'Foo-1.rst',
                             'Foo-2.rst',
                         ],
                     ],
                     'Bar->aMethod' => [
-                        'unusedArgumentNumbers' => [ 1 ],
+                        'unusedArgumentNumbers' => [1],
                         'restFiles' => [
                             'Bar-1.rst',
                             'Bar-2.rst',
@@ -101,13 +103,13 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'two candidates, multiple matches' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [ 1, 2 ],
+                        'unusedArgumentNumbers' => [1, 2],
                         'restFiles' => [
                             'Foo-1.rst',
                         ],
                     ],
                     'Bar->aMethod' => [
-                        'unusedArgumentNumbers' => [ 3 ],
+                        'unusedArgumentNumbers' => [3],
                         'restFiles' => [
                             'Bar-1.rst',
                         ],
@@ -127,7 +129,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'one candidate, no hit, not enough arguments' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [ 2, 3 ],
+                        'unusedArgumentNumbers' => [2, 3],
                         'restFiles' => [
                             'Foo-1.rst',
                         ],
@@ -140,7 +142,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'one candidate, no hit, given as null is ok' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [ 2, 3 ],
+                        'unusedArgumentNumbers' => [2, 3],
                         'restFiles' => [
                             'Foo-1.rst',
                         ],
@@ -153,7 +155,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'one match, third argument still given not null' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [ 2, 3 ],
+                        'unusedArgumentNumbers' => [2, 3],
                         'restFiles' => [
                             'aRest.rst',
                         ],
@@ -172,7 +174,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'no match, scanning ignored as soon as argument unpacking is used' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [ 1, 3 ],
+                        'unusedArgumentNumbers' => [1, 3],
                         'restFiles' => [
                             'Foo-1.rst',
                         ],
@@ -188,13 +190,13 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'double linked .rst file is returned only once' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [ 1 ],
+                        'unusedArgumentNumbers' => [1],
                         'restFiles' => [
                             'aRest.rst',
                         ],
                     ],
                     'Bar->aMethod' => [
-                        'unusedArgumentNumbers' => [ 1 ],
+                        'unusedArgumentNumbers' => [1],
                         'restFiles' => [
                             'aRest.rst',
                         ],
@@ -210,7 +212,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
                     ],
                 ],
             ],
-       ];
+        ];
     }
 
     #[Test]

@@ -1,4 +1,5 @@
 <?php
+
 use M12R\Scanner\Domain\Model\MatcherBundleCollection;
 use M12R\Scanner\Matcher;
 use M12R\Scanner\ScannerFactory;
@@ -11,7 +12,6 @@ $collection = new MatcherBundleCollection(
     new \M12R\Scanner\Domain\Model\MatcherBundle(
         __DIR__ . '/../config/Matcher/v9',
         '../TYPO3.CMS/typo3/sysext/core/Documentation/Changelog',
-
         Matcher\ArrayDimensionMatcher::class,
         Matcher\ArrayGlobalMatcher::class,
         Matcher\ClassConstantMatcher::class,

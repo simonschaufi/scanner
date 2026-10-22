@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit\Matcher;
 
 /*
@@ -15,14 +17,14 @@ namespace M12R\Scanner\Tests\Unit\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+use M12R\Scanner\Matcher\MethodArgumentRequiredStaticMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
-use PHPUnit\Framework\TestCase;
-use M12R\Scanner\Matcher\MethodArgumentRequiredStaticMatcher;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case
@@ -63,9 +65,6 @@ class MethodArgumentRequiredStaticMatcherTest extends TestCase
         $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 
-    /**
-     * @return array
-     */
     public static function matchesReturnsExpectedRestFilesDataProvider(): array
     {
         return [
@@ -192,14 +191,9 @@ class MethodArgumentRequiredStaticMatcherTest extends TestCase
                     ],
                 ],
             ],
-       ];
+        ];
     }
 
-    /**
-     * @param array $configuration
-     * @param string $phpCode
-     * @param array $expected
-     */
     #[Test]
     #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected)

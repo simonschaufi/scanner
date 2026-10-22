@@ -1,36 +1,21 @@
 <?php
+
 namespace M12R\Scanner\Domain\Model;
 
 use M12R\Scanner\Utility;
 
 class MatcherBundle
 {
-    /**
-     * @var string
-     */
-    private $configurationPath;
-
-    /**
-     * @var string
-     */
-    private $documentationPath;
-
-    /**
-     * @var string[]
-     */
-    private $classNames;
-
-    /**
-     * @var array
-     */
-    private $configuration;
+    private string $configurationPath;
+    private string $documentationPath;
+    private array $classNames;
+    private array $configuration;
 
     public function __construct(
         string $configurationPath,
         string $documentationPath,
         string ...$classNames
-    )
-    {
+    ) {
         if (!is_dir($configurationPath)) {
             throw new \RuntimeException(
                 sprintf('Path "%s" does not exist', $configurationPath),
@@ -55,9 +40,6 @@ class MatcherBundle
         $this->configuration = $this->buildConfiguration();
     }
 
-    /**
-     * @return array
-     */
     public function getConfiguration(): array
     {
         return $this->configuration;

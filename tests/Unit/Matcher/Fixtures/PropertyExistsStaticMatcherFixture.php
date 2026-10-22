@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit\Matcher\Fixtures;
 
 /*
@@ -21,11 +23,8 @@ namespace M12R\Scanner\Tests\Unit\Matcher\Fixtures;
 class PropertyExistsStaticMatcherFixture1
 {
     protected static $iAmAMatch = 42;
-
     protected static $iAmNotAMatch;
-
     public static $iAmNotAMatchEither;
-
     private static $iAmNoMatchToo;
 }
 

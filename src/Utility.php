@@ -1,4 +1,5 @@
 <?php
+
 namespace M12R\Scanner;
 
 class Utility

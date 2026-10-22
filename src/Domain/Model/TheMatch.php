@@ -1,22 +1,22 @@
 <?php
+
 namespace M12R\Scanner\Domain\Model;
 
 class TheMatch
 {
-    const TYPE_BREAKING = 'BREAKING';
-    const TYPE_DEPRECATION = 'DEPRECATION';
-    const TYPE_IMPORTANT = 'IMPORTANT';
-    const TYPE_FEATURE = 'FEATURE';
+    public const string TYPE_BREAKING = 'BREAKING';
+    public const string TYPE_DEPRECATION = 'DEPRECATION';
+    public const string TYPE_IMPORTANT = 'IMPORTANT';
+    public const string TYPE_FEATURE = 'FEATURE';
 
-    private $matcher;
-    private $identifier;
-    private $indicator;
-    private $subject;
-    private $message;
-    private $line;
-    private $type;
-
-    private $restFiles = [];
+    private string $matcher;
+    private string|array $identifier;
+    private string $indicator;
+    private string $subject;
+    private string $message;
+    private int $line;
+    private string $type;
+    private array $restFiles = [];
 
     public function __construct(
         string $matcher,
@@ -25,8 +25,7 @@ class TheMatch
         string $message,
         int $line,
         string $type
-    )
-    {
+    ) {
         $this->identifier = str_replace(
             '.',
             '',
@@ -44,74 +43,47 @@ class TheMatch
         $this->type = $this->validateType($type);
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIdentifier()
+    public function getIdentifier(): mixed
     {
         return $this->identifier;
     }
 
-    /**
-     * @return string
-     */
     public function getMatcher(): string
     {
         return $this->matcher;
     }
 
-    /**
-     * @return string
-     */
     public function getIndicator(): string
     {
         return $this->indicator;
     }
 
-    /**
-     * @return string
-     */
     public function getSubject(): string
     {
         return $this->subject;
     }
 
-    /**
-     * @return string
-     */
     public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @return int
-     */
     public function getLine(): int
     {
         return $this->line;
     }
 
-    /**
-     * @return array
-     */
     public function getRestFiles(): array
     {
         return $this->restFiles;
     }
 
-    /**
-     * @param array $restFiles
-     */
-    public function setRestFiles(array $restFiles)
+    public function setRestFiles(array $restFiles): void
     {
         $this->restFiles = $restFiles;
     }
@@ -122,7 +94,7 @@ class TheMatch
             self::TYPE_BREAKING,
             self::TYPE_DEPRECATION,
             self::TYPE_FEATURE,
-            self::TYPE_IMPORTANT
+            self::TYPE_IMPORTANT,
         ];
         if (!in_array($type, $validTypes, true)) {
             throw new \RuntimeException('Invalid type ' . htmlspecialchars($type) . ' given.', 1513148761);

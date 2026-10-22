@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit\Matcher\Fixtures;
 
 /*
@@ -15,8 +17,6 @@ namespace M12R\Scanner\Tests\Unit\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-
 /**
  * Fixture file
  */
@@ -29,7 +29,7 @@ class MethodCallMatcherFixture
         // Match: confirmMsg() can be called with 5 args (1 optional)
         $foo->confirmMsg('arg1', 'arg2', 'arg3', 'arg4', 'arg5');
         // Match: With argument unpacking we don't know how many args are actually given
-        $args = [ 'arg1', 'arg2' ];
+        $args = ['arg1', 'arg2'];
         $foo->confirmMsg(...$args);
         // Match: Too many args but some could be empty arrays
         $foo->confirmMsg(...$arg1, ...$arg2, ...$arg3, ...$arg4, ...$arg5, ...$arg6);

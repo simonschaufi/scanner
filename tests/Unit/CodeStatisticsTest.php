@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit;
 
 /*
@@ -17,9 +19,9 @@ namespace M12R\Scanner\Tests\Unit;
 
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
-use PHPUnit\Framework\TestCase;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case

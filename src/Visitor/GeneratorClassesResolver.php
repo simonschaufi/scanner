@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace M12R\Scanner\Visitor;
 
+use M12R\Scanner\Matcher\AbstractCoreMatcher;
 use PhpParser\BuilderFactory;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
@@ -26,7 +27,6 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\NodeVisitorAbstract;
-use M12R\Scanner\Matcher\AbstractCoreMatcher;
 
 /**
  * Create a fully qualified class name object from first argument of
@@ -39,10 +39,7 @@ use M12R\Scanner\Matcher\AbstractCoreMatcher;
  */
 class GeneratorClassesResolver extends NodeVisitorAbstract
 {
-    /**
-     * @var BuilderFactory
-     */
-    protected $builderFactory;
+    protected BuilderFactory $builderFactory;
 
     public function __construct(?BuilderFactory $builderFactory = null)
     {

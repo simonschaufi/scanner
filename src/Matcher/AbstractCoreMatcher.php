@@ -17,10 +17,10 @@ declare(strict_types=1);
 
 namespace M12R\Scanner\Matcher;
 
+use M12R\Scanner\CodeScannerInterface;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\NodeVisitorAbstract;
-use M12R\Scanner\CodeScannerInterface;
 
 /**
  * Single "core matcher" classes extend from this.

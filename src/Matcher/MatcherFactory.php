@@ -2,25 +2,14 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
-
 namespace M12R\Scanner\Matcher;
 
-use PhpParser\NodeVisitor;
 use M12R\Scanner\CodeScannerInterface;
+use PhpParser\NodeVisitor;
 
 /**
+ * This Matcher is not part of TYPO3 Core
+ *
  * Factory preparing matcher instances
  */
 class MatcherFactory
@@ -32,7 +21,7 @@ class MatcherFactory
      * @return NodeVisitor[]&CodeScannerInterface[]
      * @throws \RuntimeException
      */
-    public function createAll(array $matcherConfigurations)
+    public function createAll(array $matcherConfigurations): array
     {
         $instances = [];
         foreach ($matcherConfigurations as $matcherConfiguration) {
@@ -50,7 +39,7 @@ class MatcherFactory
                 );
             }
 
-            if (isset($matcherConfiguration['configurationFile']) && isset($matcherConfiguration['configurationArray'])) {
+            if (isset($matcherConfiguration['configurationFile'], $matcherConfiguration['configurationArray'])) {
                 throw new \RuntimeException(
                     'Having both a configurationFile and configurationArray is invalid',
                     1501419367
@@ -106,20 +95,17 @@ class MatcherFactory
     private function extendConfiguration(
         array $configuration,
         $matcherConfiguration
-    ): array
-    {
+    ): array {
         if (isset($matcherConfiguration['restFilePath'])) {
             $restFilePath = $matcherConfiguration['restFilePath'];
             array_walk(
                 $configuration,
-                function (array &$aspect) use ($restFilePath) {
+                static function (array &$aspect) use ($restFilePath) {
                     if (empty($aspect['restFiles'])) {
                         return;
                     }
                     $aspect['restFiles'] = array_map(
-                        function (string $restFile) use ($restFilePath) {
-                            return $restFilePath . $restFile;
-                        },
+                        static fn(string $restFile) => $restFilePath . $restFile,
                         $aspect['restFiles']
                     );
                 }

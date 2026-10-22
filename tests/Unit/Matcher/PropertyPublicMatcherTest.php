@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit\Matcher;
 
 /*
@@ -15,14 +17,14 @@ namespace M12R\Scanner\Tests\Unit\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+use M12R\Scanner\Matcher\PropertyPublicMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
-use PHPUnit\Framework\TestCase;
-use M12R\Scanner\Matcher\PropertyPublicMatcher;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case
@@ -97,13 +99,13 @@ class PropertyPublicMatcherTest extends TestCase
             'double linked .rst file is returned only once' => [
                 [
                     'Foo->aProperty' => [
-                        'unusedArgumentNumbers' => [ 1 ],
+                        'unusedArgumentNumbers' => [1],
                         'restFiles' => [
                             'aRest.rst',
                         ],
                     ],
                     'Bar->aProperty' => [
-                        'unusedArgumentNumbers' => [ 1 ],
+                        'unusedArgumentNumbers' => [1],
                         'restFiles' => [
                             'aRest.rst',
                         ],
@@ -119,7 +121,7 @@ class PropertyPublicMatcherTest extends TestCase
                     ],
                 ],
             ],
-       ];
+        ];
     }
 
     #[Test]

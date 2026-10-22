@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit\Matcher\Fixtures;
 
 /*
@@ -26,53 +28,53 @@ class ArrayMatcherFixture
         $TCA['blip'] = [
             'ctrl' => [
                 'delete' => 'deleted',
-                'dividers2tabs' => TRUE,
-            ]
+                'dividers2tabs' => true,
+            ],
         ];
 
         $someVar = [
             'ctrl' => [
                 'delete' => 'deleted',
-                'dividers2tabs' => TRUE,
-            ]
+                'dividers2tabs' => true,
+            ],
         ];
 
         $someVar = [
             'oneMoreThing' => [
                 'ctrl' => [
                     'delete' => 'deleted',
-                    'dividers2tabs' => TRUE,
-                ]
-            ]
+                    'dividers2tabs' => true,
+                ],
+            ],
         ];
 
         $fieldsTca = [
             'ctrl' => [
                 'versioningWS' => 2,
                 'delete' => 'deleted',
-            ]
+            ],
         ];
 
         // No match
         $TCA['blipme'] = [
             'controllah!' => [
                 'delete' => 'deleted',
-                'dividers2tabs' => TRUE,
-            ]
+                'dividers2tabs' => true,
+            ],
         ];
 
         $fieldsTca = [
             'ctrl' => [
-                'versioningWS' => TRUE,
+                'versioningWS' => true,
                 'delete' => 'deleted',
-            ]
+            ],
         ];
 
         return [
             'ctrlollah!' => [
                 'delete' => 'deleted',
-                'dividers2tabs' => TRUE,
-            ]
+                'dividers2tabs' => true,
+            ],
         ];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace M12R\Scanner\Domain\Model;
 
 class MatcherBundleCollection extends \ArrayObject
@@ -11,9 +12,7 @@ class MatcherBundleCollection extends \ArrayObject
     public function getConfiguration(): array
     {
         $matcherBundleConfiguration = array_map(
-            function (MatcherBundle $bundle) {
-                return $bundle->getConfiguration();
-            },
+            static fn (MatcherBundle $bundle) => $bundle->getConfiguration(),
             $this->getArrayCopy()
         );
 

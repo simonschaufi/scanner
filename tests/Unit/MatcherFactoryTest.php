@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace M12R\Scanner\Tests\Unit;
 
 /*
@@ -15,13 +17,10 @@ namespace M12R\Scanner\Tests\Unit;
  * The TYPO3 project - inspiring people to share!
  */
 
-use PHPUnit\Framework\TestCase;
 use M12R\Scanner\Matcher\MatcherFactory;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class MatcherFactoryTest extends TestCase
 {
     #[Test]
@@ -33,7 +32,7 @@ class MatcherFactoryTest extends TestCase
         $configuration = [
             [
                 'configurationFile' => 'foo',
-            ]
+            ],
         ];
         $subject->createAll($configuration);
     }
@@ -47,7 +46,7 @@ class MatcherFactoryTest extends TestCase
         $configuration = [
             [
                 'class' => \stdClass::class,
-            ]
+            ],
         ];
         $subject->createAll($configuration);
     }
@@ -63,7 +62,7 @@ class MatcherFactoryTest extends TestCase
                 'class' => \stdClass::class,
                 'configurationFile' => 'foo',
                 'configurationArray' => [],
-            ]
+            ],
         ];
         $subject->createAll($configuration);
     }
@@ -78,7 +77,7 @@ class MatcherFactoryTest extends TestCase
             [
                 'class' => \stdClass::class,
                 'configurationFile' => 'EXT:install/does/not/exist.php',
-            ]
+            ],
         ];
         $subject->createAll($configuration);
     }
@@ -88,7 +87,6 @@ class MatcherFactoryTest extends TestCase
      *
      * @test_disabled
      */
-
     public function createAllThrowsIfConfigurationFileDoesNotReturnArray()
     {
         $subject = new MatcherFactory();
@@ -98,7 +96,7 @@ class MatcherFactoryTest extends TestCase
             [
                 'class' => \stdClass::class,
                 'configurationFile' => 'EXT:install/Tests/Unit/ExtensionScanner/Php/Fixtures/MatcherFactoryInvalidConfigurationFileFixture.php',
-            ]
+            ],
         ];
         $subject->createAll($configuration);
     }
@@ -113,7 +111,7 @@ class MatcherFactoryTest extends TestCase
             [
                 'class' => \stdClass::class,
                 'configurationArray' => 'foo',
-            ]
+            ],
         ];
         $subject->createAll($configuration);
     }
@@ -128,7 +126,7 @@ class MatcherFactoryTest extends TestCase
             [
                 'class' => \stdClass::class,
                 'configurationArray' => [],
-            ]
+            ],
         ];
         $subject->createAll($configuration);
     }
