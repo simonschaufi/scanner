@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace M12R\Scanner\Matcher;
 
+use M12R\Scanner\Utility\GeneralUtility;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 
@@ -78,7 +79,7 @@ class ArrayDimensionMatcher extends AbstractCoreMatcher
             $lastKey = strrev($fullArrayString);
             // Cut off "['"
             $lastKey = substr($lastKey, 2);
-            $lastKey = $this->trimExplode('\'[', $lastKey);
+            $lastKey = GeneralUtility::trimExplode('\'[', $lastKey);
             // Last key name
             $lastKey = $lastKey[0];
             // And reverse key name again

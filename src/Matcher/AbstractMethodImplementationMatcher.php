@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace M12R\Scanner\Matcher;
 
+use M12R\Scanner\Utility\GeneralUtility;
 use PhpParser\Node;
 
 /**
@@ -44,10 +45,10 @@ class AbstractMethodImplementationMatcher extends AbstractCoreMatcher
         //  method, so we need to do something 99% similar here for a custom
         //  property, to not require larger changes to the underlying abstract method.
         foreach ($this->matcherDefinitions as $classAndMethod => $details) {
-            $parts = $this->trimExplode('::', $classAndMethod);
+            $parts = GeneralUtility::trimExplode('::', $classAndMethod);
             $definition = self::DEFINITION_STATIC;
             if (count($parts) !== 2) {
-                $parts = $this->trimExplode('->', $classAndMethod);
+                $parts = GeneralUtility::trimExplode('->', $classAndMethod);
                 $definition = self::DEFINITION_LOCAL;
             }
             // Exception-Handling removed, covered by initializeFlatMatcherDefinitions();

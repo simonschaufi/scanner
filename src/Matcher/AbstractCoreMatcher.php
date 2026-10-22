@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace M12R\Scanner\Matcher;
 
 use M12R\Scanner\CodeScannerInterface;
+use M12R\Scanner\Utility\GeneralUtility;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\NodeVisitorAbstract;
@@ -138,9 +139,9 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
     {
         $methodNameArray = [];
         foreach ($this->matcherDefinitions as $classAndMethod => $details) {
-            $method = $this->trimExplode('::', $classAndMethod);
+            $method = GeneralUtility::trimExplode('::', $classAndMethod);
             if (count($method) !== 2) {
-                $method = $this->trimExplode('->', $classAndMethod);
+                $method = GeneralUtility::trimExplode('->', $classAndMethod);
             }
             if (count($method) !== 2) {
                 throw new \RuntimeException(
@@ -231,27 +232,5 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
             }
         }
         return $currentFileIsIgnored;
-    }
-
-    protected function trimExplode(string $delimiter, string $string, bool $removeEmptyValues = false, int $limit = 0): array
-    {
-        $result = explode($delimiter, $string);
-        if ($removeEmptyValues) {
-            $temp = [];
-            foreach ($result as $value) {
-                if (trim($value) !== '') {
-                    $temp[] = $value;
-                }
-            }
-            $result = $temp;
-        }
-        if ($limit > 0 && count($result) > $limit) {
-            $lastElements = array_splice($result, $limit - 1);
-            $result[] = implode($delimiter, $lastElements);
-        } elseif ($limit < 0) {
-            $result = array_slice($result, 0, $limit);
-        }
-        $result = array_map('trim', $result);
-        return $result;
     }
 }
