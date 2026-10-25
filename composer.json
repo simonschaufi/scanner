@@ -39,7 +39,8 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"M12R\\Scanner\\Tests\\": "tests/"
+			"M12R\\Scanner\\Tests\\": "tests/",
+			"TYPO3\\": "stubs/TYPO3"
 		},
 		"exclude-from-classmap": [
 			"tests/Unit/Php/Matcher/Fixtures/PropertyExistsStaticMatcherFixture.php"
