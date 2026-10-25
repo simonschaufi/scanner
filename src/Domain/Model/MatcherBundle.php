@@ -9,7 +9,6 @@ use M12R\Scanner\Utility;
 readonly class MatcherBundle
 {
     private string $configurationPath;
-    private string $documentationPath;
 
     /**
      * @var list<string>
@@ -26,7 +25,6 @@ readonly class MatcherBundle
      */
     public function __construct(
         string $configurationPath,
-        string $documentationPath,
         array $classNames
     ) {
         if (!is_dir($configurationPath)) {
@@ -43,7 +41,6 @@ readonly class MatcherBundle
         }
 
         $this->configurationPath = Utility::ensureTrailingDirectorySeparator($configurationPath);
-        $this->documentationPath = Utility::ensureTrailingDirectorySeparator($documentationPath);
 
         $this->classNames = $classNames;
         $this->configuration = $this->buildConfiguration();
@@ -58,7 +55,7 @@ readonly class MatcherBundle
     }
 
     /**
-     * @return array<int, array{class: string, restFilePath: string, configurationFile: string}>
+     * @return array<int, array{class: string, configurationFile: string}>
      */
     private function buildConfiguration(): array
     {
@@ -67,7 +64,6 @@ readonly class MatcherBundle
                 $lastClassPart = $this->extractLastClassPart($matcherClassName);
                 return [
                     'class' => $matcherClassName,
-                    'restFilePath' => $this->documentationPath,
                     'configurationFile' => $this->configurationPath . $lastClassPart . '.php',
                 ];
             },
