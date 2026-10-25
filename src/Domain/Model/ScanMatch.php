@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace M12R\Scanner\Domain\Model;
 
-class TheMatch
+class ScanMatch
 {
     public const string TYPE_BREAKING = 'BREAKING';
     public const string TYPE_DEPRECATION = 'DEPRECATION';

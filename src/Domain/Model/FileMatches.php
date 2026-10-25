@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace M12R\Scanner\Domain\Model;
 
 /**
- * @extends \ArrayObject<int, TheMatch>
+ * @extends \ArrayObject<int, ScanMatch>
  */
 class FileMatches extends \ArrayObject
 {
     public function __construct(
         private readonly string $path,
-        TheMatch ...$matches
+        ScanMatch ...$matches
     ) {
         parent::__construct(array_values($matches));
     }
