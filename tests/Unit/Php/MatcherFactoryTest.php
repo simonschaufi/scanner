@@ -82,11 +82,7 @@ class MatcherFactoryTest extends TestCase
         $subject->createAll($configuration);
     }
 
-    /**
-     * File does not exist
-     *
-     * @test_disabled
-     */
+    #[Test]
     public function createAllThrowsIfConfigurationFileDoesNotReturnArray(): void
     {
         $subject = new MatcherFactory();
@@ -95,7 +91,7 @@ class MatcherFactoryTest extends TestCase
         $configuration = [
             [
                 'class' => \stdClass::class,
-                'configurationFile' => 'EXT:install/Tests/Unit/ExtensionScanner/Php/Fixtures/MatcherFactoryInvalidConfigurationFileFixture.php',
+                'configurationFile' => __DIR__ . '/Fixtures/MatcherFactoryInvalidConfigurationFileFixture.php',
             ],
         ];
         $subject->createAll($configuration);

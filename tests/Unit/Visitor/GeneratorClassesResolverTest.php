@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit;
+namespace M12R\Scanner\Tests\Unit\Visitor;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -17,6 +17,7 @@ namespace M12R\Scanner\Tests\Unit;
  * The TYPO3 project - inspiring people to share!
  */
 
+use M12R\Scanner\Visitor\GeneratorClassesResolver;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\NodeTraverser;
@@ -37,7 +38,7 @@ EOC;
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);
         $traverser = new NodeTraverser();
-        $traverser->addVisitor(new \M12R\Scanner\Visitor\GeneratorClassesResolver());
+        $traverser->addVisitor(new GeneratorClassesResolver());
         $statements = $traverser->traverse($statements);
 
         // The resolver rewrites the class-string argument into its class constant
@@ -58,7 +59,7 @@ EOC;
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);
         $traverser = new NodeTraverser();
-        $traverser->addVisitor(new \M12R\Scanner\Visitor\GeneratorClassesResolver());
+        $traverser->addVisitor(new GeneratorClassesResolver());
         $statements = $traverser->traverse($statements);
         // A runtime-concatenated argument cannot be resolved statically, so it must
         // be left untouched rather than rewritten to a ::class constant.
