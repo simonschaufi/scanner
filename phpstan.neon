@@ -6,7 +6,7 @@ parameters:
     level: 8
     excludePaths:
         # These test fixtures *could* be streamlined but currently generate lots of failures
-        - tests/Unit/Matcher
+        - tests/Unit/Php/Matcher
     tmpDir: %rootDir%/../../../var/cache/phpstan
     treatPhpDocTypesAsCertain: false
     inferPrivatePropertyTypeFromConstructor: true

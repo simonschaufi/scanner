@@ -34,8 +34,8 @@ return ECSConfig::configure()
     ])
     ->withSkip([
         // Do not format files that are copied from the TYPO3 Core
-        __DIR__ . '/src/Matcher',
+        __DIR__ . '/src/Php/Matcher',
         __DIR__ . '/src/Utility/GeneralUtility.php',
-        __DIR__ . '/tests/Unit/Matcher',
+        __DIR__ . '/tests/Unit/Php/Matcher',
         NotOperatorWithSuccessorSpaceFixer::class,
     ]);

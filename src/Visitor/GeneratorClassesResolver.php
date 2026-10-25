@@ -17,7 +17,7 @@ declare(strict_types=1);
 
 namespace M12R\Scanner\Visitor;
 
-use M12R\Scanner\Matcher\AbstractCoreMatcher;
+use M12R\Scanner\Php\Matcher\AbstractCoreMatcher;
 use PhpParser\BuilderFactory;
 use PhpParser\Node;
 use PhpParser\Node\Expr;

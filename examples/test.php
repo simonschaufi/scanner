@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
+use M12R\Scanner\Domain\Model\MatcherBundle;
 use M12R\Scanner\Domain\Model\MatcherBundleCollection;
-use M12R\Scanner\Matcher;
+use M12R\Scanner\Php\Matcher;
 use M12R\Scanner\ScannerFactory;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -11,27 +12,29 @@ require_once __DIR__ . '/../vendor/autoload.php';
 error_reporting(E_ALL ^ E_NOTICE);
 
 $collection = new MatcherBundleCollection(
-    new \M12R\Scanner\Domain\Model\MatcherBundle(
+    new MatcherBundle(
         __DIR__ . '/../config/Matcher/v9',
         '../TYPO3.CMS/typo3/sysext/core/Documentation/Changelog',
-        Matcher\ArrayDimensionMatcher::class,
-        Matcher\ArrayGlobalMatcher::class,
-        Matcher\ClassConstantMatcher::class,
-        Matcher\ClassNameMatcher::class,
-        Matcher\ConstantMatcher::class,
-        Matcher\FunctionCallMatcher::class,
-        Matcher\InterfaceMethodChangedMatcher::class,
-        Matcher\MethodArgumentDroppedMatcher::class,
-        Matcher\MethodArgumentDroppedStaticMatcher::class,
-        Matcher\MethodArgumentRequiredMatcher::class,
-        Matcher\MethodArgumentUnusedMatcher::class,
-        Matcher\MethodCallMatcher::class,
-        Matcher\MethodCallStaticMatcher::class,
-        Matcher\PropertyProtectedMatcher::class,
-        Matcher\PropertyPublicMatcher::class,
-        Matcher\MethodAnnotationMatcher::class,
-        Matcher\MethodArgumentRequiredStaticMatcher::class,
-        Matcher\PropertyExistsStaticMatcher::class
+        [
+            Matcher\ArrayDimensionMatcher::class,
+            Matcher\ArrayGlobalMatcher::class,
+            Matcher\ClassConstantMatcher::class,
+            Matcher\ClassNameMatcher::class,
+            Matcher\ConstantMatcher::class,
+            Matcher\FunctionCallMatcher::class,
+            Matcher\InterfaceMethodChangedMatcher::class,
+            Matcher\MethodArgumentDroppedMatcher::class,
+            Matcher\MethodArgumentDroppedStaticMatcher::class,
+            Matcher\MethodArgumentRequiredMatcher::class,
+            Matcher\MethodArgumentUnusedMatcher::class,
+            Matcher\MethodCallMatcher::class,
+            Matcher\MethodCallStaticMatcher::class,
+            Matcher\PropertyProtectedMatcher::class,
+            Matcher\PropertyPublicMatcher::class,
+            Matcher\MethodAnnotationMatcher::class,
+            Matcher\MethodArgumentRequiredStaticMatcher::class,
+            Matcher\PropertyExistsStaticMatcher::class
+        ]
     )
 );
 

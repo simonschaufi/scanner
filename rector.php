@@ -24,8 +24,8 @@ return RectorConfig::configure()
         AddVoidReturnTypeWhereNoReturnRector::class,
     ])
     ->withSkip([
-        __DIR__ . '/src/Matcher',
+        __DIR__ . '/src/Php/Matcher',
         __DIR__ . '/src/Utility/GeneralUtility.php',
         __DIR__ . '/tests/Unit/Fixtures',
-        __DIR__ . '/tests/Unit/Matcher/Fixtures',
+        __DIR__ . '/tests/Unit/Php/Matcher/Fixtures',
     ]);
