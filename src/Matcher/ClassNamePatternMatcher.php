@@ -27,9 +27,9 @@ class ClassNamePatternMatcher extends AbstractCoreMatcher
 
     public function enterNode(Node $node): null
     {
-        if (!$node instanceof FullyQualified
-            || $this->isFileIgnored($node)
+        if ($this->isFileIgnored($node)
             || $this->isLineIgnored($node)
+            || !$node instanceof FullyQualified
         ) {
             return null;
         }
