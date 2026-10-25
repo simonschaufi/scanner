@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace M12R\Scanner\Domain\Model;
 
 class TheMatch
@@ -9,21 +11,16 @@ class TheMatch
     public const string TYPE_IMPORTANT = 'IMPORTANT';
     public const string TYPE_FEATURE = 'FEATURE';
 
-    private string $matcher;
-    private string|array $identifier;
-    private string $indicator;
-    private string $subject;
-    private string $message;
-    private int $line;
-    private string $type;
+    private readonly string|array $identifier;
+    private readonly string $type;
     private array $restFiles = [];
 
     public function __construct(
-        string $matcher,
-        string $indicator,
-        string $subject,
-        string $message,
-        int $line,
+        private readonly string $matcher,
+        private readonly string $indicator,
+        private readonly string $subject,
+        private readonly string $message,
+        private readonly int $line,
         string $type
     ) {
         $this->identifier = str_replace(
@@ -34,12 +31,6 @@ class TheMatch
                 true
             )
         );
-
-        $this->matcher = $matcher;
-        $this->indicator = $indicator;
-        $this->subject = $subject;
-        $this->message = $message;
-        $this->line = $line;
         $this->type = $this->validateType($type);
     }
 

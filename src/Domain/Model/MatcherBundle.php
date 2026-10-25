@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace M12R\Scanner\Domain\Model;
 
 use M12R\Scanner\Utility;
 
 class MatcherBundle
 {
-    private string $configurationPath;
-    private string $documentationPath;
-    private array $classNames;
-    private array $configuration;
+    private readonly string $configurationPath;
+    private readonly string $documentationPath;
+    private readonly array $classNames;
+    private readonly array $configuration;
 
     public function __construct(
         string $configurationPath,
@@ -22,7 +24,7 @@ class MatcherBundle
                 1507203231
             );
         }
-        if (empty($classNames)) {
+        if ($classNames === []) {
             throw new \RuntimeException(
                 'No matcher class names given',
                 1507203232

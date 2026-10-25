@@ -6,7 +6,7 @@ use M12R\Scanner\Utility;
 
 class DirectoryMatches extends \ArrayObject
 {
-    private string $path;
+    private readonly string $path;
 
     public function __construct(string $path, FileMatches ...$fileMatches)
     {

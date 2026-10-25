@@ -2,19 +2,17 @@
 
 namespace M12R\Scanner\Visitor;
 
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\NameResolver;
 use M12R\Scanner\CodeScannerInterface;
 use M12R\Scanner\Domain\Model\MatcherBundleCollection;
 use M12R\Scanner\Matcher\MatcherFactory;
+use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor\NameResolver;
 
 class TraverserFactory
 {
-    private MatcherFactory $matcherFactory;
-
-    public function __construct(MatcherFactory $matcherFactory)
-    {
-        $this->matcherFactory = $matcherFactory;
+    public function __construct(
+        private readonly MatcherFactory $matcherFactory
+    ) {
     }
 
     public function createTraverser(CodeScannerInterface ...$matchers): NodeTraverser
@@ -28,7 +26,6 @@ class TraverserFactory
     }
 
     /**
-     * @param MatcherBundleCollection $collection
      * @return CodeScannerInterface[]
      */
     public function createMatchers(MatcherBundleCollection $collection): array

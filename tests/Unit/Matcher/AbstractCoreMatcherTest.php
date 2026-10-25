@@ -30,7 +30,8 @@ class AbstractCoreMatcherTest extends TestCase
      * @skip
      */
     #[Test]
-    public function validateMatcherDefinitionsRunsFineWithProperDefinition()
+    #[\PHPUnit\Framework\Attributes\DoesNotPerformAssertions]
+    public function validateMatcherDefinitionsRunsFineWithProperDefinition(): never
     {
         $this->markTestSkipped('must be revisited.');
 
@@ -48,7 +49,7 @@ class AbstractCoreMatcherTest extends TestCase
     }
 
     #[Test]
-    public function validateMatcherDefinitionsThrowsIfRequiredArgIsNotInConfig()
+    public function validateMatcherDefinitionsThrowsIfRequiredArgIsNotInConfig(): never
     {
         $this->markTestSkipped('must be revisited.');
 
@@ -68,7 +69,7 @@ class AbstractCoreMatcherTest extends TestCase
     }
 
     #[Test]
-    public function validateMatcherDefinitionsThrowsWithMissingRestFiles()
+    public function validateMatcherDefinitionsThrowsWithMissingRestFiles(): never
     {
         $this->markTestSkipped('must be revisited.');
 
@@ -85,7 +86,7 @@ class AbstractCoreMatcherTest extends TestCase
     }
 
     #[Test]
-    public function validateMatcherDefinitionsThrowsWithEmptySingleRestFile()
+    public function validateMatcherDefinitionsThrowsWithEmptySingleRestFile(): never
     {
         $this->markTestSkipped('must be revisited.');
 
@@ -105,7 +106,7 @@ class AbstractCoreMatcherTest extends TestCase
     }
 
     #[Test]
-    public function initializeMethodNameArrayThrowsWithInvalidKeys()
+    public function initializeMethodNameArrayThrowsWithInvalidKeys(): never
     {
         $this->markTestSkipped('must be revisited.');
 

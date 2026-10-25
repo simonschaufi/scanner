@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
 class InterfaceMethodChangedMatcherTest extends TestCase
 {
     #[Test]
-    public function hitsFromFixtureAreFound()
+    public function hitsFromFixtureAreFound(): void
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $fixtureFile = __DIR__ . '/Fixtures/InterfaceMethodChangedMatcherFixture.php';

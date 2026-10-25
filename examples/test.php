@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use M12R\Scanner\Domain\Model\MatcherBundleCollection;
 use M12R\Scanner\Matcher;
 use M12R\Scanner\ScannerFactory;
@@ -33,8 +35,7 @@ $collection = new MatcherBundleCollection(
     )
 );
 
-$scanner = ScannerFactory::create()
-    ->createFor(\PhpParser\ParserFactory::PREFER_PHP7);
+$scanner = ScannerFactory::create()->createFor();
 
 // clone news extension into examples directory to test it
 // `git clone https://github.com/georgringer/news.git`

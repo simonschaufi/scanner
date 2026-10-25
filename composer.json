@@ -27,7 +27,9 @@
 	},
 	"require-dev": {
 		"ergebnis/composer-normalize": "^2.54",
-		"phpunit/phpunit": "^12.5"
+		"phpunit/phpunit": "^12.5",
+		"rector/rector": "^2.7",
+		"symplify/easy-coding-standard": "^13.3"
 	},
 	"autoload": {
 		"psr-4": {

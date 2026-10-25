@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 class CodeStatisticsTest extends TestCase
 {
     #[Test]
-    public function enterNodeSumsStatistics()
+    public function enterNodeSumsStatistics(): void
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $fixtureFile = __DIR__ . '/Fixtures/CodeStatisticsFixture.php';

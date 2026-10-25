@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
 class FunctionCallMatcherTest extends TestCase
 {
     #[Test]
-    public function hitsFromFixtureAreFound()
+    public function hitsFromFixtureAreFound(): void
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $fixtureFile = __DIR__ . '/Fixtures/FunctionCallMatcherFixture.php';
@@ -63,7 +63,7 @@ class FunctionCallMatcherTest extends TestCase
     }
 
     #[Test]
-    public function matchIsIgnoredIfIgnoreFileIsSet()
+    public function matchIsIgnoredIfIgnoreFileIsSet(): void
     {
         $phpCode = <<<'EOC'
 <?php

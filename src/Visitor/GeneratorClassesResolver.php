@@ -63,13 +63,13 @@ class GeneratorClassesResolver extends NodeVisitorAbstract
         ) {
             $argValue = $node->args[0]->value;
             $argAlternative = $this->substituteClassString($argValue);
-            if ($argAlternative !== null) {
+            if ($argAlternative instanceof \PhpParser\Node\Expr\ClassConstFetch) {
                 $node->args[0]->value = $argAlternative;
                 $argValue = $argAlternative;
             }
 
             $nodeAlternative = $this->substituteMakeInstance($node, $argValue);
-            if ($nodeAlternative !== null) {
+            if ($nodeAlternative instanceof \PhpParser\Node\Expr\New_) {
                 $node->setAttribute(AbstractCoreMatcher::NODE_RESOLVED_AS, $nodeAlternative);
             }
         }

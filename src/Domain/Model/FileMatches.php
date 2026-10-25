@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace M12R\Scanner\Domain\Model;
 
 class FileMatches extends \ArrayObject
 {
-    private string $path;
-
-    public function __construct(string $path, TheMatch ...$matches)
-    {
+    public function __construct(
+        private readonly string $path,
+        TheMatch ...$matches
+    ) {
         parent::__construct($matches);
-        $this->path = $path;
     }
 
     public function getPath(): string

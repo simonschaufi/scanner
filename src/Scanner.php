@@ -1,23 +1,19 @@
 <?php
+
 namespace M12R\Scanner;
 
+use M12R\Scanner\Domain\Model\DirectoryMatches;
+use M12R\Scanner\Domain\Model\FileMatches;
+use M12R\Scanner\Domain\Model\MatcherBundleCollection;
+use M12R\Scanner\Domain\Model\TheMatch;
+use M12R\Scanner\Visitor\TraverserFactory;
 use PhpParser\Error;
 use PhpParser\Parser;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use M12R\Scanner\Domain\Model\DirectoryMatches;
-use M12R\Scanner\Domain\Model\FileMatches;
-use M12R\Scanner\Domain\Model\TheMatch;
-use M12R\Scanner\Domain\Model\MatcherBundleCollection;
-use M12R\Scanner\Matcher\AbstractCoreMatcher;
-use M12R\Scanner\Visitor\TraverserFactory;
 
 class Scanner
 {
-    private $finder;
-    private $parser;
-    private $traverserFactory;
-
     /**
      * @var array
      */
@@ -29,13 +25,10 @@ class Scanner
     ];
 
     public function __construct(
-        Finder $finder,
-        Parser $parser,
-        TraverserFactory $traverserFactory
+        private readonly Finder $finder,
+        private readonly Parser $parser,
+        private readonly TraverserFactory $traverserFactory
     ) {
-        $this->finder = $finder;
-        $this->parser = $parser;
-        $this->traverserFactory = $traverserFactory;
     }
 
     public function scanPath(
@@ -101,19 +94,15 @@ class Scanner
     private function buildMatches(CodeScannerInterface ...$matchers): array
     {
         $matcherMatches = array_map(
-            static function (CodeScannerInterface $matcher) {
-                return array_map(
-                    static function (array $result) use ($matcher) {
-                        return array_merge(
-                            [
-                                'matcher' => get_class($matcher),
-                            ],
-                            $result
-                        );
-                    },
-                    $matcher->getMatches()
-                );
-            },
+            static fn (CodeScannerInterface $matcher) => array_map(
+                static fn (array $result) => array_merge(
+                    [
+                        'matcher' => $matcher::class,
+                    ],
+                    $result
+                ),
+                $matcher->getMatches()
+            ),
             $matchers
         );
 
@@ -125,7 +114,7 @@ class Scanner
                 $match = new TheMatch(
                     $result['matcher'],
                     $result['indicator'],
-                    isset($result['subject']) ? $result['subject'] : '',
+                    $result['subject'] ?? '',
                     $result['message'],
                     $result['line'],
                     !empty($type) ? $type : TheMatch::TYPE_IMPORTANT
@@ -144,7 +133,7 @@ class Scanner
         Error $error
     ): FileMatches {
         $match = new TheMatch(
-            get_class($error),
+            $error::class,
             'impossible',
             $file,
             $error->getMessage(),

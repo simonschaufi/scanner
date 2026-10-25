@@ -32,7 +32,7 @@ use PHPUnit\Framework\TestCase;
 class MethodCallMatcherTest extends TestCase
 {
     #[Test]
-    public function hitsFromFixtureAreFound()
+    public function hitsFromFixtureAreFound(): void
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $fixtureFile = __DIR__ . '/Fixtures/MethodCallMatcherFixture.php';
@@ -67,7 +67,7 @@ class MethodCallMatcherTest extends TestCase
     }
 
     #[Test]
-    public function matchIsIgnoredIfIgnoreFileIsSet()
+    public function matchIsIgnoredIfIgnoreFileIsSet(): void
     {
         $phpCode = <<<'EOC'
 <?php
@@ -106,7 +106,7 @@ EOC;
     }
 
     #[Test]
-    public function dynamicMethodCallIsNoMatch()
+    public function dynamicMethodCallIsNoMatch(): void
     {
         $phpCode = <<<'EOC'
 <?php
@@ -343,7 +343,7 @@ EOC;
 
     #[Test]
     #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
-    public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected)
+    public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected): void
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
         $statements = $parser->parse($phpCode);

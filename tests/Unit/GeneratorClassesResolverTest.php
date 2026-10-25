@@ -28,7 +28,7 @@ use PHPUnit\Framework\TestCase;
 class GeneratorClassesResolverTest extends TestCase
 {
     #[Test]
-    public function visitorCreatesFullyQualifiedNameFromStringArgumentInMakeInstance()
+    public function visitorCreatesFullyQualifiedNameFromStringArgumentInMakeInstance(): void
     {
         $phpCode = <<<'EOC'
 <?php
@@ -49,7 +49,7 @@ EOC;
     }
 
     #[Test]
-    public function visitorDoesNotTransformDynamicallyCreatesFullyQualifiedNameFromStringArgumentInMakeInstance()
+    public function visitorDoesNotTransformDynamicallyCreatesFullyQualifiedNameFromStringArgumentInMakeInstance(): void
     {
         $phpCode = <<<'EOC'
 <?php
