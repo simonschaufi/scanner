@@ -22,7 +22,6 @@ class TheMatch
     public function __construct(
         private readonly string $matcher,
         private readonly string $indicator,
-        private readonly string $subject,
         private readonly string $message,
         private readonly int $line,
         string $type
@@ -56,11 +55,6 @@ class TheMatch
     public function getIndicator(): string
     {
         return $this->indicator;
-    }
-
-    public function getSubject(): string
-    {
-        return $this->subject;
     }
 
     public function getMessage(): string

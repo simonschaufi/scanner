@@ -118,7 +118,6 @@ class Scanner
                 $match = new TheMatch(
                     $result['matcher'],
                     $result['indicator'],
-                    $result['subject'] ?? '',
                     $result['message'],
                     $result['line'],
                     !empty($type) ? $type : TheMatch::TYPE_IMPORTANT
@@ -139,7 +138,6 @@ class Scanner
         $match = new TheMatch(
             $error::class,
             'impossible',
-            $file,
             $error->getMessage(),
             $error->getStartLine(),
             TheMatch::TYPE_BREAKING

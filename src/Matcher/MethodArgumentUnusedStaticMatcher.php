@@ -64,7 +64,6 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                             $this->matches[] = [
                                 'restFiles' => $this->matcherDefinitions[$fqdnClassWithMethod]['restFiles'],
                                 'line' => $node->getAttribute('startLine'),
-                                'subject' => $node->name->name,
                                 'message' => 'Call to method "' . $node->name->name . '()" with'
                                     . ' argument ' . $droppedArgumentNumber . ' not given as null.',
                                 'indicator' => 'strong',
@@ -95,7 +94,6 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                             && !($argument->value instanceof ConstFetch)
                         ) {
                             $isPossibleMatch = true;
-                            $match['subject'] = $node->name->name;
                             $match['message'] = 'Call to method "' . $node->name->name . '()" with'
                                 . ' argument ' . $droppedArgumentNumber . ' not given as null.';
                             $match['restFiles'] = array_unique(array_merge($match['restFiles'], $candidate['restFiles']));
