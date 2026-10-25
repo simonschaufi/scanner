@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+
 use M12R\Scanner\Php\Matcher\MethodArgumentUnusedMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
@@ -26,15 +26,12 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class MethodArgumentUnusedMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/MethodArgumentUnusedMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -43,7 +40,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
 
         $configuration = [
             'TYPO3\CMS\Core\Html\RteHtmlParser->RTE_transform' => [
-                'unusedArgumentNumbers' => [2],
+                'unusedArgumentNumbers' => [ 2 ],
                 'restFiles' => [
                     'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
                     'Deprecation-79341-MethodsRelatedToRichtextConfiguration.rst',
@@ -54,33 +51,31 @@ class MethodArgumentUnusedMatcherTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
         $expectedHitLineNumbers = [
-            26,
-            27,
+            28,
+            29,
+            47,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {
             $actualHitLineNumbers[] = $hit['line'];
         }
-        $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+        self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 
-    /**
-     * @return array
-     */
-    public static function matchesReturnsExpectedRestFilesDataProvider()
+    public static function matchesReturnsExpectedRestFilesDataProvider(): array
     {
         return [
             'two rest candidates with same number of arguments' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [1],
+                        'unusedArgumentNumbers' => [ 1 ],
                         'restFiles' => [
                             'Foo-1.rst',
                             'Foo-2.rst',
                         ],
                     ],
                     'Bar->aMethod' => [
-                        'unusedArgumentNumbers' => [1],
+                        'unusedArgumentNumbers' => [ 1 ],
                         'restFiles' => [
                             'Bar-1.rst',
                             'Bar-2.rst',
@@ -103,13 +98,13 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'two candidates, multiple matches' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [1, 2],
+                        'unusedArgumentNumbers' => [ 1, 2 ],
                         'restFiles' => [
                             'Foo-1.rst',
                         ],
                     ],
                     'Bar->aMethod' => [
-                        'unusedArgumentNumbers' => [3],
+                        'unusedArgumentNumbers' => [ 3 ],
                         'restFiles' => [
                             'Bar-1.rst',
                         ],
@@ -129,7 +124,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'one candidate, no hit, not enough arguments' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [2, 3],
+                        'unusedArgumentNumbers' => [ 2, 3 ],
                         'restFiles' => [
                             'Foo-1.rst',
                         ],
@@ -142,7 +137,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'one candidate, no hit, given as null is ok' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [2, 3],
+                        'unusedArgumentNumbers' => [ 2, 3 ],
                         'restFiles' => [
                             'Foo-1.rst',
                         ],
@@ -152,10 +147,22 @@ class MethodArgumentUnusedMatcherTest extends TestCase
                 $someVar->aMethod(\'arg1\', null, null);',
                 [], // no hit
             ],
+            'boolean constant in unused argument is reported' => [
+                [
+                    'Foo->aMethod' => [
+                        'unusedArgumentNumbers' => [2],
+                        'restFiles' => ['Foo-1.rst'],
+                    ],
+                ],
+                '<?php $someVar->aMethod("arg1", true);',
+                [
+                    ['restFiles' => ['Foo-1.rst']],
+                ],
+            ],
             'one match, third argument still given not null' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [2, 3],
+                        'unusedArgumentNumbers' => [ 2, 3 ],
                         'restFiles' => [
                             'aRest.rst',
                         ],
@@ -174,7 +181,7 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'no match, scanning ignored as soon as argument unpacking is used' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [1, 3],
+                        'unusedArgumentNumbers' => [ 1, 3 ],
                         'restFiles' => [
                             'Foo-1.rst',
                         ],
@@ -190,13 +197,13 @@ class MethodArgumentUnusedMatcherTest extends TestCase
             'double linked .rst file is returned only once' => [
                 [
                     'Foo->aMethod' => [
-                        'unusedArgumentNumbers' => [1],
+                        'unusedArgumentNumbers' => [ 1 ],
                         'restFiles' => [
                             'aRest.rst',
                         ],
                     ],
                     'Bar->aMethod' => [
-                        'unusedArgumentNumbers' => [1],
+                        'unusedArgumentNumbers' => [ 1 ],
                         'restFiles' => [
                             'aRest.rst',
                         ],
@@ -212,14 +219,28 @@ class MethodArgumentUnusedMatcherTest extends TestCase
                     ],
                 ],
             ],
+            // Regression test for issue #108413: dynamic method calls must not crash
+            'no match for dynamic method call with method call expression' => [
+                [
+                    'Foo->aMethod' => [
+                        'unusedArgumentNumbers' => [ 1, 2 ],
+                        'restFiles' => [
+                            'Foo-1.rst',
+                        ],
+                    ],
+                ],
+                '<?php
+                $someVar->{$this->getMethod()}("arg1", "arg2");',
+                [], // no match, must not crash
+            ],
         ];
     }
 
-    #[Test]
     #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
+    #[Test]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $statements = $parser->parse($phpCode);
 
         $subject = new MethodArgumentUnusedMatcher($configuration);
@@ -230,9 +251,9 @@ class MethodArgumentUnusedMatcherTest extends TestCase
 
         $result = $subject->getMatches();
         if (isset($expected[0], $result[0])) {
-            $this->assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
+            self::assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
         } else {
-            $this->assertEquals($expected, $result);
+            self::assertEquals($expected, $result);
         }
     }
 }

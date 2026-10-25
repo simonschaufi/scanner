@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -24,7 +24,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class MethodArgumentDroppedStaticMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Match: getFileAbsFileName() uses one argument only
         \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('foo', 'bar');
@@ -42,5 +42,9 @@ class MethodArgumentDroppedStaticMatcherFixture
         $foo::getFileAbsFileName(...$args1, ...$args2);
         // @extensionScannerIgnoreLine
         $foo::getFileAbsFileName('foo', 'bar');
+        // Match (again). No longer ignored.
+        \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('foo', 'bar');
+        // No match: First-class callable syntax, there are no arguments to count
+        GeneralUtility::getFileAbsFileName(...);
     }
 }

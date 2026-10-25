@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+
 use M12R\Scanner\Php\Matcher\PropertyAnnotationMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
@@ -25,15 +25,12 @@ use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class PropertyAnnotationMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/PropertyAnnotationMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -52,12 +49,12 @@ class PropertyAnnotationMatcherTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
         $expectedHitLineNumbers = [
-            26,
+            28,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {
             $actualHitLineNumbers[] = $hit['line'];
         }
-        $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+        self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 }

@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,12 +15,14 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 /**
  * Fixture file
  */
 class ArrayGlobalMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Match
         $GLOBALS['TYPO3_DB'];
@@ -33,6 +33,12 @@ class ArrayGlobalMatcherFixture
         // No match
         $GLOBALS['FOO'];
         $foo['TYPO3_DB'];
+        // @extensionScannerIgnoreLine
+        $GLOBALS['TYPO3_DB'];
+
+        // Match (again). No longer ignored.
+        $GLOBALS['TYPO3_DB'];
+        // Ignore match (again).
         // @extensionScannerIgnoreLine
         $GLOBALS['TYPO3_DB'];
     }

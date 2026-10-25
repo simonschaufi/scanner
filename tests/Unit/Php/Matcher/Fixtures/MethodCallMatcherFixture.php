@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,19 +15,21 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 /**
  * Fixture file
  */
 class MethodCallMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Match: confirmMsg() needs at least 4 args
         $foo->confirmMsg('arg1', 'arg2', 'arg3', 'arg4');
         // Match: confirmMsg() can be called with 5 args (1 optional)
         $foo->confirmMsg('arg1', 'arg2', 'arg3', 'arg4', 'arg5');
         // Match: With argument unpacking we don't know how many args are actually given
-        $args = ['arg1', 'arg2'];
+        $args = [ 'arg1', 'arg2' ];
         $foo->confirmMsg(...$args);
         // Match: Too many args but some could be empty arrays
         $foo->confirmMsg(...$arg1, ...$arg2, ...$arg3, ...$arg4, ...$arg5, ...$arg6);
@@ -58,8 +58,7 @@ class MethodCallMatcherFixture
         $foo->confirmMsg('arg1', 'arg2', 'arg3', 'arg4', 'arg5');
         // @extensionScannerIgnoreLine
         $bar->bar($foo->confirmMsg('arg1', 'arg2', 'arg3', 'arg4', 'arg5'));
-        // No match: dynamic method call, only the variable is named like the method
-        $confirmMsg = 'aDifferentMethod';
-        $foo->$confirmMsg('arg1', 'arg2', 'arg3', 'arg4');
+        // Match (again). No longer ignored.
+        $foo->confirmMsg('arg1', 'arg2', 'arg3', 'arg4');
     }
 }

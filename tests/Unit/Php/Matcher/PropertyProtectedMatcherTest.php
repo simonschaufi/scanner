@@ -26,15 +26,12 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class PropertyProtectedMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/PropertyProtectedMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -53,19 +50,17 @@ class PropertyProtectedMatcherTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
         $expectedHitLineNumbers = [
-            26,
+            28,
+            49,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {
             $actualHitLineNumbers[] = $hit['line'];
         }
-        $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+        self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 
-    /**
-     * @return array
-     */
-    public static function matchesReturnsExpectedRestFilesDataProvider()
+    public static function matchesReturnsExpectedRestFilesDataProvider(): array
     {
         return [
             'two candidates' => [
@@ -99,13 +94,13 @@ class PropertyProtectedMatcherTest extends TestCase
             'double linked .rst file is returned only once' => [
                 [
                     'Foo->aProperty' => [
-                        'unusedArgumentNumbers' => [1],
+                        'unusedArgumentNumbers' => [ 1 ],
                         'restFiles' => [
                             'aRest.rst',
                         ],
                     ],
                     'Bar->aProperty' => [
-                        'unusedArgumentNumbers' => [1],
+                        'unusedArgumentNumbers' => [ 1 ],
                         'restFiles' => [
                             'aRest.rst',
                         ],
@@ -124,11 +119,11 @@ class PropertyProtectedMatcherTest extends TestCase
         ];
     }
 
-    #[Test]
     #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
+    #[Test]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $statements = $parser->parse($phpCode);
 
         $subject = new PropertyProtectedMatcher($configuration);
@@ -138,6 +133,6 @@ class PropertyProtectedMatcherTest extends TestCase
         $traverser->traverse($statements);
 
         $result = $subject->getMatches();
-        $this->assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
+        self::assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
     }
 }

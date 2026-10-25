@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+
 use M12R\Scanner\Php\Matcher\ArrayDimensionMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
@@ -26,15 +26,12 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
-class ArrayDimensionMatcherTest extends TestCase
+final class ArrayDimensionMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/ArrayDimensionMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -53,8 +50,9 @@ class ArrayDimensionMatcherTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
         $expectedHitLineNumbers = [
-            26,
-            27,
+            28,
+            29,
+            40,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {
@@ -97,13 +95,13 @@ class ArrayDimensionMatcherTest extends TestCase
             'double linked .rst file is returned only once' => [
                 [
                     '$foo[\'bar\'][\'findMe\']' => [
-                        'unusedArgumentNumbers' => [1],
+                        'unusedArgumentNumbers' => [ 1 ],
                         'restFiles' => [
                             'aRest.rst',
                         ],
                     ],
                     '$foo[\'findMe\']' => [
-                        'unusedArgumentNumbers' => [1],
+                        'unusedArgumentNumbers' => [ 1 ],
                         'restFiles' => [
                             'aRest.rst',
                         ],
@@ -122,11 +120,11 @@ class ArrayDimensionMatcherTest extends TestCase
         ];
     }
 
-    #[Test]
     #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
+    #[Test]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $statements = $parser->parse($phpCode);
 
         $subject = new ArrayDimensionMatcher($configuration);

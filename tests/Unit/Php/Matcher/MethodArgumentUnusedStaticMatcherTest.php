@@ -25,15 +25,12 @@ use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class MethodArgumentUnusedStaticMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/MethodArgumentUnusedStaticMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -52,13 +49,13 @@ class MethodArgumentUnusedStaticMatcherTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
         $expectedHitLineNumbers = [
-            27,
-            33,
+            29,
+            35,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {
             $actualHitLineNumbers[] = $hit['line'];
         }
-        $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+        self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 }

@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,12 +15,14 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 /**
  * Fixture file
  */
 class MethodArgumentDroppedMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Match: euc_char_mapping() shouldn't be called with more than 2 args
         $foo->euc_char_mapping('arg1', 'arg2', 'arg3');
@@ -32,16 +32,18 @@ class MethodArgumentDroppedMatcherFixture
         // No match: Static call
         $foo::euc_char_mapping('arg1', 'arg2', 'arg3');
         // No match: With argument unpacking we don't know how many args are actually given
-        $args = ['arg1', 'arg2', 'arg3'];
+        $args = [ 'arg1', 'arg2', 'arg3' ];
         $foo->euc_char_mapping(...$args);
         // No match: Too many args, but with argument unpacking we don't know about empty arrays
-        $args1 = ['arg1', 'arg2', 'arg3'];
-        $args2 = ['arg4', 'arg5', 'arg6'];
-        $args3 = ['arg7', 'arg8', 'arg9'];
+        $args1 = [ 'arg1', 'arg2', 'arg3' ];
+        $args2 = [ 'arg4', 'arg5', 'arg6' ];
+        $args3 = [ 'arg7', 'arg8', 'arg9' ];
         $foo->euc_char_mapping(...$args1, ...$args2, ...$args3);
         // No match: Only 2 args given is ok
         $foo->euc_char_mapping('arg1', 'arg2');
         // @extensionScannerIgnoreLine
+        $foo->euc_char_mapping('arg1', 'arg2', 'arg3');
+        // Match (again). No longer ignored.
         $foo->euc_char_mapping('arg1', 'arg2', 'arg3');
     }
 }

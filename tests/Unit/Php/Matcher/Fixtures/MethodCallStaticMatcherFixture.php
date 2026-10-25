@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
@@ -24,21 +24,20 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  */
 class MethodCallStaticMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Matches
         BackendUtility::getAjaxUrl();
-        // Match: getAjaxUrl() is called statitally here and 1 mandatory argument is given
+        // Match: getAjaxUrl() is called statically here and 1 mandatory argument is given
         $foo::getAjaxUrl('bar');
 
         // No match
         $foo->getAjaxUrl();
-        // No match: Dynamycally called even if argument is given
+        // No match: Dynamically called even if argument is given
         $foo->getAjaxUrl('bar');
         // @extensionScannerIgnoreLine
         $foo::getAjaxUrl('bar');
-        // No match: dynamic static call, only the variable is named like the method
-        $getAjaxUrl = 'aDifferentMethod';
-        BackendUtility::$getAjaxUrl('bar');
+        // Match (again). No longer ignored.
+        BackendUtility::getAjaxUrl();
     }
 }

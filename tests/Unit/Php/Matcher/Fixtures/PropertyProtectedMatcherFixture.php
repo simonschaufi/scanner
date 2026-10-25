@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,12 +15,14 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 /**
  * Fixture file
  */
 class PropertyProtectedMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Match
         $foo->recUpdateAccessCache;
@@ -44,6 +44,8 @@ class PropertyProtectedMatcherFixture
         static::$foo;
         static::$foo();
         // @extensionScannerIgnoreLine
+        $foo->recUpdateAccessCache;
+        // Match (again). No longer ignored.
         $foo->recUpdateAccessCache;
     }
 }

@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,12 +15,14 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 /**
  * Fixture file
  */
 class MethodArgumentRequiredMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Match: searchWhere() needs at least 3 arguments
         $foo->searchWhere('arg1', 'arg2');
@@ -43,5 +43,7 @@ class MethodArgumentRequiredMatcherFixture
         $foo::searchWhere('arg1', 'arg2', 'arg3', 'arg4', 'arg5');
         // @extensionScannerIgnoreLine
         $this->searchWhere('arg1', 'arg2');
+        // Match (again). No longer ignored.
+        \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('foo', 'bar');
     }
 }

@@ -1,0 +1,123 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
+namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+
+use M12R\Scanner\Php\Matcher\ConstructorArgumentMatcher;
+use M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures\Subject;
+use M12R\Scanner\Visitor\GeneratorClassesResolver;
+use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor\NameResolver;
+use PhpParser\ParserFactory;
+use PhpParser\PhpVersion;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
+
+final class ConstructorArgumentMatcherTest extends TestCase
+{
+    public static function hitsFromFixtureAreFoundDataProvider(): array
+    {
+        $defaults = [
+            'restFiles' => [
+                'Breaking-87193-DeprecatedFunctionalityRemoved.rst',
+            ],
+        ];
+
+        return [
+            'required' => [
+                [
+                    'required' => array_merge($defaults, [
+                        'numberOfMandatoryArguments' => 4,
+                    ]),
+                ],
+                [34, 35, 36, 37, 44, 45],
+            ],
+            'dropped' => [
+                [
+                    'dropped' => array_merge($defaults, [
+                        'maximumNumberOfArguments' => 2,
+                    ]),
+                ],
+                [34, 35, 36, 37, 44, 45],
+            ],
+            'called' => [
+                [
+                    'called' => array_merge($defaults, [
+                        'numberOfMandatoryArguments' => 1,
+                        'maximumNumberOfArguments' => 3,
+                    ]),
+                ],
+                [34, 35, 36, 37, 44, 45],
+            ],
+            'unused' => [
+                [
+                    'unused' => array_merge($defaults, [
+                        'unusedArgumentNumbers' => [2],
+                    ]),
+                ],
+                [34, 35, 36, 37],
+            ],
+        ];
+    }
+
+    #[DataProvider('hitsFromFixtureAreFoundDataProvider')]
+    #[Test]
+    public function hitsFromFixtureAreFound(array $configuration, array $expectation): void
+    {
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
+        $fixtureFile = __DIR__ . '/Fixtures/ConstructorArgumentMatcherFixture.php';
+        $statements = $parser->parse(file_get_contents($fixtureFile));
+
+        // first process completely to resolve fully qualified names of arguments
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new NameResolver());
+        $statements = $traverser->traverse($statements);
+
+        // second process to actually work on the pre-resolved statements
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new GeneratorClassesResolver());
+        $subject = new ConstructorArgumentMatcher([
+            Subject::class => $configuration,
+        ]);
+        $traverser->addVisitor($subject);
+        $traverser->traverse($statements);
+
+        $lineNumbers = array_column($subject->getMatches(), 'line');
+        self::assertEquals($expectation, $lineNumbers);
+    }
+
+    #[Test]
+    public function nonNullConstantInUnusedConstructorArgumentIsReported(): void
+    {
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
+        $statements = $parser->parse('<?php new \\M12R\\Scanner\\Tests\\Unit\\Php\\Matcher\\Fixtures\\Subject("a", false);');
+        $subject = new ConstructorArgumentMatcher([
+            Subject::class => [
+                'unused' => [
+                    'unusedArgumentNumbers' => [2],
+                    'restFiles' => ['Foo-1.rst'],
+                ],
+            ],
+        ]);
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor($subject);
+        $traverser->traverse($statements);
+
+        self::assertCount(1, $subject->getMatches());
+    }
+}

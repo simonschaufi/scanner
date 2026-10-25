@@ -39,7 +39,7 @@ class ArrayMatcherFixture
             ],
         ];
 
-        $someVar = [
+        $someOtherVar = [
             'oneMoreThing' => [
                 'ctrl' => [
                     'delete' => 'deleted',

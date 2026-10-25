@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -24,7 +24,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  */
 class MethodArgumentRequiredStaticMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Match: addNavigationComponent() uses less than three arguments
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addNavigationComponent('foo', 'bar');
@@ -40,7 +40,10 @@ class MethodArgumentRequiredStaticMatcherFixture
         // No match: All needed args are given
         $foo::addNavigationComponent('foo', 'bar', 'baz');
         $foo::addNavigationComponent(...'foo');
+        // No match: First-class callable syntax, there are no arguments to count
+        ExtensionManagementUtility::addNavigationComponent(...);
         // @extensionScannerIgnoreLine
         ExtensionManagementUtility::addNavigationComponent('foo', 'bar');
+        // Match (again). No longer ignored.
     }
 }

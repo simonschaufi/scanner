@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+
 use M12R\Scanner\Php\Matcher\MethodCallMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
@@ -26,15 +26,12 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class MethodCallMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/MethodCallMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -58,12 +55,13 @@ class MethodCallMatcherTest extends TestCase
             30,
             33,
             35,
+            62,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {
             $actualHitLineNumbers[] = $hit['line'];
         }
-        $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+        self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 
     #[Test]
@@ -85,7 +83,7 @@ class foo
 }
 EOC;
 
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $statements = $parser->parse($phpCode);
 
         $traverser = new NodeTraverser();
@@ -102,49 +100,30 @@ EOC;
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
 
-        $this->assertEmpty($subject->getMatches());
-    }
-
-    #[Test]
-    public function dynamicMethodCallIsNoMatch(): void
-    {
-        $phpCode = <<<'EOC'
-<?php
-class foo
-{
-    public function aTest()
-    {
-        // No match: the variable is named like the deprecated method,
-        // the actually called method is a different one.
-        $confirmMsg = 'aDifferentMethod';
-        $foo->$confirmMsg('arg1', 'arg2', 'arg3', 'arg4');
-    }
-}
-EOC;
-
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
-        $statements = $parser->parse($phpCode);
-
-        $traverser = new NodeTraverser();
-        $configuration = [
-            'TYPO3\CMS\Backend\Clipboard\Clipboard->confirmMsg' => [
-                'numberOfMandatoryArguments' => 4,
-                'maximumNumberOfArguments' => 5,
-                'restFiles' => [
-                    'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
-                ],
-            ],
-        ];
-        $subject = new MethodCallMatcher($configuration);
-        $traverser->addVisitor($subject);
-        $traverser->traverse($statements);
-
-        $this->assertEmpty($subject->getMatches());
+        self::assertEmpty($subject->getMatches());
     }
 
     public static function matchesReturnsExpectedRestFilesDataProvider(): array
     {
         return [
+            'removed protected SetRegistry method called from a subclass' => [
+                require dirname(__DIR__, 4) . '/config/Matcher/v14/MethodCallMatcher.php',
+                '<?php
+                class CustomSetRegistry extends \TYPO3\CMS\Core\Site\Set\SetRegistry
+                {
+                    public function usesBase(): bool
+                    {
+                        return $this->hasDependency(["vendor/addon"], "vendor/base");
+                    }
+                }',
+                [
+                    [
+                        'restFiles' => [
+                            'Breaking-111156-SiteSetsFollowTheOrderASiteDeclares.rst',
+                        ],
+                    ],
+                ],
+            ],
             'two rest candidates with same number of arguments' => [
                 [
                     'Foo->aMethod' => [
@@ -338,14 +317,45 @@ EOC;
                     ],
                 ],
             ],
+            // Regression test for issue #108413: dynamic method calls must not crash
+            'no match for dynamic method call with method call expression' => [
+                [
+                    'Foo->aMethod' => [
+                        'numberOfMandatoryArguments' => 0,
+                        'maximumNumberOfArguments' => 2,
+                        'restFiles' => [
+                            'Foo-1.rst',
+                        ],
+                    ],
+                ],
+                '<?php
+                $someVar->{$this->getMethod()}();',
+                [], // no match, must not crash
+            ],
+            // Regression test for issue #108413: $object->$var() syntax must not crash
+            'no match for dynamic method call with variable' => [
+                [
+                    'Foo->aMethod' => [
+                        'numberOfMandatoryArguments' => 0,
+                        'maximumNumberOfArguments' => 2,
+                        'restFiles' => [
+                            'Foo-1.rst',
+                        ],
+                    ],
+                ],
+                '<?php
+                $methodName = "someMethod";
+                $someVar->$methodName();',
+                [], // no match, must not crash
+            ],
         ];
     }
 
-    #[Test]
     #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
+    #[Test]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $statements = $parser->parse($phpCode);
 
         $subject = new MethodCallMatcher($configuration);
@@ -356,9 +366,9 @@ EOC;
 
         $result = $subject->getMatches();
         if (isset($expected[0], $result[0])) {
-            $this->assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
+            self::assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
         } else {
-            $this->assertEquals($expected, $result);
+            self::assertEquals($expected, $result);
         }
     }
 }

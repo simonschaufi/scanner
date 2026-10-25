@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,12 +15,14 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 /**
  * Fixture file
  */
 class MethodArgumentUnusedMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Match: RTE_transform() should have arg2 as null if given
         $foo->RTE_transform('arg1', 'arg2');
@@ -34,14 +34,16 @@ class MethodArgumentUnusedMatcherFixture
         // No match: Static call
         $foo::RTE_transform('arg1', 'arg2', 'arg3');
         // No match: With argument unpacking we don't know how many args are actually given
-        $args = ['arg1', 'arg2', 'arg3'];
+        $args = [ 'arg1', 'arg2', 'arg3' ];
         $foo->RTE_transform(...$args);
         // No match: Too many args, but with argument unpacking we don't know about empty arrays
-        $args1 = ['arg1', 'arg2', 'arg3'];
-        $args2 = ['arg4', 'arg5', 'arg6'];
-        $args3 = ['arg7', 'arg8', 'arg9'];
+        $args1 = [ 'arg1', 'arg2', 'arg3' ];
+        $args2 = [ 'arg4', 'arg5', 'arg6' ];
+        $args3 = [ 'arg7', 'arg8', 'arg9' ];
         $foo->RTE_transform(...$args1, ...$args2, ...$args3);
         // @extensionScannerIgnoreLine
+        $foo->RTE_transform('arg1', 'arg2');
+        // Match (again). No longer ignored.
         $foo->RTE_transform('arg1', 'arg2');
     }
 }

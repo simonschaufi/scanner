@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 use TYPO3\CMS\Backend\Console\Application;
 use TYPO3\CMS\Backend\Console\Application as App1;
 use TYPO3\CMS\Backend\Console\Application as App2;
@@ -29,7 +29,7 @@ use TYPO3\CMS\Backend\Console as Con2;
  */
 class ClassNameMatcherFixture extends App2 implements App3, Con\Application
 {
-    public function aMethod(Con2\Application $app)
+    public function aMethod(Con2\Application $app): void
     {
         // Matches
         $foo = new \RemoveXSS();
@@ -55,5 +55,8 @@ class ClassNameMatcherFixture extends App2 implements App3, Con\Application
         \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\\TYPO3\CMS\Backend\Console\Application')->foo();
         // @extensionScannerIgnoreLine
         $bar = \RemoveXSS::class;
+
+        // Match (again). No longer ignored.
+        $foo = new \RemoveXSS();
     }
 }

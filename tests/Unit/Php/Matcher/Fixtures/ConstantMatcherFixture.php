@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,12 +15,14 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 /**
  * Fixture file
  */
 class ConstantMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Matches
         $foo = TYPO3_DLOG;
@@ -30,6 +30,9 @@ class ConstantMatcherFixture
         // No match
         $foo = \My\Project\AClass::TYPO3_DLOG;
         // @extensionScannerIgnoreLine
+        $foo = TYPO3_DLOG;
+
+        // Match (again). No longer ignored.
         $foo = TYPO3_DLOG;
     }
 }

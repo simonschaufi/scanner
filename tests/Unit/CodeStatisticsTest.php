@@ -17,6 +17,7 @@ namespace M12R\Scanner\Tests\Unit;
  * The TYPO3 project - inspiring people to share!
  */
 
+use M12R\Scanner\Visitor\CodeStatistics;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
@@ -36,7 +37,7 @@ class CodeStatisticsTest extends TestCase
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
         $traverser = new NodeTraverser();
-        $subject = new \M12R\Scanner\Visitor\CodeStatistics();
+        $subject = new CodeStatistics();
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
 

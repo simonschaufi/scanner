@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+
 use M12R\Scanner\Php\Matcher\MethodCallStaticMatcher;
 use M12R\Scanner\Visitor\GeneratorClassesResolver;
 use PhpParser\NodeTraverser;
@@ -27,15 +27,12 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class MethodCallStaticMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/MethodCallStaticMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -57,58 +54,18 @@ class MethodCallStaticMatcherTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
         $expectedHitLineNumbers = [
-            28,
             30,
+            32,
+            41,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {
             $actualHitLineNumbers[] = $hit['line'];
         }
-        $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+        self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 
-    #[Test]
-    public function dynamicStaticMethodCallIsNoMatch(): void
-    {
-        $phpCode = <<<'EOC'
-<?php
-class foo
-{
-    public function aTest()
-    {
-        // No match: the variable is named like the deprecated method,
-        // the actually called method is a different one.
-        $getAjaxUrl = 'aDifferentMethod';
-        \TYPO3\CMS\Backend\Utility\BackendUtility::$getAjaxUrl('bar');
-    }
-}
-EOC;
-
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
-        $statements = $parser->parse($phpCode);
-
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor(new NameResolver());
-        $configuration = [
-            'TYPO3\CMS\Backend\Utility\BackendUtility::getAjaxUrl' => [
-                'numberOfMandatoryArguments' => 1,
-                'maximumNumberOfArguments' => 2,
-                'restFiles' => [
-                    'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
-                ],
-            ],
-        ];
-        $subject = new MethodCallStaticMatcher($configuration);
-        $traverser->addVisitor($subject);
-        $traverser->traverse($statements);
-
-        $this->assertEmpty($subject->getMatches());
-    }
-
-    /**
-     * @return array
-     */
-    public static function matchesReturnsExpectedRestFilesDataProvider()
+    public static function matchesReturnsExpectedRestFilesDataProvider(): array
     {
         return [
             'two rest candidates with same number of arguments' => [
@@ -305,14 +262,59 @@ EOC;
                     ],
                 ],
             ],
+            // Regression test for issue #108413: dynamic method calls must not crash
+            'no match for dynamic static call with method call expression' => [
+                [
+                    'Foo::aMethod' => [
+                        'numberOfMandatoryArguments' => 0,
+                        'maximumNumberOfArguments' => 2,
+                        'restFiles' => [
+                            'Foo-1.rst',
+                        ],
+                    ],
+                ],
+                '<?php
+                SomeClass::{self::getMethod()}();',
+                [], // no match, must not crash
+            ],
+            // Trap test: config matches the variable name - buggy code would incorrectly match
+            'no match for dynamic method call with variable as method name' => [
+                [
+                    'Foo::methodName' => [
+                        'numberOfMandatoryArguments' => 0,
+                        'maximumNumberOfArguments' => 2,
+                        'restFiles' => [
+                            'Foo-1.rst',
+                        ],
+                    ],
+                ],
+                '<?php
+                $someVar::$methodName();',
+                [], // no match - dynamic method names must be skipped
+            ],
+            // Trap test: config matches inner method name - buggy code would incorrectly match
+            'no match for dynamic method call with expression as method name' => [
+                [
+                    'SomeClass::getMethod' => [
+                        'numberOfMandatoryArguments' => 0,
+                        'maximumNumberOfArguments' => 2,
+                        'restFiles' => [
+                            'Foo-1.rst',
+                        ],
+                    ],
+                ],
+                '<?php
+                \SomeClass::{self::getMethod()}();',
+                [], // no match - dynamic method names must be skipped
+            ],
         ];
     }
 
-    #[Test]
     #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
+    #[Test]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $statements = $parser->parse($phpCode);
 
         $subject = new MethodCallStaticMatcher($configuration);
@@ -323,9 +325,9 @@ EOC;
 
         $result = $subject->getMatches();
         if (isset($expected[0], $result[0])) {
-            $this->assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
+            self::assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
         } else {
-            $this->assertEquals($expected, $result);
+            self::assertEquals($expected, $result);
         }
     }
 }

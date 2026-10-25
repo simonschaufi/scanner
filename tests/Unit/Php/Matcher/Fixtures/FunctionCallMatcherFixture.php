@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,12 +15,14 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 /**
  * Fixture file
  */
 class FunctionCallMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Matches
         \debugBegin();
@@ -38,5 +38,8 @@ class FunctionCallMatcherFixture
         debugBegin();
         // @extensionScannerIgnoreLine
         $bar->bar(\debugBegin());
+
+        // Match (again). No longer ignored.
+        \debugBegin();
     }
 }

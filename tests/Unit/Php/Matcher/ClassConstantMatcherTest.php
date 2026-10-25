@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+
 use M12R\Scanner\Php\Matcher\ClassConstantMatcher;
 use M12R\Scanner\Visitor\GeneratorClassesResolver;
 use PhpParser\NodeTraverser;
@@ -27,15 +27,12 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class ClassConstantMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/ClassConstantMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -44,7 +41,7 @@ class ClassConstantMatcherTest extends TestCase
         $traverser->addVisitor(new GeneratorClassesResolver());
 
         $configuration = [
-            'TYPO3\CMS\Backend\Template\DocumentTemplate::STATUS_ICON_ERROR' => [
+            'TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::REQUESTTYPE_FE' => [
                 'restFiles' => [
                     'Breaking-80700-DeprecatedFunctionalityRemoved.rst',
                 ],
@@ -59,21 +56,19 @@ class ClassConstantMatcherTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
         $expectedHitLineNumbers = [
-            28,
-            29,
             30,
+            31,
+            32,
+            41,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {
             $actualHitLineNumbers[] = $hit['line'];
         }
-        $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+        self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 
-    /**
-     * @return array
-     */
-    public static function matchesReturnsExpectedRestFilesDataProvider()
+    public static function matchesReturnsExpectedRestFilesDataProvider(): array
     {
         return [
             'a straight match' => [
@@ -99,11 +94,11 @@ class ClassConstantMatcherTest extends TestCase
         ];
     }
 
-    #[Test]
     #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
+    #[Test]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $statements = $parser->parse($phpCode);
 
         $subject = new ClassConstantMatcher($configuration);
@@ -114,6 +109,6 @@ class ClassConstantMatcherTest extends TestCase
         $traverser->traverse($statements);
 
         $result = $subject->getMatches();
-        $this->assertSame($expected[0]['restFiles'], $result[0]['restFiles']);
+        self::assertSame($expected[0]['restFiles'], $result[0]['restFiles']);
     }
 }

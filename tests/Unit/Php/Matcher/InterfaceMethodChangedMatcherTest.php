@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+
 use M12R\Scanner\Php\Matcher\InterfaceMethodChangedMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
@@ -25,15 +25,12 @@ use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class InterfaceMethodChangedMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/InterfaceMethodChangedMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -71,13 +68,47 @@ class InterfaceMethodChangedMatcherTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
         $expectedHitLineNumbers = [
-            30,
-            33,
+            32,
+            35,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $match) {
             $actualHitLineNumbers[] = $match['line'];
         }
-        $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+        self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+    }
+
+    /**
+     * Regression test for issue #108413: dynamic method calls must not crash
+     */
+    #[Test]
+    public function dynamicMethodCallDoesNotCrash(): void
+    {
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
+        $phpCode = '<?php
+            class TestClass {
+                public function test() {
+                    $this->{$this->getMethod()}("arg1");
+                }
+            }';
+        $statements = $parser->parse($phpCode);
+
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new NameResolver());
+
+        $matcherDefinitions = [
+            'someMethod' => [
+                'newNumberOfArguments' => 2,
+                'restFiles' => [
+                    'Foo-1.rst',
+                ],
+            ],
+        ];
+        $subject = new InterfaceMethodChangedMatcher($matcherDefinitions);
+        $traverser->addVisitor($subject);
+        $traverser->traverse($statements);
+
+        // Must not crash and should return no matches for dynamic calls
+        self::assertSame([], $subject->getMatches());
     }
 }

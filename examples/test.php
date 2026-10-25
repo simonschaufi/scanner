@@ -33,7 +33,7 @@ $collection = new MatcherBundleCollection(
             Matcher\PropertyPublicMatcher::class,
             Matcher\MethodAnnotationMatcher::class,
             Matcher\MethodArgumentRequiredStaticMatcher::class,
-            Matcher\PropertyExistsStaticMatcher::class
+            Matcher\PropertyExistsStaticMatcher::class,
         ]
     )
 );

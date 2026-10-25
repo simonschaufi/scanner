@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+
 use M12R\Scanner\Php\Matcher\MethodArgumentDroppedMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
@@ -26,15 +26,12 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test case
- */
 class MethodArgumentDroppedMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/MethodArgumentDroppedMatcherFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -53,13 +50,14 @@ class MethodArgumentDroppedMatcherTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
         $expectedHitLineNumbers = [
-            26,
+            28,
+            47,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {
             $actualHitLineNumbers[] = $hit['line'];
         }
-        $this->assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+        self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
     }
 
     public static function matchesReturnsExpectedRestFilesDataProvider(): array
@@ -220,14 +218,28 @@ class MethodArgumentDroppedMatcherTest extends TestCase
                     ],
                 ],
             ],
+            // Regression test for issue #108413: dynamic method calls must not crash
+            'no match for dynamic method call with method call expression' => [
+                [
+                    'Foo->aMethod' => [
+                        'maximumNumberOfArguments' => 0,
+                        'restFiles' => [
+                            'Foo-1.rst',
+                        ],
+                    ],
+                ],
+                '<?php
+                $someVar->{$this->getMethod()}("arg1");',
+                [], // no match, must not crash
+            ],
         ];
     }
 
-    #[Test]
     #[DataProvider('matchesReturnsExpectedRestFilesDataProvider')]
+    #[Test]
     public function matchesReturnsExpectedRestFiles(array $configuration, string $phpCode, array $expected): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $statements = $parser->parse($phpCode);
 
         $subject = new MethodArgumentDroppedMatcher($configuration);
@@ -238,9 +250,9 @@ class MethodArgumentDroppedMatcherTest extends TestCase
 
         $result = $subject->getMatches();
         if (isset($expected[0], $result[0])) {
-            $this->assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
+            self::assertEquals($expected[0]['restFiles'], $result[0]['restFiles']);
         } else {
-            $this->assertEquals($expected, $result);
+            self::assertEquals($expected, $result);
         }
     }
 }

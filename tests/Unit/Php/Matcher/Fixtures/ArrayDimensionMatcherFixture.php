@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,28 +15,31 @@ namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+
 /**
  * Fixture file
  */
 class ArrayDimensionMatcherFixture
 {
-    public function aMethod()
+    public function aMethod(): void
     {
         // Match
         $foo['maxSessionDataSize'];
         $foo['bar']['maxSessionDataSize'];
-        $GLOBALS['TBE_MODULES_EXT']['xMOD_alt_clickmenu']['extendCMclasses']['path'];
-        $GLOBALS['TBE_STYLES']['styleschemes'];
 
         // No match
-        $GLOBALS['TBE_MODULES_EXT']['xMOD_alt_clickmenu']['some_other_key']['path'];
-        $GLOBALS['foo']['styleschemes'];
-        $GLOBALS['styleschemes'];
         $foo['foo'];
         $foo[$maxSessionDataSize];
         $foo->maxSessionDataSize;
         $foo::maxSessionDataSize;
         // @extensionScannerIgnoreLine
         $foo['maxSessionDataSize'];
+
+        // Match (again). No longer ignored.
+        $foo['bar']['maxSessionDataSize'];
+        // Ignore match (again). Done only once here for all fixtures.
+        // @extensionScannerIgnoreLine
+        $foo['bar']['maxSessionDataSize'];
     }
 }
