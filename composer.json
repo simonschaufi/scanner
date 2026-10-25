@@ -39,7 +39,10 @@
 	"autoload-dev": {
 		"psr-4": {
 			"M12R\\Scanner\\Tests\\": "tests/"
-		}
+		},
+		"exclude-from-classmap": [
+			"tests/Unit/Matcher/Fixtures/PropertyExistsStaticMatcherFixture.php"
+		]
 	},
 	"config": {
 		"allow-plugins": {
