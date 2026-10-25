@@ -19,7 +19,11 @@
     ],
     "autoload": {
       "psr-4": {
-        "M12R\\Scanner\\": "src/",
+        "M12R\\Scanner\\": "src/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
         "M12R\\Scanner\\Tests\\": "tests/"
       }
     },
