@@ -64,7 +64,6 @@ class ArrayMatcher extends AbstractCoreMatcher
                         $match = [
                             'restFiles' => [],
                             'line' => $nodeItem->getStartLine(),
-                            'subject' => $nodeItem->key->value,
                             'message' => 'Usage of array key "' . $nodeItem->key->value . '"',
                             'indicator' => substr_count($candidateKey, '/') > 1 ? 'strong' : 'weak',
                         ];

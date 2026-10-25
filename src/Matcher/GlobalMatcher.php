@@ -40,7 +40,6 @@ class GlobalMatcher extends AbstractCoreMatcher
             $this->matches[] = [
                 'restFiles' => $this->matcherDefinitions['$' . $node->var->name]['restFiles'],
                 'line' => $node->getAttribute('startLine'),
-                'subject' => $node->var->name,
                 'message' => 'Usage of global "' . $node->var->name . '"',
                 'indicator' => 'strong',
             ];
