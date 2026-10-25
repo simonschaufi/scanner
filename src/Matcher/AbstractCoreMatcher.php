@@ -195,7 +195,7 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
     protected function isLineIgnored(Node $node): bool
     {
         // Early return if this line is marked as ignored
-        $startLineOfNode = $node->getAttribute('startLine');
+        $startLineOfNode = $node->getStartLine();
         if ($startLineOfNode === $this->currentCodeLine) {
             return $this->isCurrentLineIgnored;
         }
@@ -209,7 +209,7 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
         if ($startLineOfNode !== $this->currentCodeLine) {
             $this->currentCodeLine = $startLineOfNode;
             // First node of a new line may contain the annotation
-            $comments = $node->getAttribute('comments');
+            $comments = $node->getComments();
             if (!empty($comments)) {
                 foreach ($comments as $comment) {
                     if (str_contains($comment->getText(), '@extensionScannerIgnoreLine')) {
@@ -234,7 +234,7 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
         }
         $currentFileIsIgnored = false;
         if ($node instanceof Class_) {
-            $comments = $node->getAttribute('comments');
+            $comments = $node->getComments();
             if (!empty($comments)) {
                 foreach ($comments as $comment) {
                     if (str_contains($comment->getText(), '@extensionScannerIgnoreFile')) {

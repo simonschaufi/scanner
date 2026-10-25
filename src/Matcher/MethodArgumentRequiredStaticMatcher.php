@@ -67,7 +67,7 @@ class MethodArgumentRequiredStaticMatcher extends AbstractCoreMatcher
                 ) {
                     $this->matches[] = [
                         'restFiles' => $this->matcherDefinitions[$fqdnClassWithMethod]['restFiles'],
-                        'line' => $node->getAttribute('startLine'),
+                        'line' => $node->getStartLine(),
                         'message' => 'Method "' . $node->name->name . '()" needs at least '
                             . $this->matcherDefinitions[$fqdnClassWithMethod]['numberOfMandatoryArguments']
                             . ' arguments.',
@@ -80,7 +80,7 @@ class MethodArgumentRequiredStaticMatcher extends AbstractCoreMatcher
             ) {
                 $match = [
                     'restFiles' => [],
-                    'line' => $node->getAttribute('startLine'),
+                    'line' => $node->getStartLine(),
                     'indicator' => 'weak',
                 ];
 

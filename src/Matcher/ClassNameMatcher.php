@@ -52,7 +52,7 @@ class ClassNameMatcher extends AbstractCoreMatcher
             if (array_key_exists($fullyQualifiedClassName, $this->matcherDefinitions)) {
                 $this->matches[] = [
                     'restFiles' => $this->matcherDefinitions[$fullyQualifiedClassName]['restFiles'],
-                    'line' => $node->getAttribute('startLine'),
+                    'line' => $node->getStartLine(),
                     'message' => 'Usage of class "' . $fullyQualifiedClassName . '"',
                     'indicator' => 'strong',
                 ];

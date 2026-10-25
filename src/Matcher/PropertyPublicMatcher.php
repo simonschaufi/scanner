@@ -53,7 +53,7 @@ class PropertyPublicMatcher extends AbstractCoreMatcher
         ) {
             $match = [
                 'restFiles' => [],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'message' => 'Fetch of property "' . $node->name->name . '"',
                 'indicator' => 'weak',
             ];

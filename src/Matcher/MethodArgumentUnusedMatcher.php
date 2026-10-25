@@ -59,7 +59,8 @@ class MethodArgumentUnusedMatcher extends AbstractCoreMatcher
         ) {
             $match = [
                 'restFiles' => [],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
+                'message' => '',
                 'indicator' => 'weak',
             ];
 

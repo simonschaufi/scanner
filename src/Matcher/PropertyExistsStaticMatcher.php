@@ -53,7 +53,7 @@ class PropertyExistsStaticMatcher extends AbstractCoreMatcher
             $propertyName = $node->props[0]->name->name;
             $match = [
                 'restFiles' => $this->matcherDefinitions[$propertyName]['restFiles'],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'message' => 'Use of property "' . $node->props[0]->name->name . '"',
                 'indicator' => 'weak',
             ];

@@ -65,7 +65,7 @@ class ScalarStringMatcher extends AbstractCoreMatcher
         if (array_key_exists($stringToMatch, $this->matcherDefinitions)) {
             $this->matches[] = [
                 'restFiles' => $this->matcherDefinitions[$stringToMatch]['restFiles'],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'message' => 'Usage of string "' . $stringToMatch . '"',
                 'indicator' => 'weak',
             ];

@@ -72,7 +72,7 @@ class InterfaceMethodChangedMatcher extends AbstractCoreMatcher
             if ($numberOfUsedArguments > $numberOfAllowedArguments) {
                 $this->matches[] = [
                     'restFiles' => $this->matcherDefinitions[$methodName]['restFiles'],
-                    'line' => $node->getAttribute('startLine'),
+                    'line' => $node->getStartLine(),
                     'message' => 'Implementation of dropped interface argument for method "' . $methodName . '()"',
                     'indicator' => 'weak',
                 ];
@@ -94,7 +94,7 @@ class InterfaceMethodChangedMatcher extends AbstractCoreMatcher
             if ($numberOfUsedArguments > $numberOfAllowedArguments) {
                 $this->matches[] = [
                     'restFiles' => $this->matcherDefinitions[$methodName]['restFiles'],
-                    'line' => $node->getAttribute('startLine'),
+                    'line' => $node->getStartLine(),
                     'message' => 'Call to interface method "' . $methodName . '()"',
                     'indicator' => 'weak',
                 ];

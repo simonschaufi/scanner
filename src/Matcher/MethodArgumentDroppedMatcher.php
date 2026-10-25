@@ -57,7 +57,7 @@ class MethodArgumentDroppedMatcher extends AbstractCoreMatcher
         ) {
             $match = [
                 'restFiles' => [],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'indicator' => 'weak',
             ];
 

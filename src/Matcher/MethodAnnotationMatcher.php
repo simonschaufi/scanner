@@ -52,7 +52,7 @@ class MethodAnnotationMatcher extends AbstractCoreMatcher
             $isPossibleMatch = false;
             $match = [
                 'restFiles' => [],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'indicator' => 'strong',
             ];
 

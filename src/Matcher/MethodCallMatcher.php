@@ -56,7 +56,7 @@ class MethodCallMatcher extends AbstractCoreMatcher
         ) {
             $match = [
                 'restFiles' => [],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'message' => 'Call to method "' . $node->name->name . '()"',
                 'indicator' => 'weak',
             ];

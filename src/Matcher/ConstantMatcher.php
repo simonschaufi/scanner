@@ -52,7 +52,7 @@ class ConstantMatcher extends AbstractCoreMatcher
             // Access to constants is detected as strong match
             $this->matches[] = [
                 'restFiles' => $this->matcherDefinitions[$node->name->toString()]['restFiles'],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'message' => 'Call to global constant "' . $node->name->toString() . '"',
                 'indicator' => 'strong',
             ];

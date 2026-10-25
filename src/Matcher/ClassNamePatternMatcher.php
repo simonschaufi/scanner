@@ -42,7 +42,7 @@ class ClassNamePatternMatcher extends AbstractCoreMatcher
 
         $this->matches[] = [
             'restFiles' => $this->matcherDefinitions[$matchedPattern]['restFiles'],
-            'line' => $node->getAttribute('startLine'),
+            'line' => $node->getStartLine(),
             'message' => 'Usage of class "' . $fullyQualifiedClassName . '"',
             'indicator' => 'strong',
         ];

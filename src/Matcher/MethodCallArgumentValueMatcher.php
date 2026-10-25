@@ -62,19 +62,19 @@ class MethodCallArgumentValueMatcher extends AbstractCoreMatcher
         ) {
             $match = [
                 'restFiles' => [],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'message' => 'Call to specific argument (#%s) of static method "' . $node->class->toString() . '::' . $node->name->name . '()"',
                 'indicator' => 'strong',
             ];
 
             $matchCandidate = [$this->matcherDefinitions[$node->class->toString() . '::' . $node->name->name]];
         } elseif ($node instanceof MethodCall
-                && $node->name instanceof Identifier
-                && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
+            && $node->name instanceof Identifier
+            && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
         ) {
             $match = [
                 'restFiles' => [],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'message' => 'Call to specific argument (#%s) of method "' . $node->name->name . '()"',
                 'indicator' => 'weak',
             ];

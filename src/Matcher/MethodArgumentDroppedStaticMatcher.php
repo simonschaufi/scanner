@@ -64,7 +64,7 @@ class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher
                 ) {
                     $this->matches[] = [
                         'restFiles' => $this->matcherDefinitions[$fqdnClassWithMethod]['restFiles'],
-                        'line' => $node->getAttribute('startLine'),
+                        'line' => $node->getStartLine(),
                         'message' => 'Method "' . $node->name->name . '()" supports only '
                             . $this->matcherDefinitions[$fqdnClassWithMethod]['maximumNumberOfArguments']
                             . ' arguments.',
@@ -77,7 +77,7 @@ class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher
             ) {
                 $match = [
                     'restFiles' => [],
-                    'line' => $node->getAttribute('startLine'),
+                    'line' => $node->getStartLine(),
                     'indicator' => 'weak',
                 ];
 

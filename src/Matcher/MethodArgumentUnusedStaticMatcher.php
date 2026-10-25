@@ -63,7 +63,7 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                         ) {
                             $this->matches[] = [
                                 'restFiles' => $this->matcherDefinitions[$fqdnClassWithMethod]['restFiles'],
-                                'line' => $node->getAttribute('startLine'),
+                                'line' => $node->getStartLine(),
                                 'message' => 'Call to method "' . $node->name->name . '()" with'
                                     . ' argument ' . $droppedArgumentNumber . ' not given as null.',
                                 'indicator' => 'strong',
@@ -77,7 +77,8 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
             ) {
                 $match = [
                     'restFiles' => [],
-                    'line' => $node->getAttribute('startLine'),
+                    'line' => $node->getStartLine(),
+                    'message' => '',
                     'indicator' => 'weak',
                 ];
 

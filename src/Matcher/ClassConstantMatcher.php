@@ -55,7 +55,7 @@ class ClassConstantMatcher extends AbstractCoreMatcher
             // No weak test implemented - combination class::const name tested
             $this->matches[] = [
                 'restFiles' => $this->matcherDefinitions[$node->class->toString() . '::' . $node->name]['restFiles'],
-                'line' => $node->getAttribute('startLine'),
+                'line' => $node->getStartLine(),
                 'message' => 'Call to class constant "' . $node->class->toString() . '::' . $node->name . '"',
                 'indicator' => 'strong',
             ];
