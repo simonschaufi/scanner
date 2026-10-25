@@ -53,14 +53,14 @@ class CodeStatistics extends NodeVisitorAbstract
      */
     public function enterNode(Node $node): null
     {
-        $startLineOfNode = $node->getAttribute('startLine');
+        $startLineOfNode = $node->getStartLine();
         if ($startLineOfNode !== $this->currentLineNumber) {
             $this->currentLineNumber = $startLineOfNode;
             $this->numberOfEffectiveCodeLines++;
 
             // Class statements may contain the @extensionScannerIgnoreFile statements
             if ($node instanceof Class_) {
-                $comments = $node->getAttribute('comments');
+                $comments = $node->getComments();
                 if (!empty($comments)) {
                     foreach ($comments as $comment) {
                         if (str_contains($comment->getText(), '@extensionScannerIgnoreFile')) {
@@ -72,7 +72,7 @@ class CodeStatistics extends NodeVisitorAbstract
             }
 
             // First node of line may contain the @extensionScannerIgnoreLine comment
-            $comments = $node->getAttribute('comments');
+            $comments = $node->getComments();
             if (!empty($comments)) {
                 foreach ($comments as $comment) {
                     if (str_contains($comment->getText(), '@extensionScannerIgnoreLine')) {
