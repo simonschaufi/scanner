@@ -1,45 +1,45 @@
 {
-    "name": "m12r/typo3-cms-scanner",
-    "description": "TYPO3 CMS static file analysis",
-    "type": "library",
-    "license": "GPL-2.0-or-later",
-    "authors": [
-      {
-        "name": "Christian Kuhn",
-        "email": "christian.kuhn@typo3.org"
-      },
-      {
-        "name": "Oliver Hader",
-        "email": "oliver.hader@typo3.org"
-      },
-      {
-        "name": "Marcus Schwemer",
-        "email": "marcus-dev@schwemer.de"
-      }
-    ],
-    "autoload": {
-      "psr-4": {
-        "M12R\\Scanner\\": "src/"
-      }
-    },
-    "autoload-dev": {
-      "psr-4": {
-        "M12R\\Scanner\\Tests\\": "tests/"
-      }
-    },
-    "config": {
-        "bin-dir": ".Build/bin",
-        "vendor-dir": ".Build/vendor",
-        "platform": {
-            "php": "8.3.0"
-        }
-    },
-    "require": {
-        "php": "^8.3",
-        "nikic/php-parser": "^5.4",
-        "symfony/finder": "^7.4"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^12.5"
-    }
+	"name": "m12r/typo3-cms-scanner",
+	"description": "TYPO3 CMS static file analysis",
+	"type": "library",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "Christian Kuhn",
+			"email": "christian.kuhn@typo3.org"
+		},
+		{
+			"name": "Oliver Hader",
+			"email": "oliver.hader@typo3.org"
+		},
+		{
+			"name": "Marcus Schwemer",
+			"email": "marcus-dev@schwemer.de"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"M12R\\Scanner\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"M12R\\Scanner\\Tests\\": "tests/"
+		}
+	},
+	"config": {
+		"bin-dir": ".Build/bin",
+		"vendor-dir": ".Build/vendor",
+		"platform": {
+			"php": "8.3.0"
+		}
+	},
+	"require": {
+		"php": "^8.3",
+		"nikic/php-parser": "^5.4",
+		"symfony/finder": "^7.4"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^12.5"
+	}
 }
