@@ -21,28 +21,43 @@ use PhpParser\Node;
 use PhpParser\NodeVisitorAbstract;
 
 /**
- * A visitor doing some counting.
- * It sums the number of ignored lines and lines of effective code.
+ * @deprecated This Visitor is currently not in use
  */
-class ParentConnector extends NodeVisitorAbstract
+final class ParentConnector extends NodeVisitorAbstract
 {
-    private $stack;
+    /**
+     * @var list<Node>
+     */
+    private array $stack = [];
 
+    /**
+     * @param Node[] $nodes Array of nodes
+     * @return null|Node[] Array of nodes
+     */
     public function beforeTraverse(array $nodes)
     {
         $this->stack = [];
+        return null;
     }
 
+    /**
+     * @return null|int|Node|Node[] Replacement node (or special return value)
+     */
     public function enterNode(Node $node)
     {
         if (!empty($this->stack)) {
             $node->setAttribute('parent', $this->stack[count($this->stack) - 1]);
         }
         $this->stack[] = $node;
+        return null;
     }
 
+    /**
+     * @return null|int|Node|Node[] Replacement node (or special return value)
+     */
     public function leaveNode(Node $node)
     {
         array_pop($this->stack);
+        return null;
     }
 }
