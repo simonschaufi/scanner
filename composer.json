@@ -15,6 +15,9 @@
 		{
 			"name": "Marcus Schwemer",
 			"email": "marcus-dev@schwemer.de"
+		},
+		{
+			"name": "Simon Schaufelberger"
 		}
 	],
 	"require": {
