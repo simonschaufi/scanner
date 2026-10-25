@@ -13,8 +13,9 @@ class TheMatch
 
     private readonly string $identifier;
     private readonly string $type;
+
     /**
-     * @var list<string> $restFiles Documentation files this match refers to
+     * @var list<string> Documentation files this match refers to
      */
     private array $restFiles = [];
 
