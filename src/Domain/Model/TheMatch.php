@@ -11,8 +11,11 @@ class TheMatch
     public const string TYPE_IMPORTANT = 'IMPORTANT';
     public const string TYPE_FEATURE = 'FEATURE';
 
-    private readonly string|array $identifier;
+    private readonly string $identifier;
     private readonly string $type;
+    /**
+     * @var list<string> $restFiles Documentation files this match refers to
+     */
     private array $restFiles = [];
 
     public function __construct(
@@ -39,7 +42,7 @@ class TheMatch
         return $this->type;
     }
 
-    public function getIdentifier(): mixed
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
@@ -69,11 +72,17 @@ class TheMatch
         return $this->line;
     }
 
+    /**
+     * @return list<string>
+     */
     public function getRestFiles(): array
     {
         return $this->restFiles;
     }
 
+    /**
+     * @param list<string> $restFiles
+     */
     public function setRestFiles(array $restFiles): void
     {
         $this->restFiles = $restFiles;

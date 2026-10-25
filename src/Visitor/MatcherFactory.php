@@ -17,9 +17,8 @@ declare(strict_types=1);
 
 namespace M12R\Scanner\Visitor;
 
+use M12R\Scanner\CodeScannerInterface;
 use PhpParser\NodeVisitor;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\ExtensionScanner\CodeScannerInterface;
 
 /**
  * Factory preparing matcher instances
@@ -30,11 +29,11 @@ class MatcherFactory
     /**
      * Create matcher instances and hand over configuration.
      *
-     * @param array $matcherConfigurations Incoming configuration array
+     * @param array<int, array{class?: string, restFilePath?: string, configurationFile?: string, configurationArray?: mixed}> $matcherConfigurations Incoming configuration array
      * @return NodeVisitor[]|CodeScannerInterface[]
      * @throws \RuntimeException
      */
-    public function createAll(array $matcherConfigurations)
+    public function createAll(array $matcherConfigurations): array
     {
         $instances = [];
         foreach ($matcherConfigurations as $matcherConfiguration) {
@@ -52,7 +51,7 @@ class MatcherFactory
                 );
             }
 
-            if (isset($matcherConfiguration['configurationFile']) && isset($matcherConfiguration['configurationArray'])) {
+            if (isset($matcherConfiguration['configurationFile'], $matcherConfiguration['configurationArray'])) {
                 throw new \RuntimeException(
                     'Having both a configurationFile and configurationArray is invalid',
                     1501419367
@@ -61,7 +60,7 @@ class MatcherFactory
 
             $configuration = [];
             if (isset($matcherConfiguration['configurationFile'])) {
-                $configuration = GeneralUtility::getFileAbsFileName($matcherConfiguration['configurationFile']);
+                $configuration = $matcherConfiguration['configurationFile'];
                 if (empty($configuration) || !is_file($configuration)) {
                     throw new \RuntimeException(
                         'Configuration file ' . $matcherConfiguration['configurationFile'] . ' not found',
@@ -80,7 +79,8 @@ class MatcherFactory
             if (isset($matcherConfiguration['configurationArray'])) {
                 if (!is_array($matcherConfiguration['configurationArray'])) {
                     throw new \RuntimeException(
-                        'Configuration array ' . $matcherConfiguration['configurationArray'] . ' must not be empty',
+                        'Configuration array of type ' . get_debug_type($matcherConfiguration['configurationArray'])
+                        . ' must be an array',
                         1501509738
                     );
                 }
@@ -89,7 +89,8 @@ class MatcherFactory
 
             $matcherInstance = new $matcherConfiguration['class']($configuration);
             if (!$matcherInstance instanceof CodeScannerInterface
-                || !$matcherInstance instanceof NodeVisitor) {
+                || !$matcherInstance instanceof NodeVisitor
+            ) {
                 throw new \RuntimeException(
                     'Matcher ' . $matcherConfiguration['class'] . ' must implement CodeScannerInterface'
                     . ' and NodeVisitor',

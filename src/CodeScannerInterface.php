@@ -26,6 +26,8 @@ interface CodeScannerInterface extends NodeVisitor
 {
     /**
      * Each match is an array with detail information
+     *
+     * @return list<array<string, mixed>>
      */
     public function getMatches(): array;
 }

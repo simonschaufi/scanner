@@ -43,7 +43,7 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
     /**
      * Prepare $this->flatMatcherDefinitions once and validate config
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {
@@ -68,7 +68,8 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
         $resolvedNode = $node->getAttribute(self::NODE_RESOLVED_AS, null) ?? $node;
         if (!$resolvedNode instanceof New_
             || !isset($resolvedNode->class)
-            || (isset($node->class) && is_object($node->class) && !method_exists($node->class, '__toString'))
+            // Only class names that can be cast to a string can be looked up below
+            || !method_exists($resolvedNode->class, '__toString')
             || !array_key_exists((string)$resolvedNode->class, $this->matcherDefinitions)
         ) {
             return null;
@@ -100,7 +101,7 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
         $mandatoryArguments = $candidate['numberOfMandatoryArguments'] ?? null;
         $numberOfArguments = count($resolvedNode->args ?? []);
 
-        if ($candidate === null || $numberOfArguments >= $mandatoryArguments) {
+        if ($candidate === null || $mandatoryArguments === null || $numberOfArguments >= $mandatoryArguments) {
             return false;
         }
 
@@ -129,7 +130,7 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
         $maximumArguments = $candidate['maximumNumberOfArguments'] ?? null;
         $numberOfArguments = count($resolvedNode->args ?? []);
 
-        if ($candidate === null || $numberOfArguments <= $maximumArguments) {
+        if ($candidate === null || $maximumArguments === null || $numberOfArguments <= $maximumArguments) {
             return false;
         }
 
@@ -161,6 +162,8 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
         $numberOfArguments = count($resolvedNode->args ?? []);
 
         if ($candidate === null
+            || $mandatoryArguments === null
+            || $maximumArguments === null
             || !$isArgumentUnpackingUsed
             && ($numberOfArguments < $mandatoryArguments || $numberOfArguments > $maximumArguments)) {
             return false;
@@ -202,11 +205,8 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
             static function (int $position) use ($arguments) {
                 $index = $position - 1;
                 return isset($arguments[$index]->value)
-                    && !$arguments[$index]->value instanceof ConstFetch
-                    && (
-                        !isset($arguments[$index]->value->name->name->parts[0])
-                        || $arguments[$index]->value->name->name->parts[0] !== null
-                    );
+                    && !($arguments[$index]->value instanceof ConstFetch
+                        && strtolower($arguments[$index]->value->name->toString()) === 'null');
             }
         );
         if (empty($unusedArgumentPositions)) {
@@ -226,6 +226,9 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
         return true;
     }
 
+    /**
+     * @param array<string, list<string>> $topicRequirements
+     */
     protected function validateMatcherDefinitionsTopicRequirements(array $topicRequirements): void
     {
         foreach ($this->matcherDefinitions as $key => $matcherDefinition) {

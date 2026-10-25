@@ -17,8 +17,8 @@ class MatcherFactory
     /**
      * Create matcher instances and hand over configuration.
      *
-     * @param array $matcherConfigurations Incoming configuration array
-     * @return NodeVisitor[]&CodeScannerInterface[]
+     * @param array<int, array{class?: string, restFilePath?: string, configurationFile?: string, configurationArray?: mixed}> $matcherConfigurations Incoming configuration array
+     * @return list<CodeScannerInterface&NodeVisitor> Matchers implementing both scanner and parser interface
      * @throws \RuntimeException
      */
     public function createAll(array $matcherConfigurations): array
@@ -67,20 +67,18 @@ class MatcherFactory
             if (isset($matcherConfiguration['configurationArray'])) {
                 if (!is_array($matcherConfiguration['configurationArray'])) {
                     throw new \RuntimeException(
-                        'Configuration array ' . $matcherConfiguration['configurationArray'] . ' must not be empty',
+                        'Configuration array of type ' . get_debug_type($matcherConfiguration['configurationArray'])
+                        . ' must be an array',
                         1501509738
                     );
                 }
                 $configuration = $matcherConfiguration['configurationArray'];
             }
 
-            $configuration = $this->extendConfiguration(
-                $configuration,
-                $matcherConfiguration
-            );
             $matcherInstance = new $matcherConfiguration['class']($configuration);
             if (!$matcherInstance instanceof CodeScannerInterface
-                || !$matcherInstance instanceof NodeVisitor) {
+                || !$matcherInstance instanceof NodeVisitor
+            ) {
                 throw new \RuntimeException(
                     'Matcher ' . $matcherConfiguration['class'] . ' must implement CodeScannerInterface'
                     . ' and NodeVisitor',
@@ -90,28 +88,5 @@ class MatcherFactory
             $instances[] = $matcherInstance;
         }
         return $instances;
-    }
-
-    private function extendConfiguration(
-        array $configuration,
-        $matcherConfiguration
-    ): array {
-        if (isset($matcherConfiguration['restFilePath'])) {
-            $restFilePath = $matcherConfiguration['restFilePath'];
-            array_walk(
-                $configuration,
-                static function (array &$aspect) use ($restFilePath) {
-                    if (empty($aspect['restFiles'])) {
-                        return;
-                    }
-                    $aspect['restFiles'] = array_map(
-                        static fn(string $restFile) => $restFilePath . $restFile,
-                        $aspect['restFiles']
-                    );
-                }
-            );
-        }
-
-        return $configuration;
     }
 }

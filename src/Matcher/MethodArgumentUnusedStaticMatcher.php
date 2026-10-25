@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace M12R\Scanner\Matcher;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
@@ -26,7 +27,7 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
     /**
      * Prepare $this->flatMatcherDefinitions once and validate config
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {
@@ -38,7 +39,7 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
     /**
      * Test for "::function($1, $2, $3)" (strong match)
      */
-    public function enterNode(Node $node): void
+    public function enterNode(Node $node): null
     {
         // Match static call
         if (!$this->isFileIgnored($node)
@@ -52,13 +53,13 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                 $fqdnClassWithMethod = $node->class->toString() . '::' . $node->name->name;
                 $numberOfArguments = count($node->args);
 
-                if (in_array($fqdnClassWithMethod, array_keys($this->matcherDefinitions), true)) {
-                    foreach ($this->matcherDefinitions[$fqdnClassWithMethod]['unusedArgumentNumbers'] as $droppedArgumentNumber) {
+                if (array_key_exists($fqdnClassWithMethod, $this->matcherDefinitions)) {
+                    foreach ($this->matcherDefinitions[$fqdnClassWithMethod]['unusedArgumentNumbers'] ?? [] as $droppedArgumentNumber) {
+                        $argument = $node->args[$droppedArgumentNumber - 1] ?? null;
                         if (!$isArgumentUnpackingUsed
                             && $numberOfArguments >= $droppedArgumentNumber
-                            && !($node->args[$droppedArgumentNumber - 1]->value instanceof ConstFetch)
-                            && (!isset($node->args[$droppedArgumentNumber - 1]->value->name->name->parts[0])
-                                || $node->args[$droppedArgumentNumber - 1]->value->name->name->parts[0] !== null)
+                            && $argument instanceof Arg
+                            && !($argument->value instanceof ConstFetch)
                         ) {
                             $this->matches[] = [
                                 'restFiles' => $this->matcherDefinitions[$fqdnClassWithMethod]['restFiles'],
@@ -73,7 +74,7 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                 }
             } elseif ($node->class instanceof Variable
                 && $node->name instanceof Identifier
-                && in_array($node->name->name, array_keys($this->flatMatcherDefinitions), true)
+                && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
             ) {
                 $match = [
                     'restFiles' => [],
@@ -84,14 +85,14 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                 $numberOfArguments = count($node->args);
                 $isPossibleMatch = false;
                 foreach ($this->flatMatcherDefinitions[$node->name->name]['candidates'] as $candidate) {
-                    foreach ($candidate['unusedArgumentNumbers'] as $droppedArgumentNumber) {
+                    foreach ($candidate['unusedArgumentNumbers'] ?? [] as $droppedArgumentNumber) {
+                        $argument = $node->args[$droppedArgumentNumber - 1] ?? null;
                         // A method call is considered a match if name matches, unpacking is not used
                         // and the registered argument is not given as null.
                         if (!$isArgumentUnpackingUsed
                             && $numberOfArguments >= $droppedArgumentNumber
-                            && !($node->args[$droppedArgumentNumber - 1]->value instanceof ConstFetch)
-                            && (!isset($node->args[$droppedArgumentNumber - 1]->value->name->name->parts[0])
-                                || $node->args[$droppedArgumentNumber - 1]->value->name->name->parts[0] !== null)
+                            && $argument instanceof Arg
+                            && !($argument->value instanceof ConstFetch)
                         ) {
                             $isPossibleMatch = true;
                             $match['subject'] = $node->name->name;
@@ -106,5 +107,6 @@ class MethodArgumentUnusedStaticMatcher extends AbstractCoreMatcher
                 }
             }
         }
+        return null;
     }
 }

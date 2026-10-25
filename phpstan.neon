@@ -1,0 +1,12 @@
+parameters:
+    paths:
+        - src
+    featureToggles:
+    	rawMessageInBaseline: true
+    level: 8
+    excludePaths:
+        # These test fixtures *could* be streamlined but currently generate lots of failures
+        - tests/Unit/Matcher
+    tmpDir: %rootDir%/../../../var/cache/phpstan
+    treatPhpDocTypesAsCertain: false
+    inferPrivatePropertyTypeFromConstructor: true

@@ -6,27 +6,32 @@ use M12R\Scanner\CodeScannerInterface;
 use M12R\Scanner\Domain\Model\MatcherBundleCollection;
 use M12R\Scanner\Matcher\MatcherFactory;
 use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitor\NameResolver;
 
-class TraverserFactory
+readonly class TraverserFactory
 {
     public function __construct(
-        private readonly MatcherFactory $matcherFactory
+        private MatcherFactory $matcherFactory
     ) {
     }
 
-    public function createTraverser(CodeScannerInterface ...$matchers): NodeTraverser
+    /**
+     * @param CodeScannerInterface[]|NodeVisitor[] $matchers
+     */
+    public function createTraverser(...$matchers): NodeTraverser
     {
         $traverser = $this->buildNodeTraverser();
         // add all matchers to traverser
         foreach ($matchers as $matcher) {
+            /** @var NodeVisitor $matcher */
             $traverser->addVisitor($matcher);
         }
         return $traverser;
     }
 
     /**
-     * @return CodeScannerInterface[]
+     * @return list<CodeScannerInterface&NodeVisitor>
      */
     public function createMatchers(MatcherBundleCollection $collection): array
     {

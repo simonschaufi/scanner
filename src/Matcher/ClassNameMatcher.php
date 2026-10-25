@@ -29,7 +29,7 @@ class ClassNameMatcher extends AbstractCoreMatcher
     /**
      * Default constructor validates matcher definition.
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {

@@ -32,7 +32,7 @@ class ClassConstantMatcher extends AbstractCoreMatcher
     /**
      * Validate config
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {
@@ -49,6 +49,7 @@ class ClassConstantMatcher extends AbstractCoreMatcher
             && !$this->isLineIgnored($node)
             && $node instanceof ClassConstFetch
             && $node->class instanceof FullyQualified
+            && $node->name instanceof Node\Identifier
             && array_key_exists($node->class->toString() . '::' . $node->name, $this->matcherDefinitions)
         ) {
             // No weak test implemented - combination class::const name tested

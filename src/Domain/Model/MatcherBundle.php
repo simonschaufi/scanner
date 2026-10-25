@@ -6,17 +6,28 @@ namespace M12R\Scanner\Domain\Model;
 
 use M12R\Scanner\Utility;
 
-class MatcherBundle
+readonly class MatcherBundle
 {
-    private readonly string $configurationPath;
-    private readonly string $documentationPath;
-    private readonly array $classNames;
-    private readonly array $configuration;
+    private string $configurationPath;
+    private string $documentationPath;
 
+    /**
+     * @var list<string>
+     */
+    private array $classNames;
+
+    /**
+     * @var array<int, array{class: string, restFilePath: string, configurationFile: string}>
+     */
+    private array $configuration;
+
+    /**
+     * @param list<string> $classNames Fully qualified matcher class names
+     */
     public function __construct(
         string $configurationPath,
         string $documentationPath,
-        string ...$classNames
+        array $classNames
     ) {
         if (!is_dir($configurationPath)) {
             throw new \RuntimeException(
@@ -31,22 +42,24 @@ class MatcherBundle
             );
         }
 
-        $this->configurationPath = Utility::ensureTrailingDirectorySeparator(
-            $configurationPath
-        );
-        $this->documentationPath = Utility::ensureTrailingDirectorySeparator(
-            $documentationPath
-        );
+        $this->configurationPath = Utility::ensureTrailingDirectorySeparator($configurationPath);
+        $this->documentationPath = Utility::ensureTrailingDirectorySeparator($documentationPath);
 
         $this->classNames = $classNames;
         $this->configuration = $this->buildConfiguration();
     }
 
+    /**
+     * @return array<int, array{class: string, restFilePath: string, configurationFile: string}>
+     */
     public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
+    /**
+     * @return array<int, array{class: string, restFilePath: string, configurationFile: string}>
+     */
     private function buildConfiguration(): array
     {
         return array_map(

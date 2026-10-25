@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace M12R\Scanner\Matcher;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
@@ -35,7 +36,7 @@ class MethodArgumentUnusedMatcher extends AbstractCoreMatcher
     /**
      * Prepare $this->flatMatcherDefinitions once and validate config
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {
@@ -67,14 +68,15 @@ class MethodArgumentUnusedMatcher extends AbstractCoreMatcher
             $numberOfArguments = count($node->args);
             $isPossibleMatch = false;
             foreach ($this->flatMatcherDefinitions[$node->name->name]['candidates'] as $candidate) {
-                foreach ($candidate['unusedArgumentNumbers'] as $droppedArgumentNumber) {
+                foreach ($candidate['unusedArgumentNumbers'] ?? [] as $droppedArgumentNumber) {
+                    $argument = $node->args[$droppedArgumentNumber - 1] ?? null;
                     // A method call is considered a match if name matches, unpacking is not used
                     // and the registered argument is not given as null.
                     if (!$isArgumentUnpackingUsed
                         && $numberOfArguments >= $droppedArgumentNumber
-                        && !($node->args[$droppedArgumentNumber - 1]->value instanceof ConstFetch)
-                        && (!isset($node->args[$droppedArgumentNumber - 1]->value->name->name->parts[0])
-                            || $node->args[$droppedArgumentNumber - 1]->value->name->name->parts[0] !== null)
+                        && $argument instanceof Arg
+                        && !($argument->value instanceof ConstFetch
+                            && strtolower($argument->value->name->toString()) === 'null')
                     ) {
                         $isPossibleMatch = true;
                         $match['message'] = 'Call to method "' . $node->name->name . '()" with'

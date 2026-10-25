@@ -8,6 +8,7 @@ use M12R\Scanner\Domain\Model\MatcherBundleCollection;
 use M12R\Scanner\Domain\Model\TheMatch;
 use M12R\Scanner\Visitor\TraverserFactory;
 use PhpParser\Error;
+use PhpParser\NodeVisitor;
 use PhpParser\Parser;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -15,9 +16,9 @@ use Symfony\Component\Finder\SplFileInfo;
 class Scanner
 {
     /**
-     * @var array
+     * @var array<string, int>
      */
-    private $typeRanking = [
+    private array $typeRanking = [
         TheMatch::TYPE_BREAKING => 100,
         TheMatch::TYPE_DEPRECATION => 80,
         TheMatch::TYPE_IMPORTANT => 50,
@@ -73,26 +74,29 @@ class Scanner
         }
 
         try {
-            $statements = $this->parser->parse(
-                file_get_contents($file)
-            );
+            $statements = $this->parser->parse((string)file_get_contents($file));
         } catch (Error $error) {
             return $this->buildParseExceptionFileMatches($file, $error);
         }
+        if ($statements === null) {
+            return new FileMatches($file);
+        }
 
         $matchers = $this->traverserFactory->createMatchers($collection);
+
         $traverser = $this->traverserFactory->createTraverser(...$matchers);
         $traverser->traverse($statements);
 
-        return new FileMatches($file, ...$this->buildMatches(...$matchers));
+        return new FileMatches($file, ...$this->buildMatches($matchers));
     }
 
     /**
-     * @param CodeScannerInterface[] ...$matchers
+     * @param CodeScannerInterface[]|NodeVisitor[] $matchers
      * @return TheMatch[]
      */
-    private function buildMatches(CodeScannerInterface ...$matchers): array
+    private function buildMatches(array $matchers): array
     {
+        /** @var CodeScannerInterface[] $matchers */
         $matcherMatches = array_map(
             static fn (CodeScannerInterface $matcher) => array_map(
                 static fn (array $result) => array_merge(
@@ -143,6 +147,9 @@ class Scanner
         return new FileMatches($file, $match);
     }
 
+    /**
+     * @param list<string> $restFiles
+     */
     private function inferTypeFromRestFiles(array $restFiles): string
     {
         $type = '';

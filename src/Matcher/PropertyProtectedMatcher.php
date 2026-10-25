@@ -31,7 +31,7 @@ class PropertyProtectedMatcher extends AbstractCoreMatcher
     /**
      * Validate config and prepare flat mach array
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {

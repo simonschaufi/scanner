@@ -2,13 +2,19 @@
 
 namespace M12R\Scanner\Domain\Model;
 
+/**
+ * @extends \ArrayObject<int, MatcherBundle>
+ */
 class MatcherBundleCollection extends \ArrayObject
 {
     public function __construct(MatcherBundle ...$bundles)
     {
-        parent::__construct($bundles);
+        parent::__construct(array_values($bundles));
     }
 
+    /**
+     * @return array<int, array{class: string, restFilePath: string, configurationFile: string}>
+     */
     public function getConfiguration(): array
     {
         $matcherBundleConfiguration = array_map(

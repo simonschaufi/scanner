@@ -30,10 +30,14 @@ class AbstractMethodImplementationMatcher extends AbstractCoreMatcher
 {
     protected const DEFINITION_STATIC = 'static';
     protected const DEFINITION_LOCAL  = 'local';
+
+    /**
+     * @var array<string, array<string, array<string, array{candidates: list<array<string, mixed>>}>>>
+     */
     protected array $matcherDefinitionLookup = [];
 
     /**
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {

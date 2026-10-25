@@ -37,7 +37,7 @@ class InterfaceMethodChangedMatcher extends AbstractCoreMatcher
     /**
      * Default constructor validates config
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {

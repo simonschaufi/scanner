@@ -4,13 +4,16 @@ namespace M12R\Scanner\Domain\Model;
 
 use M12R\Scanner\Utility;
 
+/**
+ * @extends \ArrayObject<int, FileMatches>
+ */
 class DirectoryMatches extends \ArrayObject
 {
     private readonly string $path;
 
     public function __construct(string $path, FileMatches ...$fileMatches)
     {
-        parent::__construct($fileMatches);
+        parent::__construct(array_values($fileMatches));
         $this->path = Utility::ensureTrailingDirectorySeparator($path);
     }
 

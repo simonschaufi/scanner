@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace M12R\Scanner\Matcher;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 
 /**
@@ -18,7 +19,7 @@ class GlobalMatcher extends AbstractCoreMatcher
     /**
      * Initialize "flat" matcher array from matcher definitions.
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {
@@ -26,12 +27,13 @@ class GlobalMatcher extends AbstractCoreMatcher
         $this->validateMatcherDefinitions();
     }
 
-    public function enterNode(Node $node): void
+    public function enterNode(Node $node): null
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
-            && $node instanceof Node\Expr\MethodCall
+            && $node instanceof MethodCall
             && $node->var instanceof Variable
+            && is_string($node->var->name)
             && $node->var->name !== 'GLOBALS'
             && array_key_exists('$' . $node->var->name, $this->matcherDefinitions)
         ) {
@@ -43,5 +45,6 @@ class GlobalMatcher extends AbstractCoreMatcher
                 'indicator' => 'strong',
             ];
         }
+        return null;
     }
 }

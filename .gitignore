@@ -1,3 +1,6 @@
-.idea
-vendor/
-.Build/
+/.idea/
+/.phpunit.cache/
+/examples/*
+!/examples/test.php
+/var/
+/vendor/

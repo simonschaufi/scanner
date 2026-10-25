@@ -23,10 +23,13 @@ use PhpParser\Node\Scalar\String_;
  */
 class ArrayMatcher extends AbstractCoreMatcher
 {
+    /**
+     * @var list<string> Already matched "start line + candidate key" combinations
+     */
     protected array $matchedNodes = [];
 
     /**
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {
@@ -34,7 +37,7 @@ class ArrayMatcher extends AbstractCoreMatcher
         $this->validateMatcherDefinitions();
     }
 
-    public function enterNode(Node $node): void
+    public function enterNode(Node $node): null
     {
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
@@ -44,11 +47,11 @@ class ArrayMatcher extends AbstractCoreMatcher
 
             foreach ($this->matcherDefinitions as $candidateKey => $candidate) {
                 $candidateKey = '/' . ltrim($candidateKey, '/');
-                /**
-                 * @var string $flatKey
-                 * @var ArrayItem $nodeItem
-                 */
                 foreach ($flatArray as $flatKey => $nodeItem) {
+                    // flattenArray() only collects items with a string key, re-check for the type narrowing
+                    if (!$nodeItem->key instanceof String_) {
+                        continue;
+                    }
                     if (\strlen($candidateKey) > \strlen($flatKey)) {
                         continue;
                     }
@@ -72,6 +75,7 @@ class ArrayMatcher extends AbstractCoreMatcher
                 }
             }
         }
+        return null;
     }
 
     /**
@@ -80,14 +84,11 @@ class ArrayMatcher extends AbstractCoreMatcher
      *
      * This will result in an array of keys containing the 'end' nodeItem objects.
      *
-     * @param Node $node
-     * @param string $prefix
-     * @return array
+     * @return array<string, ArrayItem>
      */
-    protected function flattenArray(Node $node, $prefix = '/')
+    protected function flattenArray(Array_ $node, string $prefix = '/'): array
     {
         $result = [];
-        /** @var ArrayItem $nodeItem */
         foreach ($node->items as $nodeItem) {
             if ($nodeItem->value instanceof Array_ && $nodeItem->value->items) {
                 if ($nodeItem instanceof ArrayItem && $nodeItem->key instanceof String_) {
@@ -106,10 +107,10 @@ class ArrayMatcher extends AbstractCoreMatcher
      * Try to extract the value from the node and match it to the array of available matches
      *
      * @param object $nodeValue
-     * @param array $matches
+     * @param list<mixed> $matches
      * @return bool
      */
-    protected function nodeValueMatches($nodeValue, $matches = [])
+    protected function nodeValueMatches(object $nodeValue, array $matches = []): bool
     {
         $value = null;
         switch (\get_class($nodeValue)) {

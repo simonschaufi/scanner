@@ -21,6 +21,7 @@ use M12R\Scanner\CodeScannerInterface;
 use M12R\Scanner\Utility\GeneralUtility;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\VariadicPlaceholder;
 use PhpParser\NodeVisitorAbstract;
 
 /**
@@ -37,22 +38,22 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
     /**
      * Incoming main configuration array.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     protected $matcherDefinitions = [];
 
     /**
-     * @var array List of accumulated matches
+     * @var list<array<string, mixed>> List of accumulated matches
      */
-    protected $matches = [];
+    protected array $matches = [];
 
     /**
      * Helper property containing an array derived from $this->matcherDefinitions
      * created in __construct() if needed.
      *
-     * @var array
+     * @var array<string, array{candidates: list<array<string, mixed>>}>
      */
-    protected $flatMatcherDefinitions = [];
+    protected array $flatMatcherDefinitions = [];
 
     /**
      * @var int Helper variable for ignored line detection
@@ -67,10 +68,12 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
     /**
      * @var bool True if the entire file is ignored due to a @extensionScannerIgnoreFile class comment
      */
-    protected $isFullFileIgnored = false;
+    protected bool $isFullFileIgnored = false;
 
     /**
      * Return list of matches after processing
+     *
+     * @return list<array<string, mixed>>
      */
     public function getMatches(): array
     {
@@ -86,16 +89,20 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
      *
      * This method works on $this->matcherDefinitions.
      *
-     * @param array $requiredArrayKeys List of required keys for single matchers
+     * @param list<string> $requiredArrayKeys List of required keys for single matchers
      * @throws \RuntimeException
      */
-    protected function validateMatcherDefinitions(array $requiredArrayKeys = [])
+    protected function validateMatcherDefinitions(array $requiredArrayKeys = []): void
     {
         foreach ($this->matcherDefinitions as $key => $matcherDefinition) {
             $this->validateMatcherDefinitionKeys($key, $matcherDefinition, $requiredArrayKeys);
         }
     }
 
+    /**
+     * @param array<string, mixed> $matcherDefinition
+     * @param list<string> $requiredArrayKeys
+     */
     protected function validateMatcherDefinitionKeys(string $key, array $matcherDefinition, array $requiredArrayKeys = []): void
     {
         // Each config must point to at least one .rst file
@@ -135,7 +142,7 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
      *
      * @throws \RuntimeException
      */
-    protected function initializeFlatMatcherDefinitions()
+    protected function initializeFlatMatcherDefinitions(): void
     {
         $methodNameArray = [];
         foreach ($this->matcherDefinitions as $classAndMethod => $details) {
@@ -162,12 +169,19 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
      * Test if one argument is given as "...$someArray".
      * If so, it kinda defeats any "argument count" approach.
      *
-     * @param array $arguments List of arguments
+     * A first-class callable ("foo(...)") has a single VariadicPlaceholder
+     * instead of arguments, so there is nothing to count either.
+     *
+     * @param array<int, Node\Arg|Node\VariadicPlaceholder|Node\ArgPlaceholder> $arguments List of arguments
      */
     protected function isArgumentUnpackingUsed(array $arguments = []): bool
     {
         foreach ($arguments as $arg) {
-            if ($arg->unpack === true) {
+            if ($arg instanceof VariadicPlaceholder) {
+                return true;
+            }
+            // ArgPlaceholder ("foo(?)" of partial function application) carries no "unpack" flag
+            if ($arg instanceof Node\Arg && $arg->unpack === true) {
                 return true;
             }
         }

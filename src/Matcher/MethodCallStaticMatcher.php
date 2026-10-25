@@ -40,7 +40,7 @@ class MethodCallStaticMatcher extends AbstractCoreMatcher
     /**
      * Validate config and prepare weak matcher array
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {

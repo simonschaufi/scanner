@@ -8,11 +8,11 @@ use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
 use Symfony\Component\Finder\Finder;
 
-readonly class ScannerFactory
+final readonly class ScannerFactory
 {
-    public static function create(): static
+    public static function create(): self
     {
-        return new static(
+        return new self(
             new ParserFactory(),
             new TraverserFactory(
                 new MatcherFactory()
@@ -26,10 +26,10 @@ readonly class ScannerFactory
     ) {
     }
 
-    public function createFor(
-    ): Scanner {
+    public function createFor(): Scanner
+    {
         $finder = new Finder();
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = $this->parserFactory->createForVersion(PhpVersion::fromComponents(8, 2));
 
         return new Scanner(
             $finder,

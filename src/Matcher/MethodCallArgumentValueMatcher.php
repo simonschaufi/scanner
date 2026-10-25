@@ -32,7 +32,7 @@ class MethodCallArgumentValueMatcher extends AbstractCoreMatcher
     /**
      * Prepare $this->flatMatcherDefinitions once
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {
@@ -110,6 +110,9 @@ class MethodCallArgumentValueMatcher extends AbstractCoreMatcher
     /**
      * Returns the array of matched arguments on a match candidate.
      * Returns empty array if either none found or not ALL matches are matched (AND combined)
+     *
+     * @param array<string, mixed> $candidate
+     * @return list<int> Matched argument indexes
      */
     private function isArgumentMatched(Node $node, array $candidate): array
     {

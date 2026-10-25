@@ -32,7 +32,7 @@ class ArrayDimensionMatcher extends AbstractCoreMatcher
     /**
      * Initialize "flat" matcher array from matcher definitions.
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {
@@ -70,7 +70,7 @@ class ArrayDimensionMatcher extends AbstractCoreMatcher
     /**
      * Prepare 'lastKey' => [$details] array in flatMatcherDefinitions
      */
-    protected function initializeLastArrayKeyNameArray()
+    protected function initializeLastArrayKeyNameArray(): void
     {
         $methodNameArray = [];
         foreach ($this->matcherDefinitions as $fullArrayString => $details) {

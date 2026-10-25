@@ -17,7 +17,7 @@ class ClassNamePatternMatcher extends AbstractCoreMatcher
     /**
      * Default constructor validates matcher definition.
      *
-     * @param array $matcherDefinitions Incoming main configuration
+     * @param array<string, array<string, mixed>> $matcherDefinitions Incoming main configuration
      */
     public function __construct(array $matcherDefinitions)
     {
@@ -25,19 +25,19 @@ class ClassNamePatternMatcher extends AbstractCoreMatcher
         $this->validateMatcherDefinitions();
     }
 
-    public function enterNode(Node $node): void
+    public function enterNode(Node $node): null
     {
         if (!$node instanceof FullyQualified
             || $this->isFileIgnored($node)
             || $this->isLineIgnored($node)
         ) {
-            return;
+            return null;
         }
 
         $fullyQualifiedClassName = $node->toString();
         $matchedPattern = $this->match($fullyQualifiedClassName);
         if ($matchedPattern === null) {
-            return;
+            return null;
         }
 
         $this->matches[] = [
@@ -47,9 +47,10 @@ class ClassNamePatternMatcher extends AbstractCoreMatcher
             'message' => 'Usage of class "' . $fullyQualifiedClassName . '"',
             'indicator' => 'strong',
         ];
+        return null;
     }
 
-    private function match(string $value)
+    private function match(string $value): ?string
     {
         foreach (array_keys($this->matcherDefinitions) as $pattern) {
             if (preg_match($pattern, $value)) {

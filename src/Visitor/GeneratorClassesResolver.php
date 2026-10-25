@@ -24,6 +24,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\NodeVisitorAbstract;
@@ -57,19 +58,20 @@ class GeneratorClassesResolver extends NodeVisitorAbstract
         if ($node instanceof StaticCall
             && $node->class instanceof FullyQualified
             && $node->class->toString() === 'TYPO3\CMS\Core\Utility\GeneralUtility'
+            && $node->name instanceof Identifier
             && $node->name->name === 'makeInstance'
             && isset($node->args[0]->value)
             && $node->args[0]->value instanceof Expr
         ) {
             $argValue = $node->args[0]->value;
             $argAlternative = $this->substituteClassString($argValue);
-            if ($argAlternative instanceof \PhpParser\Node\Expr\ClassConstFetch) {
+            if ($argAlternative instanceof ClassConstFetch) {
                 $node->args[0]->value = $argAlternative;
                 $argValue = $argAlternative;
             }
 
             $nodeAlternative = $this->substituteMakeInstance($node, $argValue);
-            if ($nodeAlternative instanceof \PhpParser\Node\Expr\New_) {
+            if ($nodeAlternative instanceof New_) {
                 $node->setAttribute(AbstractCoreMatcher::NODE_RESOLVED_AS, $nodeAlternative);
             }
         }
