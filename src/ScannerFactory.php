@@ -2,7 +2,7 @@
 
 namespace M12R\Scanner;
 
-use M12R\Scanner\Matcher\MatcherFactory;
+use M12R\Scanner\Php\MatcherFactory;
 use M12R\Scanner\Visitor\TraverserFactory;
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;

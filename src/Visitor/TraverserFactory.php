@@ -4,7 +4,7 @@ namespace M12R\Scanner\Visitor;
 
 use M12R\Scanner\CodeScannerInterface;
 use M12R\Scanner\Domain\Model\MatcherBundleCollection;
-use M12R\Scanner\Matcher\MatcherFactory;
+use M12R\Scanner\Php\MatcherFactory;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitor\NameResolver;

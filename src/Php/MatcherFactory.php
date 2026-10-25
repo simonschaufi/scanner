@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Matcher;
+namespace M12R\Scanner\Php;
 
 use M12R\Scanner\CodeScannerInterface;
 use PhpParser\NodeVisitor;
