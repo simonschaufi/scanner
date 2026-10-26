@@ -43,15 +43,18 @@ class Scanner
     ): DirectoryMatches {
         if (!is_dir($path)) {
             throw new \RuntimeException(
-                sprintf('Path "%s" does not exist', $path),
+                sprintf('Path "%s" does not exist or is no directory.', $path),
                 1507203233
             );
         }
 
         $directoryMatches = new DirectoryMatches($path);
-        $files = $this->finder->files()
+        $files = $this->finder
+            ->files()
+            ->ignoreUnreadableDirs()
             ->in(Utility::removeTrailingDirectorySeparator($path))
-            ->name('*.php');
+            ->name('*.php')
+            ->sortByName();
 
         /** @var SplFileInfo $file */
         foreach ($files as $file) {
