@@ -19,6 +19,7 @@ namespace M12R\Scanner\Php\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 
 /**
@@ -49,14 +50,14 @@ class ClassConstantMatcher extends AbstractCoreMatcher
             && !$this->isLineIgnored($node)
             && $node instanceof ClassConstFetch
             && $node->class instanceof FullyQualified
-            && $node->name instanceof Node\Identifier
-            && array_key_exists($node->class->toString() . '::' . $node->name, $this->matcherDefinitions)
+            && $node->name instanceof Identifier
+            && array_key_exists($node->class->name . '::' . $node->name, $this->matcherDefinitions)
         ) {
             // No weak test implemented - combination class::const name tested
             $this->matches[] = [
-                'restFiles' => $this->matcherDefinitions[$node->class->toString() . '::' . $node->name]['restFiles'],
+                'restFiles' => $this->matcherDefinitions[$node->class->name . '::' . $node->name]['restFiles'],
                 'line' => $node->getStartLine(),
-                'message' => 'Call to class constant "' . $node->class->toString() . '::' . $node->name . '"',
+                'message' => 'Call to class constant "' . $node->class->name . '::' . $node->name . '"',
                 'indicator' => 'strong',
             ];
         }
