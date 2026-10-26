@@ -17,15 +17,14 @@ class ScanMatch
     private readonly string $type;
 
     /**
-     * @var list<string> Documentation files this match refers to
+     * @param list<string> $restFiles
      */
-    private array $restFiles = [];
-
     public function __construct(
         private readonly string $matcher,
         private readonly Indicator $indicator,
         private readonly string $message,
         private readonly int $line,
+        private readonly array $restFiles,
         string $type
     ) {
         $this->identifier = str_replace(
@@ -75,14 +74,6 @@ class ScanMatch
     public function getRestFiles(): array
     {
         return $this->restFiles;
-    }
-
-    /**
-     * @param list<string> $restFiles
-     */
-    public function setRestFiles(array $restFiles): void
-    {
-        $this->restFiles = $restFiles;
     }
 
     private function validateType(string $type): string

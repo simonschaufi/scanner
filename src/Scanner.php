@@ -113,20 +113,20 @@ class Scanner
 
         return array_map(
             function (array $result) {
-                if (!empty($result['restFiles'])) {
-                    $type = $this->inferTypeFromRestFiles($result['restFiles']);
+                $restFiles = array_values($result['restFiles']);
+                $type = null;
+                if ($restFiles !== []) {
+                    $type = $this->inferTypeFromRestFiles($restFiles);
                 }
-                $match = new ScanMatch(
+
+                return new ScanMatch(
                     $result['matcher'],
                     Indicator::from($result['indicator']),
                     $result['message'],
                     $result['line'],
-                    !empty($type) ? $type : ScanMatch::TYPE_IMPORTANT
+                    $restFiles,
+                    $type ?? ScanMatch::TYPE_IMPORTANT
                 );
-                if (!empty($result['restFiles'])) {
-                    $match->setRestFiles($result['restFiles']);
-                }
-                return $match;
             },
             array_merge(...$matcherMatches)
         );
@@ -141,6 +141,7 @@ class Scanner
             Indicator::from('strong'),
             $error->getMessage(),
             $error->getStartLine(),
+            [],
             ScanMatch::TYPE_BREAKING
         );
         return new FileMatches($file, $match);
