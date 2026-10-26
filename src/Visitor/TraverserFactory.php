@@ -19,7 +19,7 @@ readonly class TraverserFactory
     /**
      * @param CodeScannerInterface[]|NodeVisitor[] $matchers
      */
-    public function createTraverser(...$matchers): NodeTraverser
+    public function createTraverser(array $matchers): NodeTraverser
     {
         $traverser = $this->buildNodeTraverser();
         // add all matchers to traverser

@@ -85,7 +85,7 @@ class Scanner
 
         $matchers = $this->traverserFactory->createMatchers($collection);
 
-        $traverser = $this->traverserFactory->createTraverser(...$matchers);
+        $traverser = $this->traverserFactory->createTraverser($matchers);
         $traverser->traverse($statements);
 
         return new FileMatches($file, ...$this->buildMatches($matchers));
