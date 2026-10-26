@@ -33,6 +33,7 @@
 		"phpstan/phpstan-strict-rules": "^2.1",
 		"phpunit/phpunit": "^12.5",
 		"rector/rector": "^2.7",
+		"roave/security-advisories": "dev-latest",
 		"symplify/easy-coding-standard": "^13.3"
 	},
 	"autoload": {
