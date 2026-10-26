@@ -28,6 +28,9 @@
 	"require-dev": {
 		"ergebnis/composer-normalize": "^2.54",
 		"phpstan/phpstan": "^2.3",
+		"phpstan/phpstan-deprecation-rules": "^2.0",
+		"phpstan/phpstan-phpunit": "^2.1",
+		"phpstan/phpstan-strict-rules": "^2.1",
 		"phpunit/phpunit": "^12.5",
 		"rector/rector": "^2.7",
 		"symplify/easy-coding-standard": "^13.3"

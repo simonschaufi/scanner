@@ -1,3 +1,8 @@
+includes:
+    - %rootDir%/../phpstan-deprecation-rules/rules.neon
+    - %rootDir%/../phpstan-strict-rules/rules.neon
+    - %rootDir%/../phpstan/conf/bleedingEdge.neon
+
 parameters:
     paths:
         - src
@@ -7,6 +12,18 @@ parameters:
     excludePaths:
         # These test fixtures *could* be streamlined but currently generate lots of failures
         - tests/Unit/Php/Matcher
+    strictRules:
+        allRules: false
+        booleansInConditions: false
+        closureUsesThis: true
+        disallowedLooseComparison: true
+        matchingInheritedMethodNames: true
+        noVariableVariables: false
+        numericOperandsInArithmeticOperators: true
+        overwriteVariablesWithLoop: true
+        requireParentConstructorCall: true
+        switchConditionsMatchingType: true
+        uselessCast: true
     tmpDir: %rootDir%/../../../var/cache/phpstan
     treatPhpDocTypesAsCertain: false
     inferPrivatePropertyTypeFromConstructor: true
