@@ -13,7 +13,7 @@ class MatcherBundleCollection extends \ArrayObject
     }
 
     /**
-     * @return array<int, array{class: string, restFilePath: string, configurationFile: string}>
+     * @return array<int, array{class: string, configurationFile: string}>
      */
     public function getConfiguration(): array
     {

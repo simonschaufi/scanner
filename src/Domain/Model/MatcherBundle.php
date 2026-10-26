@@ -16,7 +16,7 @@ readonly class MatcherBundle
     private array $classNames;
 
     /**
-     * @var array<int, array{class: string, restFilePath: string, configurationFile: string}>
+     * @var array<int, array{class: string, configurationFile: string}>
      */
     private array $configuration;
 
@@ -47,7 +47,7 @@ readonly class MatcherBundle
     }
 
     /**
-     * @return array<int, array{class: string, restFilePath: string, configurationFile: string}>
+     * @return array<int, array{class: string, configurationFile: string}>
      */
     public function getConfiguration(): array
     {

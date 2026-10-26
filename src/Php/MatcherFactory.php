@@ -17,7 +17,7 @@ class MatcherFactory
     /**
      * Create matcher instances and hand over configuration.
      *
-     * @param array<int, array{class?: string, restFilePath?: string, configurationFile?: string, configurationArray?: mixed}> $matcherConfigurations Incoming configuration array
+     * @param array<int, array{class?: string, configurationFile?: string, configurationArray?: mixed}> $matcherConfigurations Incoming configuration array
      * @return list<CodeScannerInterface&NodeVisitor> Matchers implementing both scanner and parser interface
      * @throws \RuntimeException
      */
