@@ -28,6 +28,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\NodeVisitorAbstract;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Create a fully qualified class name object from first argument of
@@ -57,7 +58,7 @@ class GeneratorClassesResolver extends NodeVisitorAbstract
     {
         if ($node instanceof StaticCall
             && $node->class instanceof FullyQualified
-            && $node->class->toString() === 'TYPO3\CMS\Core\Utility\GeneralUtility'
+            && $node->class->name === GeneralUtility::class
             && $node->name instanceof Identifier
             && $node->name->name === 'makeInstance'
             && isset($node->args[0]->value)

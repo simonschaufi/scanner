@@ -26,6 +26,6 @@ return RectorConfig::configure()
     ->withSkip([
         __DIR__ . '/src/Php/Matcher',
         __DIR__ . '/src/Utility/GeneralUtility.php',
-        __DIR__ . '/tests/Unit/Fixtures',
+        __DIR__ . '/tests/Unit/Php/Fixtures',
         __DIR__ . '/tests/Unit/Php/Matcher/Fixtures',
     ]);

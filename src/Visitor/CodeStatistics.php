@@ -61,7 +61,7 @@ class CodeStatistics extends NodeVisitorAbstract
             // Class statements may contain the @extensionScannerIgnoreFile statements
             if ($node instanceof Class_) {
                 $comments = $node->getComments();
-                if (!empty($comments)) {
+                if ($comments !== []) {
                     foreach ($comments as $comment) {
                         if (str_contains($comment->getText(), '@extensionScannerIgnoreFile')) {
                             $this->isCurrentFileIgnored = true;
@@ -73,7 +73,7 @@ class CodeStatistics extends NodeVisitorAbstract
 
             // First node of line may contain the @extensionScannerIgnoreLine comment
             $comments = $node->getComments();
-            if (!empty($comments)) {
+            if ($comments !== []) {
                 foreach ($comments as $comment) {
                     if (str_contains($comment->getText(), '@extensionScannerIgnoreLine')) {
                         $this->numberOfIgnoreLines++;
