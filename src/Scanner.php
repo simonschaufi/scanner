@@ -6,6 +6,7 @@ use M12R\Scanner\Domain\Model\DirectoryMatches;
 use M12R\Scanner\Domain\Model\FileMatches;
 use M12R\Scanner\Domain\Model\MatcherBundleCollection;
 use M12R\Scanner\Domain\Model\ScanMatch;
+use M12R\Scanner\Result\Indicator;
 use M12R\Scanner\Visitor\TraverserFactory;
 use PhpParser\Error;
 use PhpParser\NodeVisitor;
@@ -117,7 +118,7 @@ class Scanner
                 }
                 $match = new ScanMatch(
                     $result['matcher'],
-                    $result['indicator'],
+                    Indicator::from($result['indicator']),
                     $result['message'],
                     $result['line'],
                     !empty($type) ? $type : ScanMatch::TYPE_IMPORTANT
@@ -137,7 +138,7 @@ class Scanner
     ): FileMatches {
         $match = new ScanMatch(
             $error::class,
-            'impossible',
+            Indicator::from('strong'),
             $error->getMessage(),
             $error->getStartLine(),
             ScanMatch::TYPE_BREAKING

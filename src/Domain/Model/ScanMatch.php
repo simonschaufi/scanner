@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace M12R\Scanner\Domain\Model;
 
+use M12R\Scanner\Result\Indicator;
+
 class ScanMatch
 {
     public const string TYPE_BREAKING = 'BREAKING';
@@ -21,7 +23,7 @@ class ScanMatch
 
     public function __construct(
         private readonly string $matcher,
-        private readonly string $indicator,
+        private readonly Indicator $indicator,
         private readonly string $message,
         private readonly int $line,
         string $type
@@ -52,7 +54,7 @@ class ScanMatch
         return $this->matcher;
     }
 
-    public function getIndicator(): string
+    public function getIndicator(): Indicator
     {
         return $this->indicator;
     }
