@@ -9,9 +9,12 @@ namespace M12R\Scanner\Domain\Model;
  */
 class FileMatches extends \ArrayObject
 {
+    /**
+     * @param ScanMatch[] $matches
+     */
     public function __construct(
         private readonly string $path,
-        ScanMatch ...$matches
+        array $matches
     ) {
         parent::__construct(array_values($matches));
     }

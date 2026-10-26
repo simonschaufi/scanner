@@ -7,9 +7,13 @@ use M12R\Scanner\Domain\Model\FileMatches;
 use M12R\Scanner\Domain\Model\MatcherBundleCollection;
 use M12R\Scanner\Domain\Model\ScanMatch;
 use M12R\Scanner\Result\Indicator;
+use M12R\Scanner\Visitor\CodeStatistics;
+use M12R\Scanner\Visitor\GeneratorClassesResolver;
 use M12R\Scanner\Visitor\TraverserFactory;
 use PhpParser\Error;
+use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
+use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -64,31 +68,49 @@ class Scanner
     }
 
     public function scanFile(
-        string $file,
+        string $absoluteFilePath,
         MatcherBundleCollection $collection
     ): FileMatches {
-        if (!file_exists($file)) {
+        if (!is_file($absoluteFilePath) || !is_readable($absoluteFilePath)) {
             throw new \RuntimeException(
-                sprintf('File "%s" does not exist', $file),
-                1507203234
+                'File ' . $absoluteFilePath . ' does not exist or is not readable.',
+                1790540102
             );
         }
 
         try {
-            $statements = $this->parser->parse((string)file_get_contents($file));
+            $statements = $this->parser->parse((string)file_get_contents($absoluteFilePath));
         } catch (Error $error) {
-            return $this->buildParseExceptionFileMatches($file, $error);
+            return $this->buildParseExceptionFileMatches($absoluteFilePath, $error);
         }
         if ($statements === null) {
-            return new FileMatches($file);
+            return new FileMatches($absoluteFilePath, []);
         }
 
-        $matchers = $this->traverserFactory->createMatchers($collection);
+        // The built in NameResolver translates class names shortened with 'use' to fully
+        // qualified class names at all places. IMPORTANT: first process completely to resolve
+        // fully qualified names of arguments, otherwise GeneratorClassesResolver will NOT get
+        // reliable results.
+        $traverser = new NodeTraverser();
+        $traverser->addVisitor(new NameResolver());
+        $statements = $traverser->traverse($statements);
 
-        $traverser = $this->traverserFactory->createTraverser($matchers);
+        // IMPORTANT: second process to actually work on the pre-resolved statements
+        $traverser = new NodeTraverser();
+        // Understand GeneralUtility::makeInstance('My\\Package\\Foo\\Bar') as fqdn class name
+        // in first argument
+        $traverser->addVisitor(new GeneratorClassesResolver());
+        // Count ignored lines, effective code lines, ...
+        $statistics = new CodeStatistics();
+        $traverser->addVisitor($statistics);
+
+        $matchers = $this->traverserFactory->createMatchers($collection);
+        foreach ($matchers as $matcher) {
+            $traverser->addVisitor($matcher);
+        }
         $traverser->traverse($statements);
 
-        return new FileMatches($file, ...$this->buildMatches($matchers));
+        return new FileMatches($absoluteFilePath, $this->buildMatches($matchers));
     }
 
     /**
@@ -134,7 +156,7 @@ class Scanner
             [],
             ScanMatch::TYPE_BREAKING
         );
-        return new FileMatches($file, $match);
+        return new FileMatches($file, [$match]);
     }
 
     private function getShortClassName(string $fullyQualifiedClassName): string
