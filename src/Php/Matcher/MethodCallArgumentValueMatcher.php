@@ -19,9 +19,12 @@ namespace M12R\Scanner\Php\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Scalar;
+use PhpParser\Node\Scalar\Float_;
+use PhpParser\Node\Scalar\Int_;
+use PhpParser\Node\Scalar\String_;
 
 /**
  * Find usages of arguments in method calls which were removed / deprecated.
@@ -55,7 +58,7 @@ class MethodCallArgumentValueMatcher extends AbstractCoreMatcher
             return null;
         }
 
-        if ($node instanceof Node\Expr\StaticCall
+        if ($node instanceof StaticCall
             && $node->class instanceof FullyQualified
             && $node->name instanceof Identifier
             && array_key_exists($node->class->toString() . '::' . $node->name->name, $this->matcherDefinitions)
@@ -114,15 +117,17 @@ class MethodCallArgumentValueMatcher extends AbstractCoreMatcher
      * @param array<string, mixed> $candidate
      * @return list<int> Matched argument indexes
      */
-    private function isArgumentMatched(Node $node, array $candidate): array
+    private function isArgumentMatched(MethodCall|StaticCall $node, array $candidate): array
     {
         $matchedArgumentNumbers = [];
 
         foreach (($candidate['argumentMatches'] ?? []) as $argumentMatchArray) {
-            if (isset($node->args[$argumentMatchArray['argumentIndex']]->value->value)
-                && $node->args[$argumentMatchArray['argumentIndex']]->value instanceof Scalar
-                && $node->args[$argumentMatchArray['argumentIndex']]->value->value === $argumentMatchArray['argumentValue']) {
-
+            $argumentValue = $node->getArgs()[$argumentMatchArray['argumentIndex']]->value;
+            if (($argumentValue instanceof String_
+                    || $argumentValue instanceof Int_
+                    || $argumentValue instanceof Float_)
+                && $argumentValue->value === $argumentMatchArray['argumentValue']
+            ) {
                 $matchedArgumentNumbers[] = $argumentMatchArray['argumentIndex'];
             }
         }

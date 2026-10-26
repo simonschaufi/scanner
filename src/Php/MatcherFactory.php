@@ -76,9 +76,7 @@ class MatcherFactory
             }
 
             $matcherInstance = new $matcherConfiguration['class']($configuration);
-            if (!$matcherInstance instanceof CodeScannerInterface
-                || !$matcherInstance instanceof NodeVisitor
-            ) {
+            if (!$matcherInstance instanceof CodeScannerInterface) {
                 throw new \RuntimeException(
                     'Matcher ' . $matcherConfiguration['class'] . ' must implement CodeScannerInterface'
                     . ' and NodeVisitor',

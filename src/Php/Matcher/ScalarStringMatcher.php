@@ -61,7 +61,7 @@ class ScalarStringMatcher extends AbstractCoreMatcher
         // Using weak match to indicate that the magic string usage may not necessarily
         // refer to the functionality we're matching. Other than TYPO3_MODE, future definitions
         // will probably be weaker than this strong constant comparison.
-        $stringToMatch = (string)($node->name ?? $node->value);
+        $stringToMatch = $node->value;
         if (array_key_exists($stringToMatch, $this->matcherDefinitions)) {
             $this->matches[] = [
                 'restFiles' => $this->matcherDefinitions[$stringToMatch]['restFiles'],

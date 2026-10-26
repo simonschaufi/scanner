@@ -35,10 +35,10 @@ use PhpParser\Node\Expr\New_;
  */
 class ConstructorArgumentMatcher extends AbstractCoreMatcher
 {
-    protected const TOPIC_TYPE_REQUIRED = 'required';
-    protected const TOPIC_TYPE_DROPPED = 'dropped';
-    protected const TOPIC_TYPE_CALLED = 'called';
-    protected const TOPIC_TYPE_UNUSED = 'unused';
+    protected const string TOPIC_TYPE_REQUIRED = 'required';
+    protected const string TOPIC_TYPE_DROPPED = 'dropped';
+    protected const string TOPIC_TYPE_CALLED = 'called';
+    protected const string TOPIC_TYPE_UNUSED = 'unused';
 
     /**
      * Prepare $this->flatMatcherDefinitions once and validate config
@@ -65,7 +65,7 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
         if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
             return null;
         }
-        $resolvedNode = $node->getAttribute(self::NODE_RESOLVED_AS, null) ?? $node;
+        $resolvedNode = $node->getAttribute(self::NODE_RESOLVED_AS) ?? $node;
         if (!$resolvedNode instanceof New_
             || !isset($resolvedNode->class)
             // Only class names that can be cast to a string can be looked up below
@@ -92,11 +92,11 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
 
     /**
      * @param Node $node reflects invocation, e.g. `GeneralUtility::makeInstance(MyClass::class, 123)`
-     * @param Node $resolvedNode reflects resolved and actual usage, e.g. `new MyClass(123)`
+     * @param New_ $resolvedNode reflects resolved and actual usage, e.g. `new MyClass(123)`
      */
-    protected function handleRequiredArguments(Node $node, Node $resolvedNode): bool
+    protected function handleRequiredArguments(Node $node, New_ $resolvedNode): bool
     {
-        $className = (string)($resolvedNode->class ?? '');
+        $className = $resolvedNode->class->name ?? '';
         $candidate = $this->matcherDefinitions[$className][self::TOPIC_TYPE_REQUIRED] ?? null;
         $mandatoryArguments = $candidate['numberOfMandatoryArguments'] ?? null;
         $numberOfArguments = count($resolvedNode->args ?? []);
@@ -121,11 +121,11 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
 
     /**
      * @param Node $node reflects invocation, e.g. `GeneralUtility::makeInstance(MyClass::class, 123)`
-     * @param Node $resolvedNode reflects resolved and actual usage, e.g. `new MyClass(123)`
+     * @param New_ $resolvedNode reflects resolved and actual usage, e.g. `new MyClass(123)`
      */
-    protected function handleDroppedArguments(Node $node, Node $resolvedNode): bool
+    protected function handleDroppedArguments(Node $node, New_ $resolvedNode): bool
     {
-        $className = (string)($resolvedNode->class ?? '');
+        $className = $resolvedNode->class->name ?? '';
         $candidate = $this->matcherDefinitions[$className][self::TOPIC_TYPE_DROPPED] ?? null;
         $maximumArguments = $candidate['maximumNumberOfArguments'] ?? null;
         $numberOfArguments = count($resolvedNode->args ?? []);
@@ -150,11 +150,11 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
 
     /**
      * @param Node $node reflects invocation, e.g. `GeneralUtility::makeInstance(MyClass::class, 123)`
-     * @param Node $resolvedNode reflects resolved and actual usage, e.g. `new MyClass(123)`
+     * @param New_ $resolvedNode reflects resolved and actual usage, e.g. `new MyClass(123)`
      */
-    protected function handleCalledArguments(Node $node, Node $resolvedNode): bool
+    protected function handleCalledArguments(Node $node, New_ $resolvedNode): bool
     {
-        $className = (string)($resolvedNode->class ?? '');
+        $className = $resolvedNode->class->name ?? '';
         $candidate = $this->matcherDefinitions[$className][self::TOPIC_TYPE_CALLED] ?? null;
         $isArgumentUnpackingUsed = $this->isArgumentUnpackingUsed($resolvedNode->args ?? []);
         $mandatoryArguments = $candidate['numberOfMandatoryArguments'] ?? null;
@@ -164,8 +164,9 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
         if ($candidate === null
             || $mandatoryArguments === null
             || $maximumArguments === null
-            || !$isArgumentUnpackingUsed
-            && ($numberOfArguments < $mandatoryArguments || $numberOfArguments > $maximumArguments)) {
+            || (!$isArgumentUnpackingUsed
+                && ($numberOfArguments < $mandatoryArguments || $numberOfArguments > $maximumArguments))
+        ) {
             return false;
         }
 
@@ -184,11 +185,11 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
 
     /**
      * @param Node $node reflects invocation, e.g. `GeneralUtility::makeInstance(MyClass::class, 123)`
-     * @param Node $resolvedNode reflects resolved and actual usage, e.g. `new MyClass(123)`
+     * @param New_ $resolvedNode reflects resolved and actual usage, e.g. `new MyClass(123)`
      */
-    protected function handleUnusedArguments(Node $node, Node $resolvedNode): bool
+    protected function handleUnusedArguments(Node $node, New_ $resolvedNode): bool
     {
-        $className = (string)($resolvedNode->class ?? '');
+        $className = $resolvedNode->class->name ?? '';
         $candidate = $this->matcherDefinitions[$className][self::TOPIC_TYPE_UNUSED] ?? null;
         // values in array (if any) are actual position counts
         // e.g. `[2, 4]` refers to internal argument indexes `[1, 3]`
@@ -198,7 +199,7 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
             return false;
         }
 
-        $arguments = $resolvedNode->args ?? [];
+        $arguments = $resolvedNode->getArgs();
         // keeping positions having argument values that are not null
         $unusedArgumentPositions = array_filter(
             $unusedArgumentPositions,

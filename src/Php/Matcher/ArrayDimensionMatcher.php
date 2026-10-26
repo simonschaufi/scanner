@@ -20,6 +20,7 @@ namespace M12R\Scanner\Php\Matcher;
 use M12R\Scanner\Utility\GeneralUtility;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Scalar\String_;
 
 /**
  * Find usages of dropped configuration values and hook registrations.
@@ -49,7 +50,7 @@ class ArrayDimensionMatcher extends AbstractCoreMatcher
         if (!$this->isFileIgnored($node)
             && !$this->isLineIgnored($node)
             && $node instanceof ArrayDimFetch
-            && isset($node->dim->value)
+            && $node->dim instanceof String_
             && array_key_exists($node->dim->value, $this->flatMatcherDefinitions)
         ) {
             $match = [
