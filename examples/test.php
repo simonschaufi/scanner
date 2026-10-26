@@ -13,26 +13,31 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 $collection = new MatcherBundleCollection(
     new MatcherBundle(
-        __DIR__ . '/../config/Matcher/v9',
+        __DIR__ . '/../config/Matcher/v14',
         [
             Matcher\ArrayDimensionMatcher::class,
             Matcher\ArrayGlobalMatcher::class,
             Matcher\ClassConstantMatcher::class,
             Matcher\ClassNameMatcher::class,
             Matcher\ConstantMatcher::class,
+            Matcher\ConstructorArgumentMatcher::class,
+            Matcher\PropertyAnnotationMatcher::class,
+            Matcher\MethodAnnotationMatcher::class,
             Matcher\FunctionCallMatcher::class,
+            Matcher\AbstractMethodImplementationMatcher::class,
             Matcher\InterfaceMethodChangedMatcher::class,
             Matcher\MethodArgumentDroppedMatcher::class,
             Matcher\MethodArgumentDroppedStaticMatcher::class,
             Matcher\MethodArgumentRequiredMatcher::class,
+            Matcher\MethodArgumentRequiredStaticMatcher::class,
             Matcher\MethodArgumentUnusedMatcher::class,
             Matcher\MethodCallMatcher::class,
+            Matcher\MethodCallArgumentValueMatcher::class,
             Matcher\MethodCallStaticMatcher::class,
+            Matcher\PropertyExistsStaticMatcher::class,
             Matcher\PropertyProtectedMatcher::class,
             Matcher\PropertyPublicMatcher::class,
-            Matcher\MethodAnnotationMatcher::class,
-            Matcher\MethodArgumentRequiredStaticMatcher::class,
-            Matcher\PropertyExistsStaticMatcher::class,
+            Matcher\ScalarStringMatcher::class,
         ]
     )
 );
