@@ -97,39 +97,29 @@ class Scanner
      */
     private function buildMatches(array $matchers): array
     {
-        /** @var CodeScannerInterface[] $matchers */
-        $matcherMatches = array_map(
-            static fn (CodeScannerInterface $matcher) => array_map(
-                static fn (array $result) => array_merge(
-                    [
-                        'matcher' => $matcher::class,
-                    ],
-                    $result
-                ),
-                $matcher->getMatches()
-            ),
-            $matchers
-        );
-
-        return array_map(
-            function (array $result) {
-                $restFiles = array_values($result['restFiles']);
+        $matches = [];
+        foreach ($matchers as $matcher) {
+            /** @var CodeScannerInterface $matcher */
+            $matcherName = $this->getShortClassName($matcher::class);
+            foreach ($matcher->getMatches() as $match) {
+                $restFiles = array_values($match['restFiles']);
                 $type = null;
                 if ($restFiles !== []) {
                     $type = $this->inferTypeFromRestFiles($restFiles);
                 }
-
-                return new ScanMatch(
-                    $result['matcher'],
-                    Indicator::from($result['indicator']),
-                    $result['message'],
-                    $result['line'],
+                $scanMatch = new ScanMatch(
+                    $matcherName,
+                    Indicator::from($match['indicator']),
+                    $match['message'],
+                    $match['line'],
                     $restFiles,
                     $type ?? ScanMatch::TYPE_IMPORTANT
                 );
-            },
-            array_merge(...$matcherMatches)
-        );
+                $matches[] = $scanMatch;
+            }
+        }
+
+        return $matches;
     }
 
     private function buildParseExceptionFileMatches(
@@ -145,6 +135,15 @@ class Scanner
             ScanMatch::TYPE_BREAKING
         );
         return new FileMatches($file, $match);
+    }
+
+    private function getShortClassName(string $fullyQualifiedClassName): string
+    {
+        $separatorPosition = strrpos($fullyQualifiedClassName, '\\');
+
+        return $separatorPosition === false
+            ? $fullyQualifiedClassName
+            : substr($fullyQualifiedClassName, $separatorPosition + 1);
     }
 
     /**
