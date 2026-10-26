@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Visitor;
+namespace SimonSchaufi\Scanner\Visitor;
 
 /*
  * This file is part of the TYPO3 CMS project.

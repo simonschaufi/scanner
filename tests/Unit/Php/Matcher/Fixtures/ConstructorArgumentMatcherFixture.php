@@ -15,7 +15,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -32,9 +32,9 @@ class ConstructorArgumentMatcherFixture extends Subject
     public function invocations(): void
     {
         $a = new Subject('a', 'b', 'c');
-        $b = new \M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures\Subject('a', 'b', 'c');
+        $b = new \SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\Subject('a', 'b', 'c');
         $c = GeneralUtility::makeInstance(Subject::class, 'a', 'b', 'c');
-        $d = GeneralUtility::makeInstance(\M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures\Subject::class, 'a', 'b', 'c');
+        $d = GeneralUtility::makeInstance(\SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\Subject::class, 'a', 'b', 'c');
         $className = Subject::class;
         $e = new $className('a', 'b', 'c');
     }

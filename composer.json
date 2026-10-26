@@ -1,5 +1,5 @@
 {
-	"name": "m12r/typo3-cms-scanner",
+	"name": "simonschaufi/typo3-cms-scanner",
 	"description": "TYPO3 CMS static file analysis",
 	"license": "GPL-2.0-or-later",
 	"type": "library",
@@ -38,12 +38,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"M12R\\Scanner\\": "src/"
+			"SimonSchaufi\\Scanner\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"M12R\\Scanner\\Tests\\": "tests/",
+			"SimonSchaufi\\Scanner\\Tests\\": "tests/",
 			"TYPO3\\": "stubs/TYPO3"
 		},
 		"exclude-from-classmap": [

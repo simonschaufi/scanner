@@ -1,11 +1,11 @@
 <?php
 
-namespace M12R\Scanner;
+namespace SimonSchaufi\Scanner;
 
-use M12R\Scanner\Php\MatcherFactory;
-use M12R\Scanner\Visitor\TraverserFactory;
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
+use SimonSchaufi\Scanner\Php\MatcherFactory;
+use SimonSchaufi\Scanner\Visitor\TraverserFactory;
 use Symfony\Component\Finder\Finder;
 
 final readonly class ScannerFactory

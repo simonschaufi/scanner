@@ -15,9 +15,9 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher;
 
-use M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures\AbstractCoreMatcherFixture;
+use SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\AbstractCoreMatcherFixture;
 use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

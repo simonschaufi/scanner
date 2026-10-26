@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner;
+namespace SimonSchaufi\Scanner;
 
 /*
  * This file is part of the TYPO3 CMS project.

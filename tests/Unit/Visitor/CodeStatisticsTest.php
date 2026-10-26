@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Visitor;
+namespace SimonSchaufi\Scanner\Tests\Unit\Visitor;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -17,12 +17,12 @@ namespace M12R\Scanner\Tests\Unit\Visitor;
  * The TYPO3 project - inspiring people to share!
  */
 
-use M12R\Scanner\Visitor\CodeStatistics;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use SimonSchaufi\Scanner\Visitor\CodeStatistics;
 
 /**
  * Test case

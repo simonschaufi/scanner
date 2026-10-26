@@ -15,7 +15,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Result;
+namespace SimonSchaufi\Scanner\Result;
 
 /**
  * How reliable a single extension scanner match is.

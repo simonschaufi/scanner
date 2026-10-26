@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use M12R\Scanner\Domain\Model\MatcherBundle;
-use M12R\Scanner\Domain\Model\MatcherBundleCollection;
-use M12R\Scanner\Php\Matcher;
-use M12R\Scanner\ScannerFactory;
+use SimonSchaufi\Scanner\Domain\Model\MatcherBundle;
+use SimonSchaufi\Scanner\Domain\Model\MatcherBundleCollection;
+use SimonSchaufi\Scanner\Php\Matcher;
+use SimonSchaufi\Scanner\ScannerFactory;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

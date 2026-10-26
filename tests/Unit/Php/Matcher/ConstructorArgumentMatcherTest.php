@@ -15,11 +15,11 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher;
 
-use M12R\Scanner\Php\Matcher\ConstructorArgumentMatcher;
-use M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures\Subject;
-use M12R\Scanner\Visitor\GeneratorClassesResolver;
+use SimonSchaufi\Scanner\Php\Matcher\ConstructorArgumentMatcher;
+use SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\Subject;
+use SimonSchaufi\Scanner\Visitor\GeneratorClassesResolver;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
@@ -105,7 +105,7 @@ final class ConstructorArgumentMatcherTest extends TestCase
     public function nonNullConstantInUnusedConstructorArgumentIsReported(): void
     {
         $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
-        $statements = $parser->parse('<?php new \\M12R\\Scanner\\Tests\\Unit\\Php\\Matcher\\Fixtures\\Subject("a", false);');
+        $statements = $parser->parse('<?php new \\SimonSchaufi\\Scanner\\Tests\\Unit\\Php\\Matcher\\Fixtures\\Subject("a", false);');
         $subject = new ConstructorArgumentMatcher([
             Subject::class => [
                 'unused' => [

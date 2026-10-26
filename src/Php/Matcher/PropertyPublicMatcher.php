@@ -15,7 +15,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Php\Matcher;
+namespace SimonSchaufi\Scanner\Php\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;

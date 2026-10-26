@@ -15,7 +15,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures;
 
 class PropertyExistsStaticMatcherFixture4
 {

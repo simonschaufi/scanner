@@ -1,13 +1,13 @@
 <?php
 
-namespace M12R\Scanner\Visitor;
+namespace SimonSchaufi\Scanner\Visitor;
 
-use M12R\Scanner\CodeScannerInterface;
-use M12R\Scanner\Domain\Model\MatcherBundleCollection;
-use M12R\Scanner\Php\MatcherFactory;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitor\NameResolver;
+use SimonSchaufi\Scanner\CodeScannerInterface;
+use SimonSchaufi\Scanner\Domain\Model\MatcherBundleCollection;
+use SimonSchaufi\Scanner\Php\MatcherFactory;
 
 readonly class TraverserFactory
 {

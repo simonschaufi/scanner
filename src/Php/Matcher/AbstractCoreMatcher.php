@@ -15,10 +15,10 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Php\Matcher;
+namespace SimonSchaufi\Scanner\Php\Matcher;
 
-use M12R\Scanner\CodeScannerInterface;
-use M12R\Scanner\Utility\GeneralUtility;
+use SimonSchaufi\Scanner\CodeScannerInterface;
+use SimonSchaufi\Scanner\Utility\GeneralUtility;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\VariadicPlaceholder;

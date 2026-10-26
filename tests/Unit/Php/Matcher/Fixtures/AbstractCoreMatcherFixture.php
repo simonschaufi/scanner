@@ -15,9 +15,9 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures;
+namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures;
 
-use M12R\Scanner\Php\Matcher\AbstractCoreMatcher;
+use SimonSchaufi\Scanner\Php\Matcher\AbstractCoreMatcher;
 
 final class AbstractCoreMatcherFixture extends AbstractCoreMatcher
 {

@@ -34,7 +34,7 @@ Three *real* `TYPO3\…` references exist in code, all intentional:
   `autoload-dev` (`"TYPO3\\": "stubs/TYPO3"`), used by the test suite.
 - Nothing else in `src/` may import `TYPO3\…` — the library does not depend on TYPO3.
 
-The library has its own `M12R\Scanner\Utility\GeneralUtility::trimExplode()`
+The library has its own `SimonSchaufi\Scanner\Utility\GeneralUtility::trimExplode()`
 (`src/Utility/GeneralUtility.php`), a small local helper, not a TYPO3 class.
 
 ## Commands
@@ -220,22 +220,22 @@ so single-argument calls begin reporting.
 
 Diff with namespaces normalised onto neutral placeholders on both sides, longest prefix first:
 
-| upstream                                          | local                       |
-|---------------------------------------------------|-----------------------------|
-| `TYPO3\CMS\Install\ExtensionScanner\Php\Matcher`  | `M12R\Scanner\Php\Matcher`  |
-| `TYPO3\CMS\Install\ExtensionScanner\Php`          | `M12R\Scanner\Visitor`      |
-| `TYPO3\CMS\Install\ExtensionScanner\Php`          | `M12R\Scanner\Php`          |
-| `TYPO3\CMS\Install\ExtensionScanner\Result`       | `M12R\Scanner\Result`       |
-| `TYPO3\CMS\Install\ExtensionScanner`              | `M12R\Scanner`              |
+| upstream                                         | local                              |
+|--------------------------------------------------|------------------------------------|
+| `TYPO3\CMS\Install\ExtensionScanner\Php\Matcher` | `SimonSchaufi\Scanner\Php\Matcher` |
+| `TYPO3\CMS\Install\ExtensionScanner\Php`         | `SimonSchaufi\Scanner\Visitor`     |
+| `TYPO3\CMS\Install\ExtensionScanner\Php`         | `SimonSchaufi\Scanner\Php`         |
+| `TYPO3\CMS\Install\ExtensionScanner\Result`      | `SimonSchaufi\Scanner\Result`      |
+| `TYPO3\CMS\Install\ExtensionScanner`             | `SimonSchaufi\Scanner`             |
 
 The two `Php` rows are ambiguous: `CodeStatistics` and `GeneratorClassesResolver` live in
-`M12R\Scanner\Visitor`, while `MatcherFactory` lives in `M12R\Scanner\Php`. Resolve per file.
+`SimonSchaufi\Scanner\Visitor`, while `MatcherFactory` lives in `SimonSchaufi\Scanner\Php`. Resolve per file.
 
 When a file's only remaining difference *is* the change being ported, copy upstream and
 rewrite the single `namespace` line instead of hand-editing:
 
 ```bash
-perl -pe 's{^namespace TYPO3\\CMS\\Install\\ExtensionScanner\\Php\\Matcher;$}{namespace M12R\\Scanner\\Php\\Matcher;}' \
+perl -pe 's{^namespace TYPO3\\CMS\\Install\\ExtensionScanner\\Php\\Matcher;$}{namespace SimonSchaufi\\Scanner\\Php\\Matcher;}' \
     <upstream-file> > src/Php/Matcher/<Matcher>.php
 ```
 
@@ -256,7 +256,7 @@ reverts them. Re-check each copied file against the "Known local deviations" lis
 - `src/Php/MatcherFactory.php` uses `configurationFile` **as-is** instead of
   `GeneralUtility::getFileAbsFileName()`, and drops core's
   `use TYPO3\CMS\Core\Utility\GeneralUtility` import.
-- `M12R\Scanner\Utility\GeneralUtility::trimExplode()` replaces core's
+- `SimonSchaufi\Scanner\Utility\GeneralUtility::trimExplode()` replaces core's
   `GeneralUtility::trimExplode()` (used by `AbstractCoreMatcher`,
   `AbstractMethodImplementationMatcher`, `ArrayDimensionMatcher`).
 - `src/CodeScannerInterface.php` matches core: it does **not** extend `NodeVisitor`

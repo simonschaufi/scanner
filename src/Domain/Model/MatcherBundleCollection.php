@@ -1,6 +1,6 @@
 <?php
 
-namespace M12R\Scanner\Domain\Model;
+namespace SimonSchaufi\Scanner\Domain\Model;
 
 /**
  * @extends \ArrayObject<int, MatcherBundle>

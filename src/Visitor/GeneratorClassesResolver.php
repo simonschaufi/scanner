@@ -15,9 +15,8 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Visitor;
+namespace SimonSchaufi\Scanner\Visitor;
 
-use M12R\Scanner\Php\Matcher\AbstractCoreMatcher;
 use PhpParser\BuilderFactory;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
@@ -28,6 +27,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\NodeVisitorAbstract;
+use SimonSchaufi\Scanner\Php\Matcher\AbstractCoreMatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**

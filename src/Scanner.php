@@ -1,20 +1,20 @@
 <?php
 
-namespace M12R\Scanner;
+namespace SimonSchaufi\Scanner;
 
-use M12R\Scanner\Domain\Model\DirectoryMatches;
-use M12R\Scanner\Domain\Model\FileMatches;
-use M12R\Scanner\Domain\Model\MatcherBundleCollection;
-use M12R\Scanner\Domain\Model\ScanMatch;
-use M12R\Scanner\Result\Indicator;
-use M12R\Scanner\Visitor\CodeStatistics;
-use M12R\Scanner\Visitor\GeneratorClassesResolver;
-use M12R\Scanner\Visitor\TraverserFactory;
 use PhpParser\Error;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
+use SimonSchaufi\Scanner\Domain\Model\DirectoryMatches;
+use SimonSchaufi\Scanner\Domain\Model\FileMatches;
+use SimonSchaufi\Scanner\Domain\Model\MatcherBundleCollection;
+use SimonSchaufi\Scanner\Domain\Model\ScanMatch;
+use SimonSchaufi\Scanner\Result\Indicator;
+use SimonSchaufi\Scanner\Visitor\CodeStatistics;
+use SimonSchaufi\Scanner\Visitor\GeneratorClassesResolver;
+use SimonSchaufi\Scanner\Visitor\TraverserFactory;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 

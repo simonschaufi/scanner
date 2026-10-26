@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Domain\Model;
+namespace SimonSchaufi\Scanner\Domain\Model;
 
-use M12R\Scanner\Result\Indicator;
+use SimonSchaufi\Scanner\Result\Indicator;
 
 class ScanMatch
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Tests\Unit\Php;
+namespace SimonSchaufi\Scanner\Tests\Unit\Php;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -17,7 +17,7 @@ namespace M12R\Scanner\Tests\Unit\Php;
  * The TYPO3 project - inspiring people to share!
  */
 
-use M12R\Scanner\Php\MatcherFactory;
+use SimonSchaufi\Scanner\Php\MatcherFactory;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

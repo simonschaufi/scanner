@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner\Php\Matcher;
+namespace SimonSchaufi\Scanner\Php\Matcher;
 
 use PhpParser\Node;
 use PhpParser\Node\ArrayItem;

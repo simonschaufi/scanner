@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace M12R\Scanner;
+namespace SimonSchaufi\Scanner;
 
 class Utility
 {

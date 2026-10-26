@@ -15,10 +15,10 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace M12R\Scanner\Tests\Unit\Php\Matcher;
+namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher;
 
-use M12R\Scanner\Php\Matcher\AbstractMethodImplementationMatcher;
-use M12R\Scanner\Tests\Unit\Php\Matcher\Fixtures\AbstractClassFixture;
+use SimonSchaufi\Scanner\Php\Matcher\AbstractMethodImplementationMatcher;
+use SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\AbstractClassFixture;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;

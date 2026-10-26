@@ -1,8 +1,8 @@
 <?php
 
-namespace M12R\Scanner\Domain\Model;
+namespace SimonSchaufi\Scanner\Domain\Model;
 
-use M12R\Scanner\Utility;
+use SimonSchaufi\Scanner\Utility;
 
 /**
  * @extends \ArrayObject<int, FileMatches>
