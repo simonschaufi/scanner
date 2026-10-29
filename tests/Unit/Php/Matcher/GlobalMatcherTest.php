@@ -25,7 +25,7 @@ use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class GlobalMatcherTest extends TestCase
+final class GlobalMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void

@@ -48,16 +48,16 @@ class MethodArgumentDroppedStaticMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
-        // Match static method call
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof StaticCall
-        ) {
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
+        if ($node instanceof StaticCall) {
             $isArgumentUnpackingUsed = $this->isArgumentUnpackingUsed($node->args);
 
             if ($node->class instanceof FullyQualified && $node->name instanceof Identifier) {
                 // 'Foo\Bar::aMethod()' -> strong match
-                $fqdnClassWithMethod = $node->class->toString() . '::' . $node->name->name;
+                $fqdnClassWithMethod = $node->class->name . '::' . $node->name->name;
                 if (!$isArgumentUnpackingUsed
                     && array_key_exists($fqdnClassWithMethod, $this->matcherDefinitions)
                     && count($node->args) > $this->matcherDefinitions[$fqdnClassWithMethod]['maximumNumberOfArguments']

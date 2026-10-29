@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +15,8 @@ namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher;
+
 use SimonSchaufi\Scanner\Php\Matcher\PropertyProtectedMatcher;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class PropertyProtectedMatcherTest extends TestCase
+final class PropertyProtectedMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
@@ -52,6 +52,9 @@ class PropertyProtectedMatcherTest extends TestCase
         $expectedHitLineNumbers = [
             28,
             49,
+            52,
+            53,
+            54,
         ];
         $actualHitLineNumbers = [];
         foreach ($subject->getMatches() as $hit) {

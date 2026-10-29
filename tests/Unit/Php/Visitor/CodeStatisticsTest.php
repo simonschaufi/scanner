@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace SimonSchaufi\Scanner\Tests\Unit\Visitor;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,22 +15,21 @@ namespace SimonSchaufi\Scanner\Tests\Unit\Visitor;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace SimonSchaufi\Scanner\Tests\Unit\Php\Visitor;
+
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use SimonSchaufi\Scanner\Visitor\CodeStatistics;
+use SimonSchaufi\Scanner\Php\Visitor\CodeStatistics;
 
-/**
- * Test case
- */
-class CodeStatisticsTest extends TestCase
+final class CodeStatisticsTest extends TestCase
 {
     #[Test]
     public function enterNodeSumsStatistics(): void
     {
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $fixtureFile = __DIR__ . '/Fixtures/CodeStatisticsFixture.php';
         $statements = $parser->parse(file_get_contents($fixtureFile));
 
@@ -41,8 +38,8 @@ class CodeStatisticsTest extends TestCase
         $traverser->addVisitor($subject);
         $traverser->traverse($statements);
 
-        $this->assertTrue($subject->isFileIgnored());
-        $this->assertEquals(2, $subject->getNumberOfIgnoredLines());
-        $this->assertEquals(7, $subject->getNumberOfEffectiveCodeLines());
+        self::assertTrue($subject->isFileIgnored());
+        self::assertEquals(2, $subject->getNumberOfIgnoredLines());
+        self::assertEquals(7, $subject->getNumberOfEffectiveCodeLines());
     }
 }

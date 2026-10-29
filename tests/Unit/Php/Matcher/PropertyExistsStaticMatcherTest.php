@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class PropertyExistsStaticMatcherTest extends TestCase
+final class PropertyExistsStaticMatcherTest extends TestCase
 {
     public static function hitsFromFixturesAreFoundDataProvider(): array
     {

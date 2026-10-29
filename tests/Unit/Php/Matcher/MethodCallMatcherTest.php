@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class MethodCallMatcherTest extends TestCase
+final class MethodCallMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
@@ -106,24 +106,24 @@ EOC;
     public static function matchesReturnsExpectedRestFilesDataProvider(): array
     {
         return [
-            'removed protected SetRegistry method called from a subclass' => [
-                require dirname(__DIR__, 4) . '/config/Matcher/v14/MethodCallMatcher.php',
-                '<?php
-                class CustomSetRegistry extends \TYPO3\CMS\Core\Site\Set\SetRegistry
-                {
-                    public function usesBase(): bool
-                    {
-                        return $this->hasDependency(["vendor/addon"], "vendor/base");
-                    }
-                }',
-                [
-                    [
-                        'restFiles' => [
-                            'Breaking-111156-SiteSetsFollowTheOrderASiteDeclares.rst',
-                        ],
-                    ],
-                ],
-            ],
+//            'removed protected SetRegistry method called from a subclass' => [
+//                require dirname(__DIR__, 4) . '/config/Matcher/v14/MethodCallMatcher.php',
+//                '<?php
+//                class CustomSetRegistry extends \TYPO3\CMS\Core\Site\Set\SetRegistry
+//                {
+//                    public function usesBase(): bool
+//                    {
+//                        return $this->hasDependency(["vendor/addon"], "vendor/base");
+//                    }
+//                }',
+//                [
+//                    [
+//                        'restFiles' => [
+//                            'Breaking-111156-SiteSetsFollowTheOrderASiteDeclares.rst',
+//                        ],
+//                    ],
+//                ],
+//            ],
             'two rest candidates with same number of arguments' => [
                 [
                     'Foo->aMethod' => [

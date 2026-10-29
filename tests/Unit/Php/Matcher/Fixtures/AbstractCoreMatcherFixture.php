@@ -21,7 +21,7 @@ use SimonSchaufi\Scanner\Php\Matcher\AbstractCoreMatcher;
 
 final class AbstractCoreMatcherFixture extends AbstractCoreMatcher
 {
-    public $matcherDefinitions = [];
+    public array $matcherDefinitions = [];
 
     public function initializeFlatMatcherDefinitions(): void
     {

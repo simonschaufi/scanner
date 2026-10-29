@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SimonSchaufi\Scanner\Visitor;
+namespace SimonSchaufi\Scanner\Php\Visitor;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -26,7 +26,7 @@ use PhpParser\NodeVisitorAbstract;
 final class ParentConnector extends NodeVisitorAbstract
 {
     /**
-     * @var list<Node>
+     * @var Node
      */
     private array $stack = [];
 

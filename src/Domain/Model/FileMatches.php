@@ -14,7 +14,7 @@ class FileMatches extends \ArrayObject
      */
     public function __construct(
         private readonly string $path,
-        array $matches
+        array $matches = []
     ) {
         parent::__construct(array_values($matches));
     }

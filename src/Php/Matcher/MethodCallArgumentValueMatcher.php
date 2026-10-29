@@ -51,26 +51,23 @@ class MethodCallArgumentValueMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
-        // Match method call (not static)
-        if ($this->isFileIgnored($node)
-            || $this->isLineIgnored($node)
-        ) {
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
             return null;
         }
 
         if ($node instanceof StaticCall
             && $node->class instanceof FullyQualified
             && $node->name instanceof Identifier
-            && array_key_exists($node->class->toString() . '::' . $node->name->name, $this->matcherDefinitions)
+            && array_key_exists($node->class->name . '::' . $node->name->name, $this->matcherDefinitions)
         ) {
             $match = [
                 'restFiles' => [],
                 'line' => $node->getStartLine(),
-                'message' => 'Call to specific argument (#%s) of static method "' . $node->class->toString() . '::' . $node->name->name . '()"',
+                'message' => 'Call to specific argument (#%s) of static method "' . $node->class->name . '::' . $node->name->name . '()"',
                 'indicator' => 'strong',
             ];
 
-            $matchCandidate = [$this->matcherDefinitions[$node->class->toString() . '::' . $node->name->name]];
+            $matchCandidate = [$this->matcherDefinitions[$node->class->name . '::' . $node->name->name]];
         } elseif ($node instanceof MethodCall
             && $node->name instanceof Identifier
             && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
@@ -83,7 +80,6 @@ class MethodCallArgumentValueMatcher extends AbstractCoreMatcher
             ];
 
             $matchCandidate = $this->flatMatcherDefinitions[$node->name->name]['candidates'];
-
         } else {
             return null;
         }
@@ -122,7 +118,11 @@ class MethodCallArgumentValueMatcher extends AbstractCoreMatcher
         $matchedArgumentNumbers = [];
 
         foreach (($candidate['argumentMatches'] ?? []) as $argumentMatchArray) {
-            $argumentValue = $node->getArgs()[$argumentMatchArray['argumentIndex']]->value;
+            $argument = $node->getRawArgs()[$argumentMatchArray['argumentIndex']] ?? null;
+            if (!$argument instanceof Node\Arg) {
+                continue;
+            }
+            $argumentValue = $argument->value;
             if (($argumentValue instanceof String_
                     || $argumentValue instanceof Int_
                     || $argumentValue instanceof Float_)

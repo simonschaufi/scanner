@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher;
 
 use SimonSchaufi\Scanner\Php\Matcher\AbstractMethodImplementationMatcher;
-use SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\AbstractClassFixture;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
@@ -39,12 +38,12 @@ final class AbstractMethodImplementationMatcherTest extends TestCase
         $traverser->addVisitor(new NameResolver());
 
         $configuration = [
-            AbstractClassFixture::class . '->aNormalMethod' => [
+            'SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\AbstractClassFixture->aNormalMethod' => [
                 'restFiles' => [
                     'Breaking-12345-Something.rst',
                 ],
             ],
-            AbstractClassFixture::class . '::aStaticMethod' => [
+            'SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\AbstractClassFixture::aStaticMethod' => [
                 'restFiles' => [
                     'Breaking-12345-Something.rst',
                 ],
@@ -74,12 +73,12 @@ final class AbstractMethodImplementationMatcherTest extends TestCase
 
         $traverser = new NodeTraverser();
         $configuration = [
-            'TYPO3\CMS\Install\Tests\Unit\ExtensionScanner\Php\Matcher\Fixtures\AbstractClassFixture->aNormalMethod' => [
+            'SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\AbstractClassFixture->aNormalMethod' => [
                 'restFiles' => [
                     'Breaking-12345-Something.rst',
                 ],
             ],
-            'TYPO3\CMS\Install\Tests\Unit\ExtensionScanner\Php\Matcher\Fixtures\AbstractClassFixture::aStaticMethod' => [
+            'SimonSchaufi\Scanner\Tests\Unit\Php\Matcher\Fixtures\AbstractClassFixture::aStaticMethod' => [
                 'restFiles' => [
                     'Breaking-12345-Something.rst',
                 ],

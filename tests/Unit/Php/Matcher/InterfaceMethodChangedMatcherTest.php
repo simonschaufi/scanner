@@ -25,7 +25,7 @@ use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class InterfaceMethodChangedMatcherTest extends TestCase
+final class InterfaceMethodChangedMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void

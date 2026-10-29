@@ -5,7 +5,6 @@ namespace SimonSchaufi\Scanner;
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
 use SimonSchaufi\Scanner\Php\MatcherFactory;
-use SimonSchaufi\Scanner\Visitor\TraverserFactory;
 use Symfony\Component\Finder\Finder;
 
 final readonly class ScannerFactory
@@ -14,27 +13,25 @@ final readonly class ScannerFactory
     {
         return new self(
             new ParserFactory(),
-            new TraverserFactory(
-                new MatcherFactory()
-            )
+            new MatcherFactory()
         );
     }
 
     public function __construct(
         private ParserFactory $parserFactory,
-        private TraverserFactory $traverserFactory
+        private MatcherFactory $matcherFactory
     ) {
     }
 
-    public function createFor(): Scanner
+    public function createFor(int $major = 8, $minor = 3): Scanner
     {
         $finder = new Finder();
-        $parser = $this->parserFactory->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = $this->parserFactory->createForVersion(PhpVersion::fromComponents($major, $minor));
 
         return new Scanner(
             $finder,
             $parser,
-            $this->traverserFactory
+            $this->matcherFactory
         );
     }
 }

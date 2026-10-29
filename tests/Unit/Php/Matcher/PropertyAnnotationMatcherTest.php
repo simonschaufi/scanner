@@ -25,7 +25,7 @@ use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class PropertyAnnotationMatcherTest extends TestCase
+final class PropertyAnnotationMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
@@ -56,5 +56,42 @@ class PropertyAnnotationMatcherTest extends TestCase
             $actualHitLineNumbers[] = $hit['line'];
         }
         self::assertEquals($expectedHitLineNumbers, $actualHitLineNumbers);
+    }
+
+    #[Test]
+    public function matchIsIgnoredIfIgnoreFileIsSet(): void
+    {
+        $phpCode = <<<'EOC'
+<?php
+/**
+ * Some comment
+ * @extensionScannerIgnoreFile This file is ignored
+ */
+class foo
+{
+    /**
+     * This valid match should not match since the entire file is ignored
+     * @inject
+     */
+    private $aProperty;
+}
+EOC;
+
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
+        $statements = $parser->parse($phpCode);
+
+        $traverser = new NodeTraverser();
+        $configuration = [
+            '@inject' => [
+                'restFiles' => [
+                    'Feature-82869-ReplaceInjectWithTYPO3CMSExtbaseAnnotationInject.rst',
+                ],
+            ],
+        ];
+        $subject = new PropertyAnnotationMatcher($configuration);
+        $traverser->addVisitor($subject);
+        $traverser->traverse($statements);
+
+        self::assertEmpty($subject->getMatches());
     }
 }

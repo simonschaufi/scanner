@@ -15,7 +15,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace SimonSchaufi\Scanner\Visitor;
+namespace SimonSchaufi\Scanner\Php\Visitor;
 
 use PhpParser\BuilderFactory;
 use PhpParser\Node;
@@ -23,7 +23,6 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\NodeVisitorAbstract;
@@ -51,28 +50,25 @@ class GeneratorClassesResolver extends NodeVisitorAbstract
     /**
      * Called by PhpParser.
      * Create an fqdn object from first makeInstance argument if it is a String
-     *
-     * @param Node $node Incoming node
      */
     public function enterNode(Node $node)
     {
         if ($node instanceof StaticCall
             && $node->class instanceof FullyQualified
             && $node->class->name === GeneralUtility::class
-            && $node->name instanceof Identifier
             && $node->name->name === 'makeInstance'
             && isset($node->args[0]->value)
             && $node->args[0]->value instanceof Expr
         ) {
             $argValue = $node->args[0]->value;
             $argAlternative = $this->substituteClassString($argValue);
-            if ($argAlternative instanceof ClassConstFetch) {
+            if ($argAlternative !== null) {
                 $node->args[0]->value = $argAlternative;
                 $argValue = $argAlternative;
             }
 
             $nodeAlternative = $this->substituteMakeInstance($node, $argValue);
-            if ($nodeAlternative instanceof New_) {
+            if ($nodeAlternative !== null) {
                 $node->setAttribute(AbstractCoreMatcher::NODE_RESOLVED_AS, $nodeAlternative);
             }
         }

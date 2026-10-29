@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace SimonSchaufi\Scanner\Php\Matcher;
 
 use PhpParser\Node;
+use PhpParser\Node\Scalar\String_;
 
 /**
  * Find usage of special "magic" strings like TYPO3_MODE, so that
@@ -40,19 +41,15 @@ class ScalarStringMatcher extends AbstractCoreMatcher
 
     /**
      * Called by PhpParser.
-     *
-     * @param Node $node Given node to test
      */
     public function enterNode(Node $node): null
     {
-        // Early return
-        if ($this->isFileIgnored($node)
-            || $this->isLineIgnored($node)) {
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
             return null;
         }
 
         // Check if the node contains the specific string
-        if (!$node instanceof Node\Scalar\String_) {
+        if (!$node instanceof String_) {
             return null;
         }
 

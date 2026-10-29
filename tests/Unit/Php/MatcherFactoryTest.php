@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace SimonSchaufi\Scanner\Tests\Unit\Php;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,11 +15,13 @@ namespace SimonSchaufi\Scanner\Tests\Unit\Php;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace SimonSchaufi\Scanner\Tests\Unit\Php;
+
 use SimonSchaufi\Scanner\Php\MatcherFactory;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class MatcherFactoryTest extends TestCase
+final class MatcherFactoryTest extends TestCase
 {
     #[Test]
     public function createAllThrowWithMissingClass(): void
@@ -38,7 +38,7 @@ class MatcherFactoryTest extends TestCase
     }
 
     #[Test]
-    public function createAllThrowsWithMissingConfiration(): void
+    public function createAllThrowsWithMissingConfiguration(): void
     {
         $subject = new MatcherFactory();
         $this->expectException(\RuntimeException::class);

@@ -15,7 +15,7 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace SimonSchaufi\Scanner\Visitor;
+namespace SimonSchaufi\Scanner\Php\Visitor;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
@@ -29,22 +29,22 @@ use PhpParser\NodeVisitorAbstract;
 class CodeStatistics extends NodeVisitorAbstract
 {
     /**
-     * @var bool True if a class statement has @extensionScannerIgnoreFile
+     * True if a class statement has @extensionScannerIgnoreFile
      */
     protected bool $isCurrentFileIgnored = false;
 
     /**
-     * @var int Counts @extensionScannerIgnoreLine statements
+     * Counts @extensionScannerIgnoreLine statements
      */
     protected int $numberOfIgnoreLines = 0;
 
     /**
-     * @var int Number of effective code lines - class and method statements, function calls ...
+     * Number of effective code lines - class and method statements, function calls ...
      */
     protected int $numberOfEffectiveCodeLines = 0;
 
     /**
-     * @var int Current line number given not is in, runtime helper var
+     * Current line number given not is in, runtime helper var
      */
     protected int $currentLineNumber = 0;
 

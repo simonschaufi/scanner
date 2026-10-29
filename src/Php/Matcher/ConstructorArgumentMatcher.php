@@ -65,6 +65,7 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
         if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
             return null;
         }
+
         $resolvedNode = $node->getAttribute(self::NODE_RESOLVED_AS) ?? $node;
         if (!$resolvedNode instanceof New_
             || !isset($resolvedNode->class)
@@ -207,7 +208,7 @@ class ConstructorArgumentMatcher extends AbstractCoreMatcher
                 $index = $position - 1;
                 return isset($arguments[$index]->value)
                     && !($arguments[$index]->value instanceof ConstFetch
-                        && strtolower($arguments[$index]->value->name->toString()) === 'null');
+                        && strtolower($arguments[$index]->value->name->name) === 'null');
             }
         );
         if (empty($unusedArgumentPositions)) {

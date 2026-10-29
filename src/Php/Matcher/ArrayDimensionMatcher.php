@@ -47,9 +47,11 @@ class ArrayDimensionMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof ArrayDimFetch
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
+        if ($node instanceof ArrayDimFetch
             && $node->dim instanceof String_
             && array_key_exists($node->dim->value, $this->flatMatcherDefinitions)
         ) {

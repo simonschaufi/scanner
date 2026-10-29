@@ -17,11 +17,9 @@ class MatcherBundleCollection extends \ArrayObject
      */
     public function getConfiguration(): array
     {
-        $matcherBundleConfiguration = array_map(
-            static fn (MatcherBundle $bundle) => $bundle->getConfiguration(),
+        return array_merge(...array_map(
+            static fn (MatcherBundle $bundle): array => $bundle->getConfiguration(),
             $this->getArrayCopy()
-        );
-
-        return array_merge(...$matcherBundleConfiguration);
+        ));
     }
 }

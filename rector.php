@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\If_\ExplicitNullableObjectInstanceRector;
 use Rector\Config\RectorConfig;
 use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\Privatization\Rector\Class_\FinalizeTestCaseClassRector;
 use Rector\Set\ValueObject\SetList;
-use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
+use Rector\TypeDeclaration\Rector\ClassLike\AddVoidReturnTypeWhereNoReturnRector;
 use Rector\ValueObject\PhpVersion;
 
 return RectorConfig::configure()
@@ -22,10 +24,12 @@ return RectorConfig::configure()
     ])
     ->withRules([
         AddVoidReturnTypeWhereNoReturnRector::class,
+        FinalizeTestCaseClassRector::class,
     ])
     ->withSkip([
         __DIR__ . '/src/Php/Matcher',
         __DIR__ . '/src/Utility/GeneralUtility.php',
         __DIR__ . '/tests/Unit/Php/Fixtures',
         __DIR__ . '/tests/Unit/Php/Matcher/Fixtures',
+        ExplicitNullableObjectInstanceRector::class,
     ]);

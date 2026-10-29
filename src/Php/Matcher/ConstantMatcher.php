@@ -44,16 +44,18 @@ class ConstantMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof ConstFetch
-            && array_key_exists($node->name->toString(), $this->matcherDefinitions)
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
+        if ($node instanceof ConstFetch
+            && array_key_exists($node->name->name, $this->matcherDefinitions)
         ) {
             // Access to constants is detected as strong match
             $this->matches[] = [
-                'restFiles' => $this->matcherDefinitions[$node->name->toString()]['restFiles'],
+                'restFiles' => $this->matcherDefinitions[$node->name->name]['restFiles'],
                 'line' => $node->getStartLine(),
-                'message' => 'Call to global constant "' . $node->name->toString() . '"',
+                'message' => 'Call to global constant "' . $node->name->name . '"',
                 'indicator' => 'strong',
             ];
         }

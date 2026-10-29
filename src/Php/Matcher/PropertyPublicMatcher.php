@@ -44,10 +44,12 @@ class PropertyPublicMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
         // Match property access (not static)
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof PropertyFetch
+        if ($node instanceof PropertyFetch
             && $node->name instanceof Identifier
             && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
         ) {

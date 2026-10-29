@@ -56,14 +56,15 @@ class MethodCallStaticMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
         // Static call, not method call
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof StaticCall
-        ) {
+        if ($node instanceof StaticCall) {
             if ($node->class instanceof FullyQualified && $node->name instanceof Identifier) {
                 // 'Foo\Bar::deprecated()' -> strong match
-                $fqdnClassWithMethod = $node->class->toString() . '::' . $node->name->name;
+                $fqdnClassWithMethod = $node->class->name . '::' . $node->name->name;
                 if (array_key_exists($fqdnClassWithMethod, $this->matcherDefinitions)) {
                     $this->matches[] = [
                         'restFiles' => $this->matcherDefinitions[$fqdnClassWithMethod]['restFiles'],

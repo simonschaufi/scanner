@@ -48,10 +48,12 @@ class MethodArgumentDroppedMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
         // Match method call (not static)
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof MethodCall
+        if ($node instanceof MethodCall
             && $node->name instanceof Identifier
             && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
         ) {

@@ -25,7 +25,7 @@ use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class MethodArgumentUnusedStaticMatcherTest extends TestCase
+final class MethodArgumentUnusedStaticMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void

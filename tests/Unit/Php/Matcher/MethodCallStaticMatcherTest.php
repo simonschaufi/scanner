@@ -17,8 +17,6 @@ declare(strict_types=1);
 
 namespace SimonSchaufi\Scanner\Tests\Unit\Php\Matcher;
 
-use SimonSchaufi\Scanner\Php\Matcher\MethodCallStaticMatcher;
-use SimonSchaufi\Scanner\Visitor\GeneratorClassesResolver;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
@@ -26,8 +24,10 @@ use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use SimonSchaufi\Scanner\Php\Matcher\MethodCallStaticMatcher;
+use SimonSchaufi\Scanner\Php\Visitor\GeneratorClassesResolver;
 
-class MethodCallStaticMatcherTest extends TestCase
+final class MethodCallStaticMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void

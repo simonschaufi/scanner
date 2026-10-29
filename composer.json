@@ -47,7 +47,9 @@
 			"TYPO3\\": "stubs/TYPO3"
 		},
 		"exclude-from-classmap": [
-			"tests/Unit/Php/Matcher/Fixtures/PropertyExistsStaticMatcherFixture.php"
+			"tests/Functional/Fixtures/CleanCodeFixture.php",
+			"tests/Functional/Fixtures/DeprecatedClassNameFixture.php",
+			"tests/Functional/Fixtures/DeprecatedMethodCallFixture.php"
 		]
 	},
 	"config": {

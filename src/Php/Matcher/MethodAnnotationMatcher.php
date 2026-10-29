@@ -44,10 +44,12 @@ class MethodAnnotationMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
         if ($node instanceof ClassMethod
             && ($docComment = $node->getDocComment()) instanceof Doc
-            && !$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
         ) {
             $isPossibleMatch = false;
             $match = [

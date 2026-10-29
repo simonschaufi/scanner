@@ -50,10 +50,12 @@ class MethodArgumentUnusedMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
         // Match method call (not static)
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof MethodCall
+        if ($node instanceof MethodCall
             && $node->name instanceof Identifier
             && array_key_exists($node->name->name, $this->flatMatcherDefinitions)
         ) {
@@ -77,7 +79,7 @@ class MethodArgumentUnusedMatcher extends AbstractCoreMatcher
                         && $numberOfArguments >= $droppedArgumentNumber
                         && $argument instanceof Arg
                         && !($argument->value instanceof ConstFetch
-                            && strtolower($argument->value->name->toString()) === 'null')
+                            && strtolower($argument->value->name->name) === 'null')
                     ) {
                         $isPossibleMatch = true;
                         $match['message'] = 'Call to method "' . $node->name->name . '()" with'

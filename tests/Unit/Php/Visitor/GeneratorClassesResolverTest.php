@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace SimonSchaufi\Scanner\Tests\Unit\Visitor;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,16 +15,22 @@ namespace SimonSchaufi\Scanner\Tests\Unit\Visitor;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace SimonSchaufi\Scanner\Tests\Unit\Php\Visitor;
+
+use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use SimonSchaufi\Scanner\Visitor\GeneratorClassesResolver;
+use SimonSchaufi\Scanner\Php\Matcher\AbstractCoreMatcher;
+use SimonSchaufi\Scanner\Php\Visitor\GeneratorClassesResolver;
 
-class GeneratorClassesResolverTest extends TestCase
+final class GeneratorClassesResolverTest extends TestCase
 {
     #[Test]
     public function visitorCreatesFullyQualifiedNameFromStringArgumentInMakeInstance(): void
@@ -40,13 +44,13 @@ EOC;
         $traverser = new NodeTraverser();
         $traverser->addVisitor(new GeneratorClassesResolver());
         $statements = $traverser->traverse($statements);
-
-        // The resolver rewrites the class-string argument into its class constant
-        // representation: 'TYPO3\CMS\Does\Not\Exist' -> \TYPO3\CMS\Does\Not\Exist::class
-        $argument = $statements[0]->expr->args[0]->value;
-        $this->assertInstanceOf(ClassConstFetch::class, $argument);
-        $this->assertInstanceOf(FullyQualified::class, $argument->class);
-        $this->assertEquals(['TYPO3', 'CMS', 'Does', 'Not', 'Exist'], $argument->class->getParts());
+        $node = $statements[0]->expr ?? null;
+        $argValue = $node->args[0]->value ?? null;
+        self::assertInstanceOf(StaticCall::class, $node);
+        self::assertInstanceOf(ClassConstFetch::class, $argValue);
+        self::assertInstanceOf(FullyQualified::class, $argValue->class);
+        self::assertEquals(['TYPO3', 'CMS', 'Does', 'Not', 'Exist'], $argValue->class->getParts());
+        self::assertInstanceOf(New_::class, $node->getAttribute(AbstractCoreMatcher::NODE_RESOLVED_AS));
     }
 
     #[Test]
@@ -56,14 +60,14 @@ EOC;
 <?php
 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Does\\Not\\' . $foo);
 EOC;
-        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 2));
+        $parser = (new ParserFactory())->createForVersion(PhpVersion::fromComponents(8, 3));
         $statements = $parser->parse($phpCode);
         $traverser = new NodeTraverser();
         $traverser->addVisitor(new GeneratorClassesResolver());
         $statements = $traverser->traverse($statements);
-        // A runtime-concatenated argument cannot be resolved statically, so it must
-        // be left untouched rather than rewritten to a ::class constant.
-        $this->assertNotInstanceOf(ClassConstFetch::class, $statements[0]->expr->args[0]->value);
-        $this->assertNotInstanceOf(FullyQualified::class, $statements[0]->expr->args[0]->value);
+        $argValue = $statements[0]->expr->args[0]->value ?? null;
+        // the fixture source above is a binary concatenation
+        self::assertInstanceOf(Concat::class, $argValue);
+        self::assertNotInstanceOf(FullyQualified::class, $argValue->class ?? null);
     }
 }

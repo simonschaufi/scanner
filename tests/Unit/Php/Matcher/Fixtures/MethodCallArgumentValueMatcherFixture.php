@@ -119,11 +119,11 @@ class MethodCallArgumentValueMatcherFixture
         // Not STRONG Multi-Match: confirmMsgMultiple() does not use 'string', '99', '12.34' as fixed input [but parts!]
         \TYPO3\CMS\GeneralUtility::confirmMsgMultipleNotAllMatched('string', 99, 9999);
 
-        // No Match: InterpolatedString is a Scalar subclass without a $value property
-        $foo->confirmMsgString("argOld{$argument}");
+        // No Match: fewer arguments given than the configured argumentIndex
+        $foo->confirmMsgMultiple('string');
 
-        // No Match: MagicConst is a Scalar subclass without a $value property
-        $foo->confirmMsgString(__FILE__);
+        // No Match: first-class callable
+        $foo->confirmMsgString(...);
     }
 
     public function getArgumentValue($string)

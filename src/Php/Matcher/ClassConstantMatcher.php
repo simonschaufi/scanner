@@ -46,9 +46,11 @@ class ClassConstantMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof ClassConstFetch
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
+        if ($node instanceof ClassConstFetch
             && $node->class instanceof FullyQualified
             && $node->name instanceof Identifier
             && array_key_exists($node->class->name . '::' . $node->name, $this->matcherDefinitions)

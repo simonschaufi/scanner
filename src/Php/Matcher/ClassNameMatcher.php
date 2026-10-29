@@ -44,11 +44,12 @@ class ClassNameMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof FullyQualified
-        ) {
-            $fullyQualifiedClassName = $node->toString();
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
+        if ($node instanceof FullyQualified) {
+            $fullyQualifiedClassName = $node->name;
             if (array_key_exists($fullyQualifiedClassName, $this->matcherDefinitions)) {
                 $this->matches[] = [
                     'restFiles' => $this->matcherDefinitions[$fullyQualifiedClassName]['restFiles'],

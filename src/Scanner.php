@@ -11,15 +11,22 @@ use SimonSchaufi\Scanner\Domain\Model\DirectoryMatches;
 use SimonSchaufi\Scanner\Domain\Model\FileMatches;
 use SimonSchaufi\Scanner\Domain\Model\MatcherBundleCollection;
 use SimonSchaufi\Scanner\Domain\Model\ScanMatch;
+use SimonSchaufi\Scanner\Php\MatcherFactory;
+use SimonSchaufi\Scanner\Php\Visitor\CodeStatistics;
+use SimonSchaufi\Scanner\Php\Visitor\GeneratorClassesResolver;
 use SimonSchaufi\Scanner\Result\Indicator;
-use SimonSchaufi\Scanner\Visitor\CodeStatistics;
-use SimonSchaufi\Scanner\Visitor\GeneratorClassesResolver;
-use SimonSchaufi\Scanner\Visitor\TraverserFactory;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
 class Scanner
 {
+    /**
+     * Matcher configurations with their files already loaded, see getResolvedMatcherConfigurations().
+     *
+     * @var list<array<string, mixed>>|null
+     */
+    private ?array $resolvedMatcherConfigurations = null;
+
     /**
      * @var array<string, int>
      */
@@ -33,7 +40,7 @@ class Scanner
     public function __construct(
         private readonly Finder $finder,
         private readonly Parser $parser,
-        private readonly TraverserFactory $traverserFactory
+        private readonly MatcherFactory $matcherFactory
     ) {
     }
 
@@ -107,13 +114,32 @@ class Scanner
         $statistics = new CodeStatistics();
         $traverser->addVisitor($statistics);
 
-        $matchers = $this->traverserFactory->createMatchers($collection);
+        $matchers = $this->matcherFactory->createAll($this->getResolvedMatcherConfigurations($collection));
         foreach ($matchers as $matcher) {
             $traverser->addVisitor($matcher);
         }
         $traverser->traverse($statements);
 
         return new FileMatches($absoluteFilePath, $this->buildMatches($matchers));
+    }
+
+    /**
+     * The registry declares each matcher with a configuration file. Requiring those 23 files
+     * for every scanned file costs seconds over a whole extension and buys nothing, so the
+     * loaded configurations are kept and handed to the factory as configurationArray.
+     *
+     * @return list<array<string, mixed>>
+     * @throws \RuntimeException if a declared configuration file is missing or malformed
+     */
+    private function getResolvedMatcherConfigurations(MatcherBundleCollection $collection): array
+    {
+        if ($this->resolvedMatcherConfigurations !== null) {
+            return $this->resolvedMatcherConfigurations;
+        }
+
+        $resolved = $collection->getConfiguration();
+
+        return $this->resolvedMatcherConfigurations = $resolved;
     }
 
     /**

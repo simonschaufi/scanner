@@ -45,14 +45,16 @@ class FunctionCallMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
         // Match method call (not static)
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof FuncCall
+        if ($node instanceof FuncCall
             && $node->name instanceof FullyQualified
-            && array_key_exists($node->name->toString(), $this->matcherDefinitions)
+            && array_key_exists($node->name->name, $this->matcherDefinitions)
         ) {
-            $functionName = $node->name->toString();
+            $functionName = $node->name->name;
             $matchDefinition = $this->matcherDefinitions[$functionName];
 
             $numberOfArguments = count($node->args);

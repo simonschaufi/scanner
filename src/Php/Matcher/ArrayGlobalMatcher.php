@@ -45,9 +45,11 @@ class ArrayGlobalMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof ArrayDimFetch
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
+        if ($node instanceof ArrayDimFetch
             && $node->var instanceof Variable
             && $node->var->name === 'GLOBALS'
             && $node->dim instanceof String_

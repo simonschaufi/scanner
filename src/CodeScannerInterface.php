@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace SimonSchaufi\Scanner;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -16,6 +14,8 @@ namespace SimonSchaufi\Scanner;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace SimonSchaufi\Scanner;
 
 use PhpParser\NodeVisitor;
 

@@ -33,14 +33,14 @@ use PhpParser\NodeVisitorAbstract;
  */
 abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeScannerInterface
 {
-    public const NODE_RESOLVED_AS = 'nodeResolvedAs';
+    public const string NODE_RESOLVED_AS = 'nodeResolvedAs';
 
     /**
      * Incoming main configuration array.
      *
      * @var array<string, array<string, mixed>>
      */
-    protected $matcherDefinitions = [];
+    protected array $matcherDefinitions = [];
 
     /**
      * @var list<array<string, mixed>> List of accumulated matches
@@ -56,17 +56,17 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
     protected array $flatMatcherDefinitions = [];
 
     /**
-     * @var int Helper variable for ignored line detection
+     * Helper variable for ignored line detection
      */
-    protected $currentCodeLine = 0;
+    protected int $currentCodeLine = 0;
 
     /**
-     * @var bool True if line with $lastIgnoredLineNumber is ignored
+     * True if line with $lastIgnoredLineNumber is ignored
      */
-    protected $isCurrentLineIgnored = false;
+    protected bool $isCurrentLineIgnored = false;
 
     /**
-     * @var bool True if the entire file is ignored due to a @extensionScannerIgnoreFile class comment
+     * True if the entire file is ignored due to a @extensionScannerIgnoreFile class comment
      */
     protected bool $isFullFileIgnored = false;
 
@@ -172,7 +172,7 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
      * A first-class callable ("foo(...)") has a single VariadicPlaceholder
      * instead of arguments, so there is nothing to count either.
      *
-     * @param array<int, Node\Arg|Node\VariadicPlaceholder|Node\ArgPlaceholder> $arguments List of arguments
+     * @param array<int, Node\Arg|Node\VariadicPlaceholder> $arguments List of arguments
      */
     protected function isArgumentUnpackingUsed(array $arguments = []): bool
     {
@@ -180,7 +180,6 @@ abstract class AbstractCoreMatcher extends NodeVisitorAbstract implements CodeSc
             if ($arg instanceof VariadicPlaceholder) {
                 return true;
             }
-            // ArgPlaceholder ("foo(?)" of partial function application) carries no "unpack" flag
             if ($arg instanceof Node\Arg && $arg->unpack === true) {
                 return true;
             }

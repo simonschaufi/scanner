@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class MethodArgumentRequiredMatcherTest extends TestCase
+final class MethodArgumentRequiredMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void

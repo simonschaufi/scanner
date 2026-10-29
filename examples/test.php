@@ -42,7 +42,7 @@ $collection = new MatcherBundleCollection(
     )
 );
 
-$scanner = ScannerFactory::create()->createFor();
+$scanner = ScannerFactory::create()->createFor(8, 3);
 
 // clone news extension into examples directory to test it
 // `git clone https://github.com/georgringer/news.git`

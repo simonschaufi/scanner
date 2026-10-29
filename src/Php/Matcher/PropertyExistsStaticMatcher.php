@@ -43,9 +43,11 @@ class PropertyExistsStaticMatcher extends AbstractCoreMatcher
      */
     public function enterNode(Node $node): null
     {
-        if (!$this->isFileIgnored($node)
-            && !$this->isLineIgnored($node)
-            && $node instanceof Property
+        if ($this->isFileIgnored($node) || $this->isLineIgnored($node)) {
+            return null;
+        }
+
+        if ($node instanceof Property
             && $node->isStatic()
             && !$node->isPrivate()
             && array_key_exists($node->props[0]->name->name, $this->matcherDefinitions)

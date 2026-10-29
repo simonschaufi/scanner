@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class PropertyPublicMatcherTest extends TestCase
+final class PropertyPublicMatcherTest extends TestCase
 {
     #[Test]
     public function hitsFromFixtureAreFound(): void
